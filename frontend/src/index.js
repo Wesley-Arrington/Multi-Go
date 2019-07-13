@@ -1,9 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import configureStore from './store/store';
+import Root from './components/root';
 import * as serviceWorker from './serviceWorker';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+let store;
+if (window.currentUser) {
+    const preloadedState = {
+        session: { id: window.currentUser.id },
+        entities: {
+            user: { [window.currentUser.id]: window.currentUser }
+        }
+    };
+    store = configureStore(preloadedState);
+    delete window.currentUser;
+} else {
+    store = configureStore();
+}
+
+ReactDOM.render(<Root store={store}/>, document.getElementById('root'));
+
+
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
