@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const express = require("express");
 const app = express();
 const db = require('./config/keys').mongoURI;
+const test = require("./routes/api/test");
 
 mongoose
     .connect(db, { useNewUrlParser: true })
