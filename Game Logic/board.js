@@ -97,25 +97,21 @@ class Board {
                 (captureGroups.length === 1) && 
                 (captureGroups[0].size === 1)) {
                 
-                if (this.history === null) {
+                if (this.history === placingPoint) {
+                    // this is the ko scenario
+                    this.setStone(x, y, 'e');
+                    return false; 
+                } else {
+                    // this is the first capture of 1 stone || capture of 1 stone elsewhere.
                     this.history = captureGroups[0].values().next().value;
                     this.removeCapturedGroups(captureGroups);
                     return true;
-                } else {
-                    if (this.history === placingPoint) {
-                        this.setStone(x, y, 'e');
-                        return false; 
-                    } else {
-                        this.history = captureGroups[0].values().next().value;
-                        this.removeCapturedGroups(captureGroups);
-                        return true;
-                    }
                 }
-            } else {
-                this.history = null;
-                this.removeCapturedGroups(captureGroups);
-                return true;
             }
+
+            this.history = null;
+            this.removeCapturedGroups(captureGroups);
+            return true;
         }
 
         // 3. check for suicide
@@ -135,9 +131,6 @@ class Board {
                 point.color = 'e';
             })
         })
-    }
-
-    checkKo(x,y, color) {
     }
 
     buildGroup(point, group) {
