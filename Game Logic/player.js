@@ -1,3 +1,3 @@
-class Point {
+class Player {
     
 }
