@@ -15,22 +15,18 @@ Classicly its a two player game but we are implementing a three player version.
 
 ## Technologies and Technical Challenges
 
-MongoDB - Database
+* MongoDB - Database
+* Express - Backend
+* React - Frontend
+* Redux - Local Store
+* Node - Javascript runtime envirnment
 
-Express - Backend
+* Axios
 
-React - Frontend
+* Javascript
+* CSS
 
-Redux - Local Store
-
-Node - Javascript runtime envirnment
-
-Axios
-
-Javascript
-CSS
-
-Websockets
+* Websockets
 
 ## Things Accomplished Over the Weekend
 
