@@ -36,6 +36,7 @@ Classicly its a two player game but we are implementing a three player version.
 * Almost done with styling on game page
 
 ## Group Members and Work Breakdown
+            Sat       Sun
 * Wesley - Frontend
 * Kevin - Backend/Game Logic
 * Jason - Backend/Game Logic
