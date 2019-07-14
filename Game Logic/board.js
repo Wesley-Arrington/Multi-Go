@@ -8,18 +8,18 @@ class Board {
         this.size = 9
         this.grid = this.setupBoard();
         this.setNeighbors();
-    
+
     }
 
     setupBoard() {
         let grid = [];
-        
-        for (let y=0; y<this.size; y++) {
+
+        for (let x = 0; x < this.size; x++) {
             let row = [];
-            
-            for (let x=0; x<this.size; x++) {
-                
-                row.push(new Point(y,x));
+
+            for (let y = 0; y < this.size; y++) {
+
+                row.push(new Point(x, y));
             }
             grid.push(row);
             row = [];
@@ -31,15 +31,16 @@ class Board {
     setNeighbors() {
         for (let x = 0; x < this.size; x++) {
             for (let y = 0; y < this.size; y++) {
-                this.grid[x][y].neighbors.push(this.checkBounds(x,y+1));
-                this.grid[x][y].neighbors.push(this.checkBounds(x+1,y));
-                this.grid[x][y].neighbors.push(this.checkBounds(x,y-1));
-                this.grid[x][y].neighbors.push(this.checkBounds(x-1,y));
+                this.grid[x][y].neighbors.push(this.checkBounds(x, y - 1));
+                this.grid[x][y].neighbors.push(this.checkBounds(x + 1, y));
+                this.grid[x][y].neighbors.push(this.checkBounds(x, y + 1));
+                this.grid[x][y].neighbors.push(this.checkBounds(x - 1, y));
             }
         }
     }
 
-    displayNeighbors(x,y) {
+    displayNeighbors(x, y) {
+
         if (this.grid[x][y].neighbors[0] === null) console.log('out-of-bounds');
         else console.log('above: ' + this.grid[x][y].neighbors[0].toString());
 
@@ -47,7 +48,7 @@ class Board {
         else console.log('right: ' + this.grid[x][y].neighbors[1].toString());
 
         if (this.grid[x][y].neighbors[2] === null) console.log('out-of-bounds');
-        else console.log('below: ' + this.grid[x][y].neigbors[2].toString());
+        else console.log('below: ' + this.grid[x][y].neighbors[2].toString());
 
         if (this.grid[x][y].neighbors[3] === null) console.log('out-of-bounds');
         else console.log('left: ' + this.grid[x][y].neighbors[3].toString());
@@ -59,51 +60,50 @@ class Board {
         return this.grid[x][y];
     }
 
-    setStone(x,y, color) {
+    setStone(x, y, color) {
         if (x === this.size || x < 0) throw "x out of bounds";
         if (y === this.size || y < 0) throw "y out of bounds";
-        
+
         this.grid[x][y].color = color;
-     
+
     }
 
     render() {
         for (let y = 0; y < this.size; y++) {
-            for (let x=0; x<this.size; x++) {
-                process.stdout.write(this.grid[x][y].color + " ") ;
+            for (let x = 0; x < this.size; x++) {
+                process.stdout.write(this.grid[x][y].color + " ");
             }
             console.log('');
         }
         console.log('');
     }
 
-    placeStone(x,y) {
+    placeStone(x, y) {
         if (x === this.size || x < 0) throw "x out of bounds";
         if (y === this.size || y < 0) throw "y out of bounds";
-        
+
         let group = new Set;
         let liberties = new Set;
-        this.setStone(x,y,'B');
-        group = this.checkGroup(this.grid[x][y], group);
+        this.setStone(x, y, 'B');
+        this.checkGroup(this.grid[x][y], group);
         liberties = this.checkLiberties(group)
-        return liberties;
         return group;
+        return liberties;
+  
 
     }
 
     checkGroup(point, group) {
         group.add(point);
-        let newGroup = new Set;
 
         for (let i = 0; i < 4; i++) {
             if ((point.neighbors[i] !== null) &&
                 (point.color === point.neighbors[i].color) &&
                 (!group.has(point.neighbors[i]))) {
-                    newGroup = this.checkGroup(point.neighbors[i],group)
-                    newGroup.forEach(ele => { group.add(ele);});
-            }   
+
+                this.checkGroup(point.neighbors[i], group)
+            }
         }
-        return group;
     }
 
     checkLiberties(group) {
@@ -115,10 +115,14 @@ class Board {
             })
         })
 
-        return liberties
+        return liberties > 0
 
     }
-} 
+
+    capture() {
+        
+    }
+}
 
 
 
@@ -140,27 +144,27 @@ class Point {
 
 
 b = new Board;
-b.setStone(0,0,'B');
+b.setStone(0, 0, 'B');
 b.setStone(1, 0, 'B');
-b.setStone(1,2, 'B');
-b.setStone(2,1, 'B');
-b.setStone(3,0, 'B');
-b.setStone(3,1, 'B');
+b.setStone(1, 2, 'B');
+b.setStone(2, 1, 'B');
+b.setStone(3, 0, 'B');
+b.setStone(3, 1, 'B');
 
 
 // b.setStone(1, 2, 'B');
 // b.setStone(0, 0, 'b');
 // b.displayNeighbors(1,0);
-let group = b.placeStone(1,1,'B');
-
+let group = b.placeStone(1, 1, 'B');
+b.displayNeighbors(2,2);
+// console.log("neighbors count: " + b.grid[1][1].neighbors[3]);
 // group.forEach(ele => { 
 //     console.log("point: " + ele.position[0] + ',' + ele.position[1]
 //     ) });
 // b.render();
 
-group.forEach(ele => { 
+group.forEach(ele => {
     console.log("point: " + ele.position[0] + ',' + ele.position[1]
-    ) });
+    )
+});
 b.render();
-
-
