@@ -30,12 +30,12 @@ Classicly its a two player game but we are implementing a three player version.
 
 ## Things Accomplished Over the Weekend
 
-Game Logic
-Wireframing
-Half of splash page
-Almost done with styling on game page
+* Game Logic
+* Wireframing
+* Half of splash page
+* Almost done with styling on game page
 
 ## Group Members and Work Breakdown
-Wesley - Frontend
-Kevin - Backend/Game Logic
-Jason - Backend/Game Logic
+* Wesley - Frontend
+* Kevin - Backend/Game Logic
+* Jason - Backend/Game Logic
