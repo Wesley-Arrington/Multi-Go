@@ -1,5 +1,6 @@
-import React, { Component } from 'react'
-import './splash.css'
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import './splash.css';
 
 export default class Splash extends Component {
     render() {
@@ -8,7 +9,9 @@ export default class Splash extends Component {
                 <div className="splash-page-create-lobby-div">
                     <h1 className="splash-page-app-title">Multi-Go</h1>
                     <h3 className="splash-page-app-sub-title">Play Go variations with friends</h3>
-                    <button className="blue-button" id="splash-page-create-lobby-button">Create Lobby</button>
+                    <Link to='/lobby'>
+                        <button className="blue-button" id="splash-page-create-lobby-button">Create Lobby</button>
+                    </Link>
                 </div>
             </div>
         )
