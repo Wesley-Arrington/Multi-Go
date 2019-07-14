@@ -1,11 +1,12 @@
 // import {Point} from './point.js';
 
 class Board {
-    constructor() {
+    constructor(players = 2, size = 9) {
         // assume it's 9x9 for simplicity
         // array of array of objects
-
-        this.size = 9
+        this.players = players;
+        this.size = size;
+        this.history = null;
         this.grid = this.setupBoard();
         this.setNeighbors();
 
@@ -78,22 +79,68 @@ class Board {
         console.log('');
     }
 
-    placeStone(x, y) {
-        if (x === this.size || x < 0) throw "x out of bounds";
-        if (y === this.size || y < 0) throw "y out of bounds";
-
+    placeStone(x, y, color = 'B') {
+        let placingPoint = this.grid[x][y];
+        let captureGroups = [];
         let group = new Set;
-        let liberties = new Set;
-        this.setStone(x, y, 'B');
-        this.checkGroup(this.grid[x][y], group);
-        liberties = this.checkLiberties(group)
-        return group;
-        return liberties;
-  
 
+        // 1. stone already present?
+        if (placingPoint.color !== 'e') return false;
+
+        // 2. check for capture
+        this.setStone(x, y, color);
+        captureGroups = this.checkCapture(placingPoint);
+        if (captureGroups.length > 0) {
+            
+            // check for ko
+            if ((this.players === 2) &&
+                (captureGroups.length === 1) && 
+                (captureGroups[0].size === 1)) {
+                
+                if (this.history === null) {
+                    this.history = captureGroups[0].values().next().value;
+                    this.removeCapturedGroups(captureGroups);
+                    return true;
+                } else {
+                    if (this.history === placingPoint) {
+                        this.setStone(x, y, 'e');
+                        return false; 
+                    } else {
+                        this.history = captureGroups[0].values().next().value;
+                        this.removeCapturedGroups(captureGroups);
+                        return true;
+                    }
+                }
+            } else {
+                this.history = null;
+                this.removeCapturedGroups(captureGroups);
+                return true;
+            }
+        }
+
+        // 3. check for suicide
+        this.buildGroup(placingPoint, group);
+        if (!this.checkLiberties(group)) {
+            this.setStone(x,y,'e');
+            return false;
+        }
+
+        this.history = null;
+        return true;
     }
 
-    checkGroup(point, group) {
+    removeCapturedGroups(groups){
+        groups.forEach((group) => {
+            group.forEach((point) => {
+                point.color = 'e';
+            })
+        })
+    }
+
+    checkKo(x,y, color) {
+    }
+
+    buildGroup(point, group) {
         group.add(point);
 
         for (let i = 0; i < 4; i++) {
@@ -101,7 +148,7 @@ class Board {
                 (point.color === point.neighbors[i].color) &&
                 (!group.has(point.neighbors[i]))) {
 
-                this.checkGroup(point.neighbors[i], group)
+                this.buildGroup(point.neighbors[i], group)
             }
         }
     }
@@ -111,17 +158,36 @@ class Board {
 
         group.forEach(point => {
             point.neighbors.forEach(neighbor => {
-                if ((neighbor !== null) && (neighbor.color === "e")) liberties.add(neighbor)
+                if ((neighbor !== null) && (neighbor.color === "e")) liberties.add(neighbor);
             })
         })
 
-        return liberties > 0
-
+        return liberties.size > 0;
     }
 
-    capture() {
+    checkCapture(point) {
+        let capturedGroups = [];
         
+        // console.log(point.neighbors);
+
+        point.neighbors.forEach((neighbor) => {
+            let group = new Set;
+
+            if ((neighbor !== null) &&
+                (neighbor.color !== point.color) &&
+                (neighbor.color !== 'e')) {
+
+                this.buildGroup(neighbor, group); 
+                
+                if (!this.checkLiberties(group)) capturedGroups.push(group);
+
+                
+            }
+        });
+
+        return capturedGroups;
     }
+
 }
 
 
@@ -145,26 +211,65 @@ class Point {
 
 b = new Board;
 b.setStone(0, 0, 'B');
-b.setStone(1, 0, 'B');
-b.setStone(1, 2, 'B');
-b.setStone(2, 1, 'B');
-b.setStone(3, 0, 'B');
-b.setStone(3, 1, 'B');
+b.setStone(1, 1, 'B');
+b.setStone(2, 0, 'B');
+b.setStone(3, 0, 'W');
+b.setStone(2, 1, 'W');
+
+b.setStone(0, 8, 'W');
+b.setStone(0, 6, 'W');
+b.setStone(1, 7, 'W');
+b.setStone(1, 8, 'B');
+
+
+// b.setStone(1, 1, 'B');
+// b.setStone(1, 2, 'B');
+// b.setStone(0, 5, 'B');
+// b.setStone(1, 5, 'B');
+// b.setStone(2, 4, 'B');
+// b.setStone(2, 3, 'B');
+
+// b.setStone(1, 4, 'W');
+// b.setStone(1, 3, 'W');
+// b.setStone(0, 1, 'W');
+// b.setStone(0, 2, 'W');
+// b.setStone(0, 4, 'W');
+// b.setStone(2, 1, 'B');
+// b.setStone(1, 1, 'B');
+// b.setStone(3, 1, 'B');
+// b.setStone(0, 2, 'B');
+
+
 
 
 // b.setStone(1, 2, 'B');
 // b.setStone(0, 0, 'b');
 // b.displayNeighbors(1,0);
-let group = b.placeStone(1, 1, 'B');
-b.displayNeighbors(2,2);
+// let groups = b.placeStone(0, 3, 'B');
+
+// console.log(b.placeStone(0, 1, 'W'));
+// console.log(b.placeStone(0, 2, 'W'));
+
+
+// console.log(b.placeStone(8, 8, 'W'));
+// console.log(b.placeStone(7, 8, 'B'));
+// console.log(b.placeStone(8, 7, 'B'));
+// console.log(b.placeStone(8, 8, 'W'));
+
+
+
+// b.displayNeighbors(2,2);
 // console.log("neighbors count: " + b.grid[1][1].neighbors[3]);
 // group.forEach(ele => { 
 //     console.log("point: " + ele.position[0] + ',' + ele.position[1]
 //     ) });
 // b.render();
 
-group.forEach(ele => {
-    console.log("point: " + ele.position[0] + ',' + ele.position[1]
-    )
-});
+// groups.forEach((group, idx) => {
+//     console.log('group idx: ' + idx)
+//     group.forEach((stone) => {
+//         console.log("point: " + stone.position[0] + ',' + stone.position[1])
+//     })
+// });
+
 b.render();
