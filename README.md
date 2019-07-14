@@ -16,9 +16,13 @@ Classicly its a two player game but we are implementing a three player version.
 ## Technologies and Technical Challenges
 
 MongoDB - Database
+
 Express - Backend
+
 React - Frontend
+
 Redux - Local Store
+
 Node - Javascript runtime envirnment
 
 Axios
