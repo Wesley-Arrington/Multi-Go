@@ -1,3 +1,30 @@
-/* .splash-page {
-    font-size: 100px;
-} */
+.splash-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.splash-page-create-lobby-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding: 20px;
+    background-color: rgb(250, 250, 250);
+
+    width: 100%;
+
+    border-bottom: 1px solid lightgray;
+}
+
+.splash-page-app-title {
+    font-size: 64px;
+}
+
+.splash-page-app-sub-title {
+    color: darkgray;
+}
+
+#splash-page-create-lobby-button {
+    margin-top: 20px;
+}

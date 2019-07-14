@@ -5,8 +5,11 @@ export default class Splash extends Component {
     render() {
         return (
             <div className="splash-page">
-                <h1>Multi-Go</h1>
-                <button>Create Lobby</button>
+                <div className="splash-page-create-lobby-div">
+                    <h1 className="splash-page-app-title">Multi-Go</h1>
+                    <h3 className="splash-page-app-sub-title">Play Go variations with friends</h3>
+                    <button className="blue-button" id="splash-page-create-lobby-button">Create Lobby</button>
+                </div>
             </div>
         )
     }

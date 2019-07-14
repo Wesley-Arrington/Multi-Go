@@ -1,5 +1,16 @@
+/* Website Color Scheme */
+/* https://coolors.co/282828-f5f5f5-038bc8-0e7c7b-ff6663 */
+/* Black: #282828
+White: #F5F5F5
+
+Blue: #03A9F4 
+Blue Hover: #038BC8
+
+Green: #0E7C7B
+Red: #FF6663 */
+
 html {
-    font-family: 'Noto Sans HK', 'PT Sans', sans-serif;
+    font-family: 'Noto Sans HK', sans-serif;
     min-height: 100%;
 }
 
@@ -29,4 +40,15 @@ h6 {
 
 p {
     font-size: 16px;
+}
+
+.blue-button {
+    color: white;
+    background-color: #03A9F4;
+    padding: 8px 16px;
+    border-radius: 3px;
+}
+
+.blue-button:hover {
+    background-color: #038BC8;
 }
