@@ -102,7 +102,7 @@ class Board {
                     this.setStone(x, y, 'e');
                     return false; 
                 } else {
-                    // this is the first capture of 1 stone || capture of 1 stone elsewhere.
+                    // this is the first capture of 1 stone || capture of subsequent 1 stone elsewhere.
                     this.history = captureGroups[0].values().next().value;
                     this.removeCapturedGroups(captureGroups);
                     return true;
