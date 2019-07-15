@@ -54,12 +54,12 @@ This function takes a point on the board (point) and an empty Set (group) and re
 * Almost done with styling on game page
 
 ## Group Members and Work Breakdown
-* Wesley
+* Wesley Arrington
 	* Saturday: Wireframing and Recact components
 	*	Sunday: React components abd websocktes
 	* Monday : Chat
 	* Tuesday : Synching work together, presentation components.
-* Kevin
+* Kevin Chou
 	* Saturday: Game logic
 	*	Sunday: Game logic and backend
 	* Monday : Backend
