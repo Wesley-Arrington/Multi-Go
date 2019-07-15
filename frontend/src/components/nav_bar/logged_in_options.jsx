@@ -31,7 +31,7 @@ export default class LoggedInOptions extends Component {
     render() {
         // let currentSessionId = store.getState().session.id
         // let currentUser = store.getState().entities.user[currentSessionId].first_name
-        // // debugger;
+
         // if(this.state.visable) {
         //     return (
         //         <div className="logged-in-options">

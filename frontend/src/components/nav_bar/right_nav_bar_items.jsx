@@ -8,7 +8,7 @@ export default class RightNavBarItems extends Component {
 
     render() {
         // let currentSession = store.getState().session.currentUser
-        // debugger;
+
         // let {currentUserId} = this.props
         // if (currentUserId !== null) {
         //     return (

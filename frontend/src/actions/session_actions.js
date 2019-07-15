@@ -1,52 +1,65 @@
-import * as SessionApiUtil from '../utils/session_utils';
 
-export const RECEIVE_CURRENT_USER = 'RECEIVE_CURRENT_USER';
-export const LOGOUT_CURRENT_USER = 'LOGOUT_CURRENT_USER';
-export const RECEIVE_SESSION_ERRORS = 'RECEIVE_SESSION_ERRORS';
+import * as APIUtil from '../util/session_api_util';
+import jwt_decode from 'jwt-decode';
 
-const receiveCurrentUser = user => ({
+export const RECEIVE_CURRENT_USER = "RECEIVE_CURRENT_USER";
+export const RECEIVE_SESSION_ERRORS = "RECEIVE_SESSION_ERRORS";
+export const RECEIVE_USER_LOGOUT = "RECEIVE_USER_LOGOUT";
+export const RECEIVE_USER_SIGN_IN = "RECEIVE_USER_SIGN_IN";
+
+// We'll dispatch this when our user signs in
+export const receiveCurrentUser = currentUser => ({
     type: RECEIVE_CURRENT_USER,
-    user,
+    currentUser
 });
 
-// const user = {
-//   id: 1,
-//   username: "",
-//   email: ""
-// }
-
-const logoutCurrentUser = () => ({
-    type: LOGOUT_CURRENT_USER,
+// This will be used to redirect the user to the login page upon signup
+export const receiveUserSignIn = () => ({
+    type: RECEIVE_USER_SIGN_IN
 });
 
-// export const createNewUser = formUser => dispatch => {
-//         return SessionApiUtil.signup(formUser).then(user => dispatch(receiveCurrentUser(user)))
-// };
+// We dispatch this one to show authentication errors on the frontend
+// export const receiveErrors = errors => ({
+//     type: RECEIVE_SESSION_ERRORS,
+//     errors
+// });
 
-export const createNewUser = user => dispatch => (
-    SessionApiUtil.signup(user).then(user => (
-        dispatch(receiveCurrentUser(user))
-    ), err => (
-        dispatch(receiveErrors(err.responseJSON))
+// When our user is logged out, we will dispatch this action to set isAuthenticated to false
+export const logoutUser = () => ({
+    type: RECEIVE_USER_LOGOUT
+});
+
+// Upon signup, dispatch the approporiate action depending on which type of response we receieve from the backend
+export const signup = user => dispatch => {
+
+    return (
+    APIUtil.signup(user).then(() => (
+        dispatch(receiveUserSignIn())
     ))
-);
+    )
 
-export const receiveErrors = errors => ({
-    type: RECEIVE_SESSION_ERRORS,
-    errors
-});
+    // , err => (
+        // dispatch(receiveErrors(err.response.data))
+    // ))
+    };
 
-// export const login = formUser => dispatch => createSession(formUser)
-//     .then(user => dispatch(receiveCurrentUser(user)));
+// Upon login, set the session token and dispatch the current user. Dispatch errors on failure.
 export const login = user => dispatch => (
-    SessionApiUtil.login(user).then(user => (
-        dispatch(receiveCurrentUser(user))
-    )
-    , err => (
-        dispatch(receiveErrors(err.responseJSON))
-    )
-    )
-);
+    APIUtil.login(user).then(res => {
+        const { token } = res.data;
+        localStorage.setItem('jwtToken', token);
+        APIUtil.setAuthToken(token);
+        const decoded = jwt_decode(token);
+        dispatch(receiveCurrentUser(decoded))
+    })
+        // .catch(err => {
+        //     dispatch(receiveErrors(err.response.data));
+        // })
+)
 
-export const logout = () => dispatch => SessionApiUtil.deleteSession()
-    .then(() => dispatch(logoutCurrentUser()));
+// We wrote this one earlier
+export const logout = () => dispatch => {
+    localStorage.removeItem('jwtToken')
+    APIUtil.setAuthToken(false)
+    dispatch(logoutUser())
+};
