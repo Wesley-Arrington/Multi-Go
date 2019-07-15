@@ -7,7 +7,7 @@ export default class SignUp extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            first_name: '',
+            handle: '',
             last_name: '',
             email: '',
             password: '',
@@ -26,7 +26,9 @@ export default class SignUp extends Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        this.props.createNewUser(this.state).then(this.props.closeModal);
+        debugger
+        this.props.createNewUser(this.state)
+            // .then(this.props.closeModal);
             //.then(() => this.props.history.push('/user'));
     }
 
@@ -67,7 +69,7 @@ export default class SignUp extends Component {
                         <h4 className="session-login-signup-subtitle">Sign up to join Gogo.</h4>
 
                         <p className="session-label">First Name</p>
-                        <input placeholder="Your First Name" className="session-input" type="text" value={this.state.first_name} onChange={this.handleInput('first_name')}/>
+                        <input placeholder="Your First Name" className="session-input" type="text" value={this.state.handle} onChange={this.handleInput('handle')}/>
 
                         <p className="session-label">Last Name</p>
                         <input placeholder="Your Last Name" className="session-input" type="text" value={this.state.last_name} onChange={this.handleInput('last_name')}/>
