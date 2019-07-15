@@ -9,6 +9,9 @@ import jwt_decode from 'jwt-decode';
 import { setAuthToken } from './util/session_api_util';
 import { logout } from './actions/session_actions'
 
+import axios from 'axios';
+
+window.axios = axios; 
 
 let store;
 

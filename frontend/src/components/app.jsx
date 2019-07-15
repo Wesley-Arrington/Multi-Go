@@ -1,6 +1,7 @@
+
 import React from 'react';
 import { AuthRoute, ProtectedRoute } from '../util/route_util';
-import { Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
 import Splash from './splash/splash';
 import Game from './game/game'
@@ -10,10 +11,11 @@ import './default_styling/style.css'
 import Modal from './nav_bar/modal'
 
 const App = () => (
+
     <div>
         <Modal />
         <Switch>
-            <AuthRoute exact path="/" component={Splash} />
+            <Route exact path="/" component={Splash} />
             <ProtectedRoute exact path="/lobby" component={Lobby} />
             <ProtectedRoute exact path="/game" component={Game} />
         </Switch>

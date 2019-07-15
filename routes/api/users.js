@@ -9,6 +9,11 @@ const jwt = require('jsonwebtoken');
 const validateRegisterInput = require('../../validation/register');
 const validateLoginInput = require('../../validation/login');
 
+router.get('/index', (req, res) => {
+    User.find()
+     .then(users => res.json(users))
+})
+
 // validate user input register & sign up
 router.post('/register', (req, res) => {
     const { errors, isValid } = validateRegisterInput(req.body);
@@ -25,6 +30,7 @@ router.post('/register', (req, res) => {
                 return res.status(400).json({ email: "A user has already registered with this address" })
             } else {
                 // Otherwise create a new user
+
                 const newUser = new User({
                     handle: req.body.handle,
                     email: req.body.email,
@@ -87,9 +93,3 @@ router.post('/login', (req, res) => {
 })
 
 module.exports = router;
-
-// def logout
-//     1. reset session_token
-//     2. delete session_token
-//     3. set something to nil.
-// end
