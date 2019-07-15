@@ -6,9 +6,11 @@ import Game from './game/game'
 import Lobby from './lobby/lobby'
 import './default_styling/reset.css'
 import './default_styling/style.css'
+import Modal from './nav_bar/modal'
 
 const App = () => (
     <div>
+        <Modal />
         <Switch>
             <Route exact path="/" component={Splash} />
             <Route exact path="/lobby" component={Lobby} />

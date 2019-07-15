@@ -1,0 +1,185 @@
+.session-grey-background {
+    background-color: rgba(125, 125, 125, 0.4);
+
+    position: fixed;
+    left: 0%;
+    top: 0%;
+
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    z-index: 1;
+}
+
+.session-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    width: 352px;
+    height: 550px;
+    padding: 40px 64px;
+    padding-top: 0px;
+}
+
+.sign-up-session-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    width: 352px;
+    height: 750px;
+    padding: 40px 64px;
+    padding-top: 0px;
+}
+
+.session-title {
+    font-size: 32px;
+    padding-top: 32px;
+}
+
+.session-login-signup-subtitle {
+    color: gray;
+    margin-top: 8px;
+}
+
+.session-label {
+    margin-top: 32px;
+    width: 100%;
+}
+
+.session-email-label {
+    margin-top: 32px;
+    width: 100%;
+}
+
+.session-password-label {
+    margin-top: 32px;
+    width: 100%;
+    /* letter-spacing: 0em; */
+    /* letter-spacing: 0.0625em; */
+    /* letter-spacing: -4px; */
+}
+
+
+
+.session-input-password {
+    /* letter-spacing: 0em; */
+    /* letter-spacing: -5px; */
+
+    /* font-size: 20px; */
+    /* -webkit-text-security:square; */
+    /* -webkit-text-security: circle !important; */
+    -webkit-text-security:square  !important;
+
+    border: 1px solid lightgray;
+    width: 320px;
+    height: 35px;
+    padding: 5px 20px;
+}
+
+.session-input-password:focus {
+    border: 1px solid black;
+}
+
+.session-input {
+    border: 1px solid lightgray;
+    width: 320px;
+    height: 35px;
+    padding: 5px 20px;
+}
+
+.session-input:focus {
+    border: 1px solid black;
+}
+
+#session-submit-button {
+    margin-top: 36px;
+    width: 100%;
+    text-align: center;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+#session-demo-login-button {
+    margin-top: 12px;
+    width: 100%;
+    text-align: center;
+    padding-left: 0px;
+    padding-right: 0px;
+    background-color: rgb(69, 92, 152);
+    cursor: pointer;
+}
+
+#session-demo-login-button:hover {
+    background-color: rgb(63, 84, 143);
+}
+
+.close-icon-button-div {
+    display: flex;
+    /* align-items: flex-end; */
+    /* align-content: flex-end; */
+    /* justify-items: flex-end; */
+    justify-content: flex-end;
+    background-color: white;
+    /* height: 20px;
+    width: 20px; */
+}
+
+.close-icon-button {
+    /* align-self: flex-end; */
+    /* padding: 15px; */
+    /* padding-right: 18px; */
+    
+}
+
+.session-additional-option-text {
+    margin-top: 12px;
+    color: darkgray;
+}
+
+.session-error-messages-list {
+    margin-top: 32px;
+}
+
+.session-error-message {
+    color: rgb(226, 25, 65);
+    font-size: 16px;
+}
+
+.login-signup-option-row {
+    display: flex;
+    flex-direction: row;
+    background-color: white;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 15px;
+}
+
+.switch-to-sign-up-button {
+    color: black;
+    text-decoration: underline;
+    font-weight: bolder;
+    margin-left: 5px;
+    font-size: 15px;
+}
+
+.switch-to-sign-up-button:hover {
+    color: rgb(229, 16, 117);
+}
+
+.switch-to-sign-up-text {
+    font-weight: lighter;
+}
+
+.session-input-password::placeholder {
+    font-family: 'Noto Sans HK', 'PT Sans', sans-serif;
+}
+
+.session-input-password  {
+    font-family: sans-serif;
+}

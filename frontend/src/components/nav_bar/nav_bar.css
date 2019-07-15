@@ -1,0 +1,132 @@
+.nav-bar {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    border-bottom: 1px solid lightgrey;
+    font-weight:800;
+    font-family: 'PT Sans', 'Noto Sans HK', sans-serif;
+    overflow: visible;
+    /* font-weight: Black Italic; */
+}
+
+.right-nav-bar-items {
+    display: flex;
+    margin-left: auto;
+    padding: 10px;
+    align-items: center;
+    /* align-self: center; */
+}
+.logged-in-options {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    margin-left: 24px;
+}
+
+.logged-in-options:hover {
+    cursor: pointer;
+}
+
+.logged-out-options {
+    display: flex;
+    flex-direction: row;
+}
+
+.left-nav-bar-items {
+    display: flex;
+    align-self: center;
+}
+
+.header-logo {
+    width: 85px;
+    height: 24px;
+    padding-top: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.user-menu {
+    font-size: 16px;
+    padding: 10px;
+}
+
+.logged-in-options-robot-image {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+}
+
+.user-menu:hover {
+    color: rgb(212, 51, 116);
+}
+
+#nav-bar-start-campaign-button {
+    border-right: 1px solid lightgrey;
+    /* margin-right: 24px; */
+}
+
+.drop-down-menu-visable {
+    position: absolute;
+    top: 59px;
+    right: 0px;
+    z-index: 1;
+    background-color: white;
+    border: 1px solid lightgrey;
+    padding: 8px;
+    width: 140px;
+}
+
+.drop-down-menu-option {
+}
+
+.drop-down-menu-option-title {
+    font-size: 14px;
+    padding: 12px;
+    width: 100%;
+}
+
+.drop-down-menu-option-title:hover {
+    color: rgb(197, 47, 108);
+}
+
+.gogo-svg-icon {
+    width: 80px;
+    height: 24px;
+
+    padding-top: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+
+    fill: rgb(229, 20, 116);
+
+    position: relative;
+}
+
+.gogo-path {
+    position: absolute;
+    /* clip: rect(0, 100px, 0px, 0); */
+    margin-right: -100px;
+}
+
+.purple-hover-btn:hover {
+    color: rgb(212, 51, 116);
+}
+
+.purple-hover-btn {
+    font-size: 15px;
+    padding: 10px;
+}
+
+.color-button {
+    background-color: rgb(230, 21, 116);
+    color: white;
+    padding: 11px 18px;
+    font-size: 13px;
+    font-weight: 700;
+    border-radius: 3px;
+}
+
+.color-button:hover {
+    background-color: rgb(197, 47, 108);
+}
