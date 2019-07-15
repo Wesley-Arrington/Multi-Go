@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import NavBar from '../nav_bar/nav_bar';
+import LobbyRows from './lobby_rows/lobby_rows'
 import './splash.css';
 
 export default class Splash extends Component {
@@ -15,6 +16,7 @@ export default class Splash extends Component {
                         <button className="blue-button" id="splash-page-create-lobby-button">Create Lobby</button>
                     </Link>
                 </div>
+                <LobbyRows />
             </div>
         )
     }
