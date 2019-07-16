@@ -48,6 +48,9 @@ if (localStorage.jwtToken) {
 //     store = configureStore();
 // }
 
+window.dispatch = store.dispatch;
+window.store = store;
+
 ReactDOM.render(<Root store={store}/>, document.getElementById('root'));
 
 
