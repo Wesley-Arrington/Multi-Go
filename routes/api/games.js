@@ -20,7 +20,6 @@ router.post('/',
 	(req, res) => {
 		// const {errors, isValid} = validateGameInput(req.body);
 		// if (!isValid) return res.status(400);
-		
 
 		const newBoard = new Game({
 			player_ids: req.body.player_ids,
