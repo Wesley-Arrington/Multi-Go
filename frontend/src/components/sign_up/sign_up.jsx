@@ -6,22 +6,22 @@ import CloseIcon from '../general_purpose_icons/close_icon'
 export default class SignUp extends Component {
 
 
-    makeid(length) {
-        var result = '';
-        var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-        var charactersLength = characters.length;
-        for (var i = 0; i < length; i++) {
-            result += characters.charAt(Math.floor(Math.random() * charactersLength));
-        }
-        return result;
-    }
+    // makeid(length) {
+    //     var result = '';
+    //     var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    //     var charactersLength = characters.length;
+    //     for (var i = 0; i < length; i++) {
+    //         result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    //     }
+    //     return result;
+    // }
 
     constructor(props) {
         super(props);
         this.state = {
             handle: '',
             password: '',
-            email: this.makeid(16)
+            email: ''
         };
 
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -77,6 +77,9 @@ export default class SignUp extends Component {
 
                         <h3 className="session-title">Welcome!</h3>
                         <h4 className="session-login-signup-subtitle">Sign up to join Gogo.</h4>
+
+                        <p className="session-label">Email</p>
+                        <input placeholder="Your  Username" className="session-input" type="text" value={this.state.email} onChange={this.handleInput('email')} />
 
                         <p className="session-label">Username</p>
                         <input placeholder="Your  Username" className="session-input" type="text" value={this.state.handle} onChange={this.handleInput('handle')}/>

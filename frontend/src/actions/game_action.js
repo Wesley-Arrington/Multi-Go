@@ -3,7 +3,6 @@ import { postGame } from '../util/game_util';
 export const NEW_GAME = 'NEW_GAME';
 
 export const newGame = (data) => {
-    debugger
     return {
         type: NEW_GAME,
         // why is data nested twice?
