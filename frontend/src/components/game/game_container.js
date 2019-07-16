@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { newGame, createGame } from '../../actions/game_action';
+import { createGame } from '../../actions/game_action';
 import Game from './game';
 
 const msp = state => {

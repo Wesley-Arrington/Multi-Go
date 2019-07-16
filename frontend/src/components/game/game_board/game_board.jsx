@@ -1,28 +1,35 @@
 import React, { Component } from 'react'
 import GameBoardButton from './game_board_button'
 
-export default class GameBoard extends Component {
+class GameBoard extends Component {
 
-    // constructor(props) {
-    //     super(props)
+    constructor(props) {
+        super(props)
 
-    //     // this.createButtons = this.createButtons.bind(this)
-    // }
+        // this.createButtons = this.createButtons.bind(this)
+    }
 
     createButtons() {
 
         let buttons = []
-        for(let row = 0; row<19; row++) {
-            for(let col=0; col<19; col++) {
-                buttons.push(<GameBoardButton row={row} col={col} />)
-            }
-        }
+        // for(let row = 0; row<19; row++) {
+        //     for(let col=0; col<19; col++) {
+        //         buttons.push(<GameBoardButton row={row} col={col} color={this.props[0].color}/>)
+        //     }
+        // }
+
+        debugger
+        this.props.points.forEach((point) => {
+            buttons.push(<GameBoardButton row={point.xCoord} col={point.yCoord} color={point.color} />)
+        })
+
         console.log(buttons)
         
         return buttons
     }
 
     render() {
+        if (this.props.points === null) return null;
         let buttons = this.createButtons();
 
         return (
@@ -37,3 +44,5 @@ export default class GameBoard extends Component {
         )
     }
 }
+
+export default GameBoard;
