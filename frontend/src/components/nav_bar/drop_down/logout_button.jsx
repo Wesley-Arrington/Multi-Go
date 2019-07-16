@@ -15,7 +15,7 @@ export default class LogoutButton extends Component {
     // }
 
     handleSubmit(e) {
-
+        // debugger;
         e.preventDefault();
         this.props.logout();
         // .then(() => this.props.history.push('/user'));

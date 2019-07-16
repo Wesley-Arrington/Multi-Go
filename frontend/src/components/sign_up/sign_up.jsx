@@ -4,19 +4,30 @@ import './sign_up.css'
 import CloseIcon from '../general_purpose_icons/close_icon'
 
 export default class SignUp extends Component {
+
+
+    makeid(length) {
+        var result = '';
+        var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        var charactersLength = characters.length;
+        for (var i = 0; i < length; i++) {
+            result += characters.charAt(Math.floor(Math.random() * charactersLength));
+        }
+        return result;
+    }
+
     constructor(props) {
         super(props);
         this.state = {
-            first_name: '',
-            last_name: '',
-            email: '',
+            handle: '',
             password: '',
-            profile_body: "raised by wolves"
+            email: this.makeid(16)
         };
 
         this.handleSubmit = this.handleSubmit.bind(this);
         this.switchToSignIn = this.switchToSignIn.bind(this);
     }
+
 
     handleInput(type) {
         return (e) => {
@@ -26,6 +37,7 @@ export default class SignUp extends Component {
 
     handleSubmit(e) {
         e.preventDefault();
+
         this.props.createNewUser(this.state).then(this.props.closeModal);
             //.then(() => this.props.history.push('/user'));
     }
@@ -44,7 +56,7 @@ export default class SignUp extends Component {
 
     switchToSignIn() {
         // this.props.closeModal();
-        // debugger;
+
         console.log("CLICKING BUTTTTON")
         // dispatch(this.props.openModal('login'));
     }
@@ -66,15 +78,8 @@ export default class SignUp extends Component {
                         <h3 className="session-title">Welcome!</h3>
                         <h4 className="session-login-signup-subtitle">Sign up to join Gogo.</h4>
 
-                        <p className="session-label">First Name</p>
-                        <input placeholder="Your First Name" className="session-input" type="text" value={this.state.first_name} onChange={this.handleInput('first_name')}/>
-
-                        <p className="session-label">Last Name</p>
-                        <input placeholder="Your Last Name" className="session-input" type="text" value={this.state.last_name} onChange={this.handleInput('last_name')}/>
-
-                        <p className="session-label">Email</p>
-                        <input placeholder="Your Email" className="session-input" type="text" value={this.state.email} onChange={this.handleInput('email')}/>
-                       
+                        <p className="session-label">Username</p>
+                        <input placeholder="Your  Username" className="session-input" type="text" value={this.state.handle} onChange={this.handleInput('handle')}/>
 
                         <p className="session-label">Password</p>
                         <input placeholder="Password" className="session-input-password" type="password" value={this.state.password} onChange={this.handleInput('password')}/>

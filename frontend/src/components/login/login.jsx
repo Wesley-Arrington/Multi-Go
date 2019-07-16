@@ -14,13 +14,10 @@ export default class Login extends Component {
 
     constructor(props) {
         super(props);
-        // debugger;
+
         this.state = {
-            first_name: '',
-            last_name: '',
-            email: '',
+            username: '',
             password: '',
-            profile_body: "raised by wolves",
         };
 
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -46,8 +43,6 @@ export default class Login extends Component {
 
     async demoLogin(e) {
         e.preventDefault();
-
-        // debugger;
 
         const demoUser = {
             email: 'sally@gmail.com',
@@ -76,22 +71,9 @@ export default class Login extends Component {
         // document.getElementById("password-input").blur();
     }
 
-    // renderErrors() {
-    //     // debugger;
-    //     return (
-    //         <ul className="session-error-messages-list">
-    //             {this.props.errors.map((error, i) => (
-    //                 <li key={`error-${i}`} className="session-error-message">
-    //                     {error}
-    //                 </li>
-    //             ))}
-    //         </ul>
-    //     );
-    // }
-
     switchToSignUp() {
         this.props.closeModal();
-        // debugger;
+
         // dispatch(this.props.openModal('signup'));
     }
 
@@ -99,7 +81,7 @@ export default class Login extends Component {
         // if (!this.state.visible) {
         //     return <div></div>;
         // }
-        // debugger;
+
         return (
             // <div className="session-grey-background" onClick={this.props.toggleLoginModal}>
                 // <div onClick={e => e.stopPropagation()}>

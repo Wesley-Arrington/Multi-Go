@@ -14,6 +14,8 @@ export default class GameBoardButton extends Component {
         console.log("column:")
         console.log(this.props.col)
         console.log("");
+        // KC: This is where we want to start the ajax request.
+
     }
 
     render() {
@@ -24,3 +26,4 @@ export default class GameBoardButton extends Component {
         )
     }
 }
+

@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-// import { logout } from '../../actions/session_actions';
+import { logout } from '../../../actions/session_actions';
 import Logout from './logout_button';
 
 // const mapStateToProps = ({ errors }, ownProps) => {
@@ -9,7 +9,7 @@ import Logout from './logout_button';
 // };
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-    logout: () => dispatch(logout())
+    logout: formUser => dispatch(logout())
 });
 
 export default connect(null, mapDispatchToProps)(Logout);

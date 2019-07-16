@@ -3,8 +3,9 @@ import { connect } from 'react-redux';
 import RightNavBarItems from './right_nav_bar_items';
 
 const mapStateToProps = (state, ownProps) => {
+    // debugger;
     return {
-        // currentUserId: state.session.currentUser
+        isLoggedIn: state.session.isAuthenticated
     };
 };
 

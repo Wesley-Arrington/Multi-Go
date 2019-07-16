@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { closeModal, openModal } from '../../actions/modal_action';
 import Login from '../login/login';
 import SignUp from '../sign_up/sign_up';
-// import { login, createNewUser } from '../../actions/session_actions'
+import { login, signup } from '../../actions/session_actions'
 
 const Modal = ({ modal, closeModal, login, errors, createNewUser }) => {
 
@@ -43,8 +43,8 @@ const mdp = dispatch => {
     return {
         openModal: modal => dispatch(openModal(modal)),
         closeModal: () => dispatch(closeModal()),
-        // login: (user) => dispatch(login(user)),
-        // createNewUser: (user) => dispatch(createNewUser(user))
+        login: (user) => dispatch(login(user)),
+        createNewUser: (user) => dispatch(signup(user))
     }
 }
 

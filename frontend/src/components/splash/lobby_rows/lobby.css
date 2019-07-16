@@ -1,0 +1,13 @@
+.lobby-row-title {
+    padding: 20px;
+}
+
+.lobby-row-right-items {
+    display: flex;
+    flex-direction: column;
+    align-self: flex-end;
+}
+
+#splash-page-join-lobby-button {
+
+}

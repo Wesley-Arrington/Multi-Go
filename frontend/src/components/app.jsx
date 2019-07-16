@@ -1,20 +1,23 @@
+
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { AuthRoute, ProtectedRoute } from '../util/route_util';
+import { Route, Switch } from 'react-router-dom';
 
 import Splash from './splash/splash';
-import Game from './game/game'
+import GameContainer from './game/game_container'
 import Lobby from './lobby/lobby'
 import './default_styling/reset.css'
 import './default_styling/style.css'
 import Modal from './nav_bar/modal'
 
 const App = () => (
+
     <div>
         <Modal />
         <Switch>
             <Route exact path="/" component={Splash} />
             <Route exact path="/lobby" component={Lobby} />
-            <Route exact path="/game" component={Game} />
+            <Route exact path="/game" component={GameContainer} />
         </Switch>
     </div>
 );
