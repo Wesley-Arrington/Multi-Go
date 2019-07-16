@@ -22,6 +22,8 @@ class Game extends Component {
     }
 
     componentDidMount() {
+        // Once Start Game button is clicked, we are creating a post request for a new Game. 
+
         // persist this to the DB
         let data = {
             player_ids: ["1", "2"], 
@@ -42,18 +44,20 @@ class Game extends Component {
 
         data.grid = subData;
 
-        debugger
-
+        // we are plannign that this will return a game id
         this.props.newGame(data);
     }
 
     render() {
+
+        if (this.props.game_id === null) return null;
+
         return (
             <div className="game-div">
-                <GameBoardContainer />
+                <GameBoardContainer game_id={this.props.game_id}/>
                 <div>
-                    <Players />
-                    <ChatBox />
+                    {/* <Players /> */}
+                    {/* <ChatBox /> */}
                 </div>
             </div>
         )
