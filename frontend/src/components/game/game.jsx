@@ -42,7 +42,7 @@ class Game extends Component {
 
         data.grid = subData;
 
-        debugger
+        // debugger
 
         this.props.newGame(data);
     }
