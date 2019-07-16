@@ -49,11 +49,11 @@ class Game extends Component {
 
     render() {
 
-        if (this.props.game_id === null) return null;
+        if (typeof this.props.game_id.game_id !== "string") return null;
 
         return (
             <div className="game-div">
-                <GameBoardContainer game_id={this.props.game_id}/>
+                <GameBoardContainer game_id={this.props.game_id.game_id}/>
                 <div>
                     <Players />
                     <ChatBoxContainer />
