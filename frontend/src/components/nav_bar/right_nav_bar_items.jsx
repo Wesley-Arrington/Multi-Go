@@ -10,7 +10,6 @@ export default class RightNavBarItems extends Component {
         // let currentSession = store.getState().session.isAuthenticated
 
         let { isLoggedIn } = this.props
-        // debugger;
         if (isLoggedIn) {
             return (
                 <div className="right-nav-bar-items">

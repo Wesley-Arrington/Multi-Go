@@ -1,7 +1,7 @@
 // import {Point} from './point.js';
 
-class Board {
-    constructor(players = 2, size = 9) {
+export default class Board {
+    constructor(players = 2, size = 19) {
         // assume it's 9x9 for simplicity
         // array of array of objects
         this.players = players;
@@ -137,9 +137,6 @@ class Board {
         })
     }
 
-    checkKo(x,y, color) {
-    }
-
     buildGroup(point, group) {
         group.add(point);
 
@@ -167,8 +164,6 @@ class Board {
 
     checkCapture(point) {
         let capturedGroups = [];
-        
-        // console.log(point.neighbors);
 
         point.neighbors.forEach((neighbor) => {
             let group = new Set;
@@ -191,8 +186,6 @@ class Board {
 }
 
 
-
-
 class Point {
     // constructor( size, above, right, below, left , color="empty") {
     constructor(x, y, color = "e") {
@@ -201,7 +194,6 @@ class Point {
         this.neighbors = [];
     }
 
-
     toString() {
         return this.color;
     }
@@ -209,19 +201,17 @@ class Point {
 }
 
 
-b = new Board;
-b.setStone(0, 0, 'B');
-b.setStone(1, 1, 'B');
-b.setStone(2, 0, 'B');
-b.setStone(3, 0, 'W');
-b.setStone(2, 1, 'W');
+// b = new Board;
 
-b.setStone(0, 8, 'W');
-b.setStone(0, 6, 'W');
-b.setStone(1, 7, 'W');
-b.setStone(1, 8, 'B');
-
-
+// b.setStone(0, 0, 'B');
+// b.setStone(1, 1, 'B');
+// b.setStone(2, 0, 'B');
+// b.setStone(3, 0, 'W');
+// b.setStone(2, 1, 'W');
+// b.setStone(0, 8, 'W');
+// b.setStone(0, 6, 'W');
+// b.setStone(1, 7, 'W');
+// b.setStone(1, 8, 'B');
 // b.setStone(1, 1, 'B');
 // b.setStone(1, 2, 'B');
 // b.setStone(0, 5, 'B');
@@ -229,34 +219,15 @@ b.setStone(1, 8, 'B');
 // b.setStone(2, 4, 'B');
 // b.setStone(2, 3, 'B');
 
-// b.setStone(1, 4, 'W');
-// b.setStone(1, 3, 'W');
-// b.setStone(0, 1, 'W');
-// b.setStone(0, 2, 'W');
-// b.setStone(0, 4, 'W');
-// b.setStone(2, 1, 'B');
-// b.setStone(1, 1, 'B');
-// b.setStone(3, 1, 'B');
-// b.setStone(0, 2, 'B');
-
-
-
-
-// b.setStone(1, 2, 'B');
-// b.setStone(0, 0, 'b');
 // b.displayNeighbors(1,0);
-// let groups = b.placeStone(0, 3, 'B');
 
+// let groups = b.placeStone(0, 3, 'B');
 // console.log(b.placeStone(0, 1, 'W'));
 // console.log(b.placeStone(0, 2, 'W'));
-
-
 // console.log(b.placeStone(8, 8, 'W'));
 // console.log(b.placeStone(7, 8, 'B'));
 // console.log(b.placeStone(8, 7, 'B'));
 // console.log(b.placeStone(8, 8, 'W'));
-
-
 
 // b.displayNeighbors(2,2);
 // console.log("neighbors count: " + b.grid[1][1].neighbors[3]);
@@ -272,4 +243,4 @@ b.setStone(1, 8, 'B');
 //     })
 // });
 
-b.render();
+// b.render();
