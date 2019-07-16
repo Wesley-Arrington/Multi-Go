@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-// import DropDown from './drop_down/user_drop_down_options'
+import DropDown from './drop_down/user_drop_down_options'
 
 export default class LoggedInOptions extends Component {
 
@@ -32,22 +32,25 @@ export default class LoggedInOptions extends Component {
         // let currentSessionId = store.getState().session.id
         // let currentUser = store.getState().entities.user[currentSessionId].first_name
 
-        // if(this.state.visable) {
-        //     return (
-        //         <div className="logged-in-options">
-        //             <img onClick={this.toggleMenu} className="logged-in-options-robot-image" src={"user-default-profile-picture.png"} alt=""/>
-        //             <button onClick={this.toggleMenu} className="user-menu">{currentUser}</button>
-        //             <DropDown />
-        //         </div>
-        //     )
-        // } else {
-        //     return (
-        //         <div className="logged-in-options">
-        //             <img onClick={this.toggleMenu} className="logged-in-options-robot-image" src={"user-default-profile-picture.png"} alt="" />
-        //             <button onClick={this.toggleMenu} className="user-menu">{currentUser}</button>
-        //         </div>
-        //     )
-        // }
-        return <div></div>
+        let { currentUser } = this.props;
+        // debugger;
+
+        if(this.state.visable) {
+            return (
+                <div className="logged-in-options">
+                    {/* <img onClick={this.toggleMenu} className="logged-in-options-robot-image" src={"user-default-profile-picture.png"} alt=""/> */}
+                    <button onClick={this.toggleMenu} className="user-menu">{currentUser.handle}</button>
+                    <DropDown />
+                </div>
+            )
+        } else {
+            return (
+                <div className="logged-in-options">
+                    {/* <img onClick={this.toggleMenu} className="logged-in-options-robot-image" src={"user-default-profile-picture.png"} alt="" /> */}
+                    <button onClick={this.toggleMenu} className="user-menu">{currentUser.handle}</button>
+                </div>
+            )
+        }
+        return <div>logged in options</div>
     }
 }

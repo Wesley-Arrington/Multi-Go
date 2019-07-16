@@ -16,11 +16,8 @@ export default class Login extends Component {
         super(props);
 
         this.state = {
-            first_name: '',
-            last_name: '',
-            email: '',
+            username: '',
             password: '',
-            profile_body: "raised by wolves",
         };
 
         this.handleSubmit = this.handleSubmit.bind(this);

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 // import UserDropDownOption from './user_drop_down_option'
-import LogoutButtonContainer from '../logout_button_container'
+import LogoutButtonContainer from './logout_button_container'
 // import ProfileButton from './profile_button'
 
 export default class UserDropDownOptions extends Component {
