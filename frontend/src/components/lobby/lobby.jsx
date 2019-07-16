@@ -7,7 +7,7 @@ export default class Lobby extends Component {
 
     render() {
         return (
-            <div className="simple-column-x-center">
+            <div className="simple-column-x-center-center-y">
                 <div className="simple-row-space-between">
                     <EditGame />
                     <LobbyPlayers />

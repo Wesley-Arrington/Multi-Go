@@ -28,3 +28,7 @@
 #splash-page-join-lobby-button {
 
 }
+
+.edit-game-input-text {
+    border-bottom: 1px solid lightgray;
+}
