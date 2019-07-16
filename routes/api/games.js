@@ -14,6 +14,13 @@ router.get('/:id', (req,res) => {
 })
 
 
+router.get('/', (req, res) => {
+	Game.find()
+		.then(games => res.json(games))
+		.catch(err => res.status(404).json({ nogamesfound: 'No games found' }));
+});
+
+
 router.post('/',
 	// passport.authenticate('jwt', { session: false }),
 
@@ -31,5 +38,28 @@ router.post('/',
 		newBoard.save().then(board => res.json(board));
 	}
 );
+
+router.delete('/:id', (req,res) => {
+	Game.findByIdAndRemove({_id: req.params.id}, (err,game) => {
+		if (err) return res.json(err);
+		else return res.json('Successfully removed');		
+	})
+})
+
+router.patch('/:id', (req,res) => {
+
+	Game.findById(req.params.id, (err, game) => {
+		if (!game) return res.status(404).send("data is not found");
+		else {
+			game.player_ids = req.body.player_ids,
+			game.grid = req.body.grid,
+			turn = req.body.turn
+			
+			game.save().then(savedGame => res.json(savedGame));
+		
+		}
+	})
+})
+
 
 module.exports = router;

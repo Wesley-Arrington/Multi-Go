@@ -39,7 +39,7 @@ export default class LoggedInOptions extends Component {
             return (
                 <div className="logged-in-options">
                     {/* <img onClick={this.toggleMenu} className="logged-in-options-robot-image" src={"user-default-profile-picture.png"} alt=""/> */}
-                    <button onClick={this.toggleMenu} className="user-menu">{currentUser.handle}</button>
+                    <button onClick={this.toggleMenu} className="user-menu">{currentUser.email}</button>
                     <DropDown />
                 </div>
             )
@@ -47,7 +47,7 @@ export default class LoggedInOptions extends Component {
             return (
                 <div className="logged-in-options">
                     {/* <img onClick={this.toggleMenu} className="logged-in-options-robot-image" src={"user-default-profile-picture.png"} alt="" /> */}
-                    <button onClick={this.toggleMenu} className="user-menu">{currentUser.handle}</button>
+                    <button onClick={this.toggleMenu} className="user-menu">{currentUser.email}</button>
                 </div>
             )
         }
