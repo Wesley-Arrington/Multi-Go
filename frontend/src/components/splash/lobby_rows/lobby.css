@@ -1,3 +1,19 @@
+.lobby-row {
+    display: flex;
+    padding: 20px;
+    background-color: rgb(245, 245, 245);
+    border-bottom: 1px solid lightgray;
+
+    transition: border 0.1s, box-shadow 0.3s, transform 0.3s, transform 0.3s, fill 0.3s;
+}
+
+.lobby-row:hover {
+    border: 1px solid #949494;
+    box-shadow: 0 2px 6px -4px rgba(0,0,0,.2), 0 8px 10px -4px rgba(0,0,0,.14), 0 8px 12px 4px rgba(0,0,0,.05);
+    transform: translateY(-2px);
+    fill: rgb(80, 181, 109);
+}
+
 .lobby-row-title {
     padding: 20px;
 }
@@ -5,7 +21,8 @@
 .lobby-row-right-items {
     display: flex;
     flex-direction: column;
-    align-self: flex-end;
+    margin-left: auto;
+    padding-right: 30px;
 }
 
 #splash-page-join-lobby-button {
