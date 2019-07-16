@@ -4,7 +4,6 @@ export const NEW_GAME = 'NEW_GAME';
 export const FETCH_GRID = 'FETCH_GRID';
 
 export const newGame = (data) => {
-
     return {
         type: NEW_GAME,
         // why is data nested twice?
@@ -13,7 +12,6 @@ export const newGame = (data) => {
 }
 
 export const fetchGrid = (game) => {
-    debugger
     return {
         type: FETCH_GRID,
         game: game.data

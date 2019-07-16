@@ -5,12 +5,15 @@ class GameBoard extends Component {
 
     constructor(props) {
         super(props)
-
+        this.state = {};
         // this.createButtons = this.createButtons.bind(this)
     }
 
     componentDidMount() {
-        this.props.getGame(this.props.game_id);
+        // debugger
+        this.props.getGame(this.props.game_id)
+            // .then( res => this.setState({game: res }));
+
         // let buttons = []
 
         // this.props.points.forEach((point) => {
@@ -29,7 +32,7 @@ class GameBoard extends Component {
         //     }
         // }
 
-        this.props.points.forEach((point) => {
+        this.props.game.grid.forEach((point) => {
             buttons.push(<GameBoardButton row={point.xCoord} col={point.yCoord} color={point.color} />)
         })
 
@@ -39,18 +42,18 @@ class GameBoard extends Component {
     }
 
     render() {
-        if (this.props.points === null) return null;
-        
+        console.log(this.props)
         debugger
 
-        // let buttons = this.createButtons();
+        if (this.props.game.grid === undefined) return null;
+        
+        let buttons = this.createButtons();
 
         return (
             <div className="game-div-game-board">
-                {/* <img src={"Blank_Go_Board.png"} alt="go-board" className="game-div-game-board-image"/> */}
                 <div className="game-section">
                     <div className="game-div-clickable-board">
-                        {/* {buttons} */}
+                        {buttons}
                     </div>
                 </div>
             </div>

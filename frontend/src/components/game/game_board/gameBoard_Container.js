@@ -5,9 +5,9 @@ import GameBoard from './game_board';
 
 const msp = state => {
 
+    debugger
     return {
-        // sometimes we dont have .grid yet
-        // game_id: state.entities.games
+        game: state.entities.games
     }
 }
 
@@ -18,4 +18,4 @@ const mdp = dispatch => {
     }
 }
 
-export default connect(null, mdp)(GameBoard);
+export default connect(msp, mdp)(GameBoard);
