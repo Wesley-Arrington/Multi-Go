@@ -6,6 +6,7 @@ const db = require('./config/keys').mongoURI;
 const bodyParser = require('body-parser');
 const splash = require("./routes/api/splash");
 const users = require("./routes/api/users");
+const games = require("./routes/api/games");
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -18,6 +19,7 @@ mongoose
 // app.get("/", (req, res) => res.send("Hello World"));
 app.use("/", splash);
 app.use("/api/users", users);
+app.use("/api/games", games);
 
 
 const port = process.env.PORT || 5000;

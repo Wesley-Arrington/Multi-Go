@@ -16,6 +16,7 @@ router.get('/index', (req, res) => {
 
 // validate user input register & sign up
 router.post('/register', (req, res) => {
+    debugger
     const { errors, isValid } = validateRegisterInput(req.body);
 
     if (!isValid) {
