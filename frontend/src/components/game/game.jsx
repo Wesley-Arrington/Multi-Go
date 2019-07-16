@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import GameBoardContainer from './game_board/gameBoard_Container'
 import Players from './players/players'
-import ChatBox from '../chat_box/chat_box'
+import ChatBoxContainer from '../chat_box/chat_box_container'
 import './game.css'
 
 import Board from './GameLogic/board';
@@ -53,7 +53,7 @@ class Game extends Component {
                 <GameBoardContainer />
                 <div>
                     <Players />
-                    <ChatBox />
+                    <ChatBoxContainer />
                 </div>
             </div>
         )

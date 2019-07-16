@@ -26,8 +26,8 @@ export default class ChatBox extends Component {
         e.preventDefault();
         // console.log("HANDLING THE SUBMIT");
         const socket = io('http://localhost:5000');
-        debugger;
         socket.emit("sendingMessage", {message: this.state.newMessage});
+        this.setState({ newMessage: ""})
         // this.props.login(this.state).then(this.props.closeModal);
         //.then(() => this.props.history.push('/user'));
     }
@@ -37,8 +37,7 @@ export default class ChatBox extends Component {
         // socket.emit("join", {name: Math.random()*100});
         // socket.on("someoneJoined", (data) => { console.log(`${data.name} has joined room`) })
         socket.on("receiveMessage", (data) => {
-            const messages = this.state.messages;
-            this.setState({messages: messages.concat(data.message)});
+            this.setState({ messages: this.state.messages.concat(data.message)});
             })
     }
 
@@ -47,8 +46,21 @@ export default class ChatBox extends Component {
             <div className="chat-box">
                 <ChatBoxNavBar />
 
+                {
+                    this.state.messages.map(function (message) {
+                        return <p className="chat-box-message" key={message}>{message}</p>
+                    })
+                }
+                {/* for(let i = 0; i < this.state.messages.length; i++) {
+                    <li className="simple-column">{this.state.messages[i]}</li>
+                } */}
+                
+                {/* <ul className="simple-column">
+                    <li className="simple-column">{this.state.messages}</li>
+                </ul> */}
+
                 <div className="chat-input-div">
-                    <input value={this.state.newMessage} onChange={this.handleInput('newMessage')} type="text" className="chat-input-div-input" />
+                    <input placeholder="Your message" value={this.state.newMessage} onChange={this.handleInput('newMessage')} type="text" className="chat-input-div-input" />
                     <button className="chat-input-div-send-button" onClick={this.handleSubmit}><b>Send</b></button>
                 </div>
             </div>

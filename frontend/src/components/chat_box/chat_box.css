@@ -40,6 +40,10 @@
     background-color:rgb(230, 230, 230);
 }
 
+.chat-input-div-input::placeholder {
+    font-size: 14px;
+}
+
 .chat-input-div-send-button {
     width: 10%;
     align-self: center;
@@ -50,6 +54,10 @@
 
 .chat-input-div-send-button:hover {
     color: #038BC8;
+}
+
+.chat-box-message {
+    padding-left: 8px;
 }
 
 /* .minus-icon {
