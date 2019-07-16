@@ -44,7 +44,6 @@ class Game extends Component {
 
         data.grid = subData;
 
-        // we are plannign that this will return a game id
         this.props.newGame(data);
     }
 
