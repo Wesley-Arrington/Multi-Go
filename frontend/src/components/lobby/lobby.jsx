@@ -4,6 +4,7 @@ import EditGame from './edit_game/edit_game'
 import LobbyPlayers from './lobby_players/lobby_players'
 
 export default class Lobby extends Component {
+
     render() {
         return (
             <div className="simple-column-x-center">
