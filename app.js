@@ -38,6 +38,11 @@ io.on('connection', function (socket) {
         socket.to("should be game id").emit("someoneJoined", data)
         console.log(`${data.name} has joined room`)
     })
+
+    socket.on("sendingMessage", (data) => {
+        socket.to("should be game id").emit("receiveMessage", data)
+        console.log(`${data.message}`)
+    })
 });
 
 http.listen(port, () => console.log(`Server is running on port ${port}`));
