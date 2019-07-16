@@ -1,7 +1,8 @@
-import { postGame, getGame } from '../util/game_util';
+import { postGame, getGame, updateGame } from '../util/game_util';
 
 export const NEW_GAME = 'NEW_GAME';
 export const FETCH_GRID = 'FETCH_GRID';
+export const PATCH_GAME = 'PATCH_GAME';
 
 export const newGame = (data) => {
 
@@ -20,10 +21,21 @@ export const fetchGrid = (game) => {
     }
 }
 
+export const changeGame = (game) => {
+	return {
+				type: PATCH_GAME,
+				game: game.data 
+	}
+}
+
 export const fetchGame = (id) => dispatch => {
     return getGame(id).then((game) => dispatch(fetchGrid(game)))
 }
 
 export const createGame = (data) => dispatch => {
     return postGame(data).then((data) => dispatch(newGame(data)))
+}
+
+export const patchGame = (data) => dispatch => {
+		return updateGame(data).then(data => dispatch(changeGame(data)))
 }
