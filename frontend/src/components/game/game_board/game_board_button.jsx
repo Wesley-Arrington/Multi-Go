@@ -4,8 +4,27 @@ export default class GameBoardButton extends Component {
 
     constructor(props) {
         super(props);
-
         this.handleClick = this.handleClick.bind(this);
+  
+        let color;
+
+        switch (this.props.color) {
+            case "R":
+                color = "red";
+                break
+            case "W":
+                color = "white";
+                break
+            case "B":
+                color = "black";
+                break
+            default:
+                color = "";
+        }
+        this.state = {
+            bgColor: color
+        }
+
     }
 
     handleClick() {
@@ -13,15 +32,28 @@ export default class GameBoardButton extends Component {
         console.log(this.props.row)
         console.log("column:")
         console.log(this.props.col)
-        console.log("");
-        // KC: This is where we want to start the ajax request.
+        console.log("")
+        console.log(this.props.color)
+
+        // handle click should trigger a patch request to change background color of point.
+   
+        this.setState({
+            // just placeholder for testing
+            // if player color is Red, then show red CSS
+            // bgColor: "red"
+            
+            // Set this to current player color
+            bgColor: "blue"
+        })
+
 
     }
 
     render() {
+
         return (
             <div>
-                <div onClick={this.handleClick} className="game-div-clickable-board-go-piece"></div>
+                <div style={{backgroundColor: this.state.bgColor}} onClick={this.handleClick} className={"game-div-clickable-board-go-piece"}></div>
             </div>
         )
     }

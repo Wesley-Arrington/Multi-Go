@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import GameBoard from './game_board/game_board'
+import GameBoardContainer from './game_board/gameBoard_Container'
 import Players from './players/players'
 import ChatBox from '../chat_box/chat_box'
 import './game.css'
@@ -21,15 +21,23 @@ class Game extends Component {
 
     componentDidMount() {
         // persist this to the DB
-        debugger
-        let data = {players: 2, size: 19}
+        let data = {
+            player_ids: ["1", "2"], 
+            // still not working as expected
+            grid: [{
+                xCoord: 0,
+                yCoord: 0,
+                color: "R"
+                }], 
+            turn: "1"}
+        debugger        
         this.props.newGame(data);
     }
 
     render() {
         return (
             <div className="game-div">
-                <GameBoard />
+                <GameBoardContainer />
                 <div>
                     <Players />
                     <ChatBox />
