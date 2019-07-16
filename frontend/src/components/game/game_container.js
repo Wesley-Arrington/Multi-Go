@@ -7,7 +7,7 @@ const msp = state => {
 }
 
 const mdp = dispatch => {
-    debugger
+    // debugger
     return {
         newGame: (data) => dispatch(createGame(data))
     }

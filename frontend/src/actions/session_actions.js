@@ -20,10 +20,10 @@ export const receiveUserSignIn = currentUser => ({
 });
 
 // We dispatch this one to show authentication errors on the frontend
-// export const receiveErrors = errors => ({
-//     type: RECEIVE_SESSION_ERRORS,
-//     errors
-// });
+export const receiveErrors = errors => ({
+    type: RECEIVE_SESSION_ERRORS,
+    errors
+});
 
 // When our user is logged out, we will dispatch this action to set isAuthenticated to false
 export const logoutUser = () => ({
@@ -51,11 +51,11 @@ export const login = user => dispatch => (
         localStorage.setItem('jwtToken', token);
         APIUtil.setAuthToken(token);
         const decoded = jwt_decode(token);
-        dispatch(receiveCurrentUser(decoded))
+        dispatch(receiveCurrentUser(user))
     })
-        // .catch(err => {
-        //     dispatch(receiveErrors(err.response.data));
-        // })
+    // .catch(err => {
+    //         dispatch(receiveErrors(err.response.data));
+    //     })
 )
 
 // We wrote this one earlier
