@@ -1,18 +1,21 @@
 import { connect } from 'react-redux';
-// import { createGame } from '../../actions/game_action';
+import { fetchGame } from '../../../actions/game_action';
+
 import GameBoard from './game_board';
 
 const msp = state => {
+
     return {
         // sometimes we dont have .grid yet
-        points: state.entities.games
+        // game_id: state.entities.games
     }
 }
 
 const mdp = dispatch => {
     return {
-        // newGame: (data) => dispatch(createGame(data))
+        getGame: (id) => dispatch(fetchGame(id))
+
     }
 }
 
-export default connect(msp, null)(GameBoard);
+export default connect(null, mdp)(GameBoard);
