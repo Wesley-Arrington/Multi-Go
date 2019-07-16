@@ -36,14 +36,11 @@ export default class GameBoardButton extends Component {
         console.log(this.props.color)
 
         // handle click should trigger a patch request to change background color of point.
-   
         this.setState({
             // just placeholder for testing
-            // if player color is Red, then show red CSS
-            // bgColor: "red"
-            
-            // Set this to current player color
             bgColor: "blue"
+            // Set this to current player color
+            // should trigger a patch AXIOS request to backend
         })
 
 

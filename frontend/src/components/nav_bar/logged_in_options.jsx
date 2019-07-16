@@ -33,7 +33,7 @@ export default class LoggedInOptions extends Component {
         // let currentUser = store.getState().entities.user[currentSessionId].first_name
 
         let { currentUser } = this.props;
-        // debugger;
+
 
         if(this.state.visable) {
             return (

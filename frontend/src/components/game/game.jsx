@@ -4,6 +4,8 @@ import Players from './players/players'
 import ChatBox from '../chat_box/chat_box'
 import './game.css'
 
+import Board from './GameLogic/board';
+
 // KC: I think when we click Start Game, we want to initialize a new Game from the GameLogic directory
 // KC: Then, persist the new Game into the DB.
 // Multi - Go / frontend / src / components / game / game.jsx
@@ -30,7 +32,18 @@ class Game extends Component {
                 color: "R"
                 }], 
             turn: "1"}
-        debugger        
+
+        let b = new Board;
+
+        // flatten array and transform data
+        let subData = b.grid.flat().map(point => {
+            return { xCoord: point.position[0], yCoord: point.position[1], color: point.color }
+        })
+
+        data.grid = subData;
+
+        debugger
+
         this.props.newGame(data);
     }
 

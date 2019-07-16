@@ -18,7 +18,6 @@ class GameBoard extends Component {
         //     }
         // }
 
-        debugger
         this.props.points.forEach((point) => {
             buttons.push(<GameBoardButton row={point.xCoord} col={point.yCoord} color={point.color} />)
         })
