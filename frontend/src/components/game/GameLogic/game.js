@@ -14,7 +14,7 @@ export default class Game {
 
             for (let y = 0; y < this.size; y++) {
 
-                row.push(grid[y*size + x]);
+                // row.push(grid[y*size + x]);
             }
             grid.push(row);
             row = [];

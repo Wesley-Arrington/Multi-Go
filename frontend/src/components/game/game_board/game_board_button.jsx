@@ -49,7 +49,7 @@ export default class GameBoardButton extends Component {
             // Set this to current player color
         })
 
-        let g = new Game(this.props.grid)
+        // let g = new Game(this.props.grid)
 
         // insert game logic here 
         if (true) {
