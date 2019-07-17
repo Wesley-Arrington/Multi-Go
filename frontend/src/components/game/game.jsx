@@ -26,7 +26,7 @@ class Game extends Component {
                 yCoord: 0,
                 color: "R"
                 }], 
-            turn: "1"}
+            turn: "0"}
 
         // the parameters of players and board size should come from a user form
         // see Wez

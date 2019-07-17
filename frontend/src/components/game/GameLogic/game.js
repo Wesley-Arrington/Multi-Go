@@ -1,24 +1,25 @@
 import Point from './point';
 
 export default class Game {
-    constructor(grid, players = 2) {
+    constructor(inputGrid, players = 2, size = 19) {
+        this.size = size;
         this.players = players;
         this.history = null;
-        this.grid = this.setupBoard(grid);
+        this.grid = this.setupBoard(inputGrid);
         this.setNeighbors();
     }
 
-    setupBoard(grid) {
-        for (let x = 0; x < this.size; x++) {
-            let row = [];
-
-            for (let y = 0; y < this.size; y++) {
-
-                // row.push(grid[y*size + x]);
-            }
-            grid.push(row);
-            row = [];
+    setupBoard(inputGrid) {
+        // KC: really? no syntax to initialize a 2d array in js?
+        let grid = new Array(this.size);
+        
+        for (let i = 0; i<this.size; i++) {
+            grid[i] = new Array(this.size);
         }
+
+        inputGrid.map((point) => {
+            grid[point.xCoord][point.yCoord] = new Point(point.xCoord, point.yCoord, point.color);
+        })
 
         return grid;
     }
@@ -32,10 +33,10 @@ export default class Game {
                 this.grid[x][y].neighbors.push(this.checkBounds(x - 1, y));
             }
         }
+
     }
 
     displayNeighbors(x, y) {
-
         if (this.grid[x][y].neighbors[0] === null) console.log('out-of-bounds');
         else console.log('above: ' + this.grid[x][y].neighbors[0].toString());
 
@@ -60,7 +61,6 @@ export default class Game {
         if (y === this.size || y < 0) throw "y out of bounds";
 
         this.grid[x][y].color = color;
-
     }
 
     render() {
@@ -79,7 +79,10 @@ export default class Game {
         let group = new Set;
 
         // 1. stone already present?
-        if (placingPoint.color !== 'e') return false;
+        if (placingPoint.color !== 'empty') {
+            console.log("Stone already here")
+            return false;
+        }
 
         // 2. check for capture
         this.setStone(x, y, color);
@@ -90,14 +93,18 @@ export default class Game {
             if ((this.players === 2) &&
                 (captureGroups.length === 1) &&
                 (captureGroups[0].size === 1)) {
-
+                debugger
                 if (this.history === null) {
+                    // kc: Ok, I understand the problem.
+                    // kc: b/c we are creating new instances of game every move
+                    // kc: the history checking condition does not work.
                     this.history = captureGroups[0].values().next().value;
                     this.removeCapturedGroups(captureGroups);
                     return true;
                 } else {
                     if (this.history === placingPoint) {
-                        this.setStone(x, y, 'e');
+                        this.setStone(x, y, 'empty');
+                        console.log("Ko: wait a turn")
                         return false;
                     } else {
                         this.history = captureGroups[0].values().next().value;
@@ -115,7 +122,8 @@ export default class Game {
         // 3. check for suicide
         this.buildGroup(placingPoint, group);
         if (!this.checkLiberties(group)) {
-            this.setStone(x, y, 'e');
+            this.setStone(x, y, 'empty');
+            console.log("Suicide not allowed")
             return false;
         }
 
@@ -126,7 +134,7 @@ export default class Game {
     removeCapturedGroups(groups) {
         groups.forEach((group) => {
             group.forEach((point) => {
-                point.color = 'e';
+                point.color = 'empty';
             })
         })
     }
@@ -149,7 +157,7 @@ export default class Game {
 
         group.forEach(point => {
             point.neighbors.forEach(neighbor => {
-                if ((neighbor !== null) && (neighbor.color === "e")) liberties.add(neighbor);
+                if ((neighbor !== null) && (neighbor.color === 'empty')) liberties.add(neighbor);
             })
         })
 
@@ -164,7 +172,7 @@ export default class Game {
 
             if ((neighbor !== null) &&
                 (neighbor.color !== point.color) &&
-                (neighbor.color !== 'e')) {
+                (neighbor.color !== 'empty')) {
 
                 this.buildGroup(neighbor, group);
 
@@ -178,17 +186,3 @@ export default class Game {
     }
 
 }
-
-
-// class Point {
-//     constructor(x, y, color = "e") {
-//         this.color = color;
-//         this.position = [x, y];
-//         this.neighbors = [];
-//     }
-
-//     toString() {
-//         return this.color;
-//     }
-
-// }
