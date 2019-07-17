@@ -9,7 +9,7 @@ function gamesReducer(state = null, action) {
 
             return action.game_id;
         case FETCH_GRID:
-            debugger
+            // debugger
             newState = Object.assign(state);
             return action;
         default:

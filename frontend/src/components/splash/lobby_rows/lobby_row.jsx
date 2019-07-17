@@ -13,7 +13,7 @@ export default class LobbyRow extends Component {
                 </div>
 
                 <div className="lobby-row-right-items">
-                    <h5>2/3</h5>
+                    <h5>2/3 Players</h5>
                     <button className="blue-button" id="splash-page-join-lobby-button">Join Lobby</button>
                 </div>
             </div>

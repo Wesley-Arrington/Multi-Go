@@ -13,7 +13,7 @@ export const newGame = (data) => {
 }
 
 export const fetchGrid = (game) => {
-    debugger
+    // debugger
     return {
         type: FETCH_GRID,
         game: game.data

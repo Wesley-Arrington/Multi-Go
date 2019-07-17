@@ -1,17 +1,22 @@
-.lobby-row {
+.lobby-page {
     display: flex;
-    padding: 20px;
-    background-color: rgb(245, 245, 245);
-    border-bottom: 1px solid lightgray;
-
-    transition: border 0.1s, box-shadow 0.3s, transform 0.3s, transform 0.3s, fill 0.3s;
+    flex-direction: column;
+    align-items: center;
+    /* height: 100vh; */
+    justify-content: center;
 }
 
-.lobby-row:hover {
-    border: 1px solid #949494;
-    box-shadow: 0 2px 6px -4px rgba(0,0,0,.2), 0 8px 10px -4px rgba(0,0,0,.14), 0 8px 12px 4px rgba(0,0,0,.05);
-    transform: translateY(-2px);
-    fill: rgb(80, 181, 109);
+.lobby-page-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    height: 450px;
+    background: rgb(230, 230, 230);
+    border-top: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+    width: 100vw;
+    
 }
 
 .lobby-row-title {
@@ -31,4 +36,56 @@
 
 .edit-game-input-text {
     border-bottom: 1px solid lightgray;
+    background-color: rgb(245, 245, 245);
+    padding: 10px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+#lobby-multi-go-sub-title {
+    padding-bottom: 45px;
+}
+
+.lobby-edit-game-title {
+    padding: 15px;
+    /* padding-left: 0px; */
+    text-align: center;
+}
+
+#lobby-save-settings-button {
+    padding: 10px;
+    text-align: center;
+    margin: 20px;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 35px;
+}
+
+#lobby-start-game-button {
+    padding-left: 60px;
+    padding-right: 60px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    margin-top: 40px;
+}
+
+.lobby-players {
+    margin-top: 20px;
+}
+
+.lobby-players-player {
+    display: flex;
+    padding: 15px;
+    border: 1px solid darkgray;
+    width: 200px;
+}
+
+.lobby-go-piece-image {
+    height: 20px;
+    width: 20px;
+    margin-right: 10px;
+}
+
+.lobby-go-player-color {
+    margin-right: 5px;
 }

@@ -41,7 +41,7 @@ class GameBoard extends Component {
     render() {
         if (this.props.points === null) return null;
         
-        debugger
+        // debugger
 
         // let buttons = this.createButtons();
 
