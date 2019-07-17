@@ -20,7 +20,7 @@ class Game extends Component {
         // Once Start Game button is clicked, we are creating a post request for a new Game. 
 
         let data = {
-            player_ids: ["1", "2"], 
+            player_ids: ["1", "2", "3"], 
             grid: [{
                 xCoord: 0,
                 yCoord: 0,

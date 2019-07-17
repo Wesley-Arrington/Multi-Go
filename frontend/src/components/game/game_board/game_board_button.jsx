@@ -18,7 +18,7 @@ export default class GameBoardButton extends Component {
         // console.log(this.props.color)
       
         // game logic here 
-        let g = new Game(this.props.grid)
+        let g = new Game(this.props.grid, 3)
         // if valid move, then make changes to grid and persist to DB.
         // if invalid move, do nothing.
         if (g.placeStone(this.props.row, this.props.col, this.activeColor(parseInt(this.props.turn))) === true) {
@@ -56,13 +56,13 @@ export default class GameBoardButton extends Component {
             case "G":
                 color = "green";
                 break
-            case "Blu":
+            case "B":
                 color = "blue";
                 break
             case "W":
                 color = "white";
                 break
-            case "B":
+            case "Bl":
                 color = "black";
                 break
             case "empty":
