@@ -9,13 +9,13 @@ export const getGame = (id) => {
 }
 
 export const getGames = () => {
-		return axios.get(`/api/games`);
+	return axios.get(`/api/games`);
 }
 
-export const updateGame = (data) => {
-		return axios.patch(`/api/games/${data.id}`, data);
+export const updateGame = (game_id, grid) => {
+	return axios.patch(`/api/games/${game_id}`, grid);
 }
 
 export const deleteGame = (id) => {
-		return axios.delete(`/api/games/${id}`);
+	return axios.delete(`/api/games/${id}`);
 }

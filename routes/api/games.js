@@ -53,7 +53,7 @@ router.patch('/:id', (req,res) => {
 		else {
 			game.player_ids = req.body.player_ids,
 			game.grid = req.body.grid,
-			turn = req.body.turn
+			game.turn = req.body.turn
 			
 			game.save().then(savedGame => res.json(savedGame));
 		

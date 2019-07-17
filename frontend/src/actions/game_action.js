@@ -21,8 +21,8 @@ export const fetchGrid = (game) => {
 
 export const changeGame = (game) => {
 	return {
-				type: PATCH_GAME,
-				game: game.data 
+        type: PATCH_GAME,
+        game: game.data 
 	}
 }
 
@@ -34,6 +34,6 @@ export const createGame = (data) => dispatch => {
     return postGame(data).then((data) => dispatch(newGame(data)))
 }
 
-export const patchGame = (data) => dispatch => {
-		return updateGame(data).then(data => dispatch(changeGame(data)))
+export const patchGame = (game_id, grid) => dispatch => {
+    return updateGame(game_id, grid).then(data => dispatch(changeGame(data)))
 }
