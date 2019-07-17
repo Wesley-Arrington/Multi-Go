@@ -20,13 +20,13 @@ class Game extends Component {
         // Once Start Game button is clicked, we are creating a post request for a new Game. 
 
         let data = {
-            player_ids: ["1", "2"], 
+            player_ids: ["1", "2", "3"], 
             grid: [{
                 xCoord: 0,
                 yCoord: 0,
                 color: "R"
                 }], 
-            turn: "1"}
+            turn: "0"}
 
         // the parameters of players and board size should come from a user form
         // see Wez

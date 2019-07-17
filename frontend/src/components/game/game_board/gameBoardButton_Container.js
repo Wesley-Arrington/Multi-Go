@@ -4,6 +4,7 @@ import { patchGame } from '../../../actions/game_action';
 import GameBoardButton from './game_board_button';
 
 const msp = state => {
+
     return {
         game_id: state.entities.games.game_id,
         player_ids: state.entities.games.player_ids,
@@ -15,7 +16,6 @@ const msp = state => {
 const mdp = dispatch => {
     return {
         makeMove: (game_id, grid) => dispatch(patchGame(game_id, grid))
-
     }
 }
 

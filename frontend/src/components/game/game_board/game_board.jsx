@@ -14,11 +14,10 @@ class GameBoard extends Component {
             // .then( res => this.setState({game: res }));
     }
 
-    createButtons() {
-
+    createButtons() {        
         let buttons = []
 
-        this.props.game.grid.forEach((point) => {
+        this.props.game.grid.forEach((point, idx) => {
             buttons.push(<GameBoardButtonContainer row={point.xCoord} col={point.yCoord} color={point.color} />)
         })
 
@@ -36,7 +35,7 @@ class GameBoard extends Component {
         return (
             <div className="game-div-game-board">
                 <div className="game-section">
-                    <div className="game-div-clickable-board">
+                    <div className="game-div-clickable-board" >
                         {buttons}
                     </div>
                 </div>
