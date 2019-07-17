@@ -42,8 +42,8 @@ export default class GameBoardButton extends Component {
             }
 
             this.props.makeMove(this.props.game_id, dummyData);
+            this.props.handleClick();
         }
-
     }
 
     newColor(pointColor) {
@@ -96,8 +96,8 @@ export default class GameBoardButton extends Component {
     }
 
     render() {
-        console.log(this.props.color);
-        console.log(this.newColor(this.props.color));
+        // console.log(this.props.color);
+        // console.log(this.newColor(this.props.color));
 
         let containerStyle;
 
