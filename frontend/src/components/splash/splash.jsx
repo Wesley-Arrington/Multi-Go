@@ -18,8 +18,9 @@ export default class Splash extends Component {
         // see Wez
         let b = new Board;
 
+        // kc: this is where we manually set the # of players until we fix things later.
         let data = {
-            player_ids: ["1", "2"],
+            player_ids: ["1", "2", "3"],
             // grid: [{
             //     xCoord: 0,
             //     yCoord: 0,
