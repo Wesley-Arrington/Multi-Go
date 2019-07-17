@@ -22,8 +22,6 @@ class GameBoard extends Component {
         this.props.game.grid.forEach((point, idx) => {
             buttons.push(<GameBoardButtonContainer handleClick={this.handleClick} row={point.xCoord} col={point.yCoord} color={point.color} />)
         })
-
-        console.log(buttons)
         
         return buttons
     }

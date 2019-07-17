@@ -19,7 +19,6 @@ export default class SignUpButton extends Component {
     // }
 
     // toggleSignUpModal() {
-    //     console.log("toggleModal")
     //     if (this.state.signUpVisible) {
     //         this.setState({
     //             signUpVisible: false

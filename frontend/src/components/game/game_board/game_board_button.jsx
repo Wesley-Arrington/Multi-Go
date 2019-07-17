@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Game from '../GameLogic/game';
-import { NONAME } from 'dns';
 
 export default class GameBoardButton extends Component {
 
@@ -10,21 +9,15 @@ export default class GameBoardButton extends Component {
     }
 
     handleClick() {
-        // console.log("row:")
-        // console.log(this.props.row)
-        // console.log("column:")
-        // console.log(this.props.col)
-        // console.log("")
-        // console.log(this.props.color)
       
         // game logic here 
-        let g = new Game(this.props.grid, 3)
+        let g = new Game(this.props.grid, this.props.player_ids.length);
+
         // if valid move, then make changes to grid and persist to DB.
         // if invalid move, do nothing.
         if (g.placeStone(this.props.row, this.props.col, this.activeColor(parseInt(this.props.turn))) === true) {
             // result from the game logic file
             let grid = g.grid.flat().map((point) => {
-
                 return {
                     xCoord: point.position[0],
                     yCoord: point.position[1],
@@ -72,15 +65,6 @@ export default class GameBoardButton extends Component {
         }   
 
         return color;
-
-        // kc: it's a bit tirckier than i thought.
-        // kc: we do not want to use state b/c in the case where there is a capture, 
-        // kc: the captured stones do not reflect the correct css settings. 
-
-        // this.setState(color) {
-        //     bg-color: color
-        // }
-
     }
 
     activeColor(turnColor) {

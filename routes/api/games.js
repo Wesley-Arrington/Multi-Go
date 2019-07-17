@@ -34,7 +34,7 @@ router.post('/',
 			turn: req.body.turn 
 		});
 		
-		console.log(req.body);
+		// console.log(req.body);
 		newBoard.save().then(board => res.json(board));
 	}
 );

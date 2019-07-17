@@ -8,7 +8,6 @@ import GreenCircle from '../../../images/circular-shape-silhouette-green.png';
 export default class LobbyPlayers extends Component {
     
     render() {
-        // console.log(BlackCircle);
         return (
             <div className="lobby-players">
                 <div className="lobby-players-player">                

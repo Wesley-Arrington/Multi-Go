@@ -24,7 +24,6 @@ export default class ChatBox extends Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        // console.log("HANDLING THE SUBMIT");
         const socket = io('http://localhost:5000');
         socket.emit("sendingMessage", {message: this.state.newMessage});
         this.setState({ newMessage: ""})

@@ -1,6 +1,16 @@
 import React, { Component } from 'react'
 
 export default class LobbyRow extends Component {
+    constructor(props) {
+        super(props);
+        this.handleClick = this.handleClick.bind(this);
+    }
+
+    handleClick() {
+        // this.props.fetch information about game
+        // this.props.patch it with the 2nd/3rd player's id
+    }
+    
     render() {
         return (
             <div className="lobby-row">
@@ -14,7 +24,7 @@ export default class LobbyRow extends Component {
 
                 <div className="lobby-row-right-items">
                     <h5>2/3 Players</h5>
-                    <button className="blue-button" id="splash-page-join-lobby-button">Join Lobby</button>
+                    <button onClick={this.handleClick} className="blue-button" id="splash-page-join-lobby-button">Join Lobby</button>
                 </div>
             </div>
         )
