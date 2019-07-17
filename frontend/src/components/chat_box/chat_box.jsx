@@ -33,8 +33,6 @@ export default class ChatBox extends Component {
 
     componentDidMount() {
         const socket = io('http://localhost:5000');
-        // socket.emit("join", {name: Math.random()*100});
-        // socket.on("someoneJoined", (data) => { console.log(`${data.name} has joined room`) })
         socket.on("receiveMessage", (data) => {
             this.setState({ messages: this.state.messages.concat(data.message)});
             })

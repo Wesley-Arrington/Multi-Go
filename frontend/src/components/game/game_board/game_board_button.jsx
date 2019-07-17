@@ -80,8 +80,6 @@ export default class GameBoardButton extends Component {
     }
 
     render() {
-        // console.log(this.props.color);
-        // console.log(this.newColor(this.props.color));
 
         let containerStyle;
 

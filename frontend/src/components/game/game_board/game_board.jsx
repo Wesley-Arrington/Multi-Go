@@ -32,11 +32,8 @@ class GameBoard extends Component {
     }
 
     componentDidMount() {
-        console.log("Component Did Mount Called");
-
         const socket = io('http://localhost:5000');
         socket.on("receiveMove", (data) => {
-            // this.setState({ messages: this.state.messages.concat(data.message) });
             console.log("received move")
             this.props.getGame(this.props.game_id);
         })
