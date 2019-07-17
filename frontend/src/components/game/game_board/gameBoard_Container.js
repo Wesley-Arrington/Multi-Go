@@ -5,7 +5,6 @@ import GameBoard from './game_board';
 
 const msp = state => {
 
-    debugger
     return {
         game: state.entities.games
     }
