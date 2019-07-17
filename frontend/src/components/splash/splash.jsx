@@ -61,7 +61,7 @@ export default class Splash extends Component {
                 <div className="splash-page-create-lobby-div">
                     <h1 className="splash-page-app-title">Multi-Go</h1>
                     <h3 className="splash-page-app-sub-title">Play Go variations with friends</h3>
-                    {/* <button onClick={this.handleClick} className="blue-button" id="splash-page-create-lobby-button">Create Lobby</button> */}
+                        <button onClick={() => this.props.openModal('login')} className="blue-button" id="splash-page-create-lobby-button">Create Lobby</button>
                 </div>
                 <LobbyRows />
             </div>
