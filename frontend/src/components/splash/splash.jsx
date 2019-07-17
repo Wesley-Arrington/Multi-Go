@@ -14,19 +14,19 @@ export default class Splash extends Component {
     }
 
     handleClick() {
-        let data = {
-            player_ids: ["1", "2", "3"],
-            grid: [{
-                xCoord: 0,
-                yCoord: 0,
-                color: "R"
-            }],
-            turn: "0"
-        }
-
         // the parameters of players and board size should come from a user form
         // see Wez
         let b = new Board;
+
+        let data = {
+            player_ids: ["1", "2"],
+            // grid: [{
+            //     xCoord: 0,
+            //     yCoord: 0,
+            //     color: "R"
+            // }],
+            turn: "0"
+        }
 
         // flatten array and transform data
         let subData = b.grid.flat().map(point => {

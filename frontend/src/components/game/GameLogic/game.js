@@ -33,7 +33,6 @@ export default class Game {
                 this.grid[x][y].neighbors.push(this.checkBounds(x - 1, y));
             }
         }
-
     }
 
     displayNeighbors(x, y) {
@@ -93,7 +92,7 @@ export default class Game {
             if ((this.players === 2) &&
                 (captureGroups.length === 1) &&
                 (captureGroups[0].size === 1)) {
-                debugger
+
                 if (this.history === null) {
                     // kc: Ok, I understand the problem.
                     // kc: b/c we are creating new instances of game every move

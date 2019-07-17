@@ -56,8 +56,6 @@ export default class SignUp extends Component {
 
     switchToSignIn() {
         // this.props.closeModal();
-
-        console.log("CLICKING BUTTTTON")
         // dispatch(this.props.openModal('login'));
     }
 

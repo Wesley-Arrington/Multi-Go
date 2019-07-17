@@ -9,7 +9,8 @@ const msp = state => {
         game_id: state.entities.games.game_id,
         player_ids: state.entities.games.player_ids,
         grid: state.entities.games.grid,
-        turn: state.entities.games.turn
+        turn: state.entities.games.turn,
+        user_id: state.session.user.id
     }
 }
 
