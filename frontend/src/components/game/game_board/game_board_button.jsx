@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Game from '../GameLogic/game';
 import { NONAME } from 'dns';
+import io from 'socket.io-client'
 
 export default class GameBoardButton extends Component {
 
