@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Game from '../GameLogic/game';
 import { NONAME } from 'dns';
-import io from 'socket.io-client'
 
 export default class GameBoardButton extends Component {
 
@@ -43,20 +42,8 @@ export default class GameBoardButton extends Component {
             }
 
             this.props.makeMove(this.props.game_id, dummyData);
-            
-            const socket = io('http://localhost:5000');
-            socket.emit("sendingMove", { message: "moved" });
+            this.props.handleClick();
         }
-    }
-
-    componentDidMount() {
-        const socket = io('http://localhost:5000');
-        // socket.emit("join", {name: Math.random()*100});
-        // socket.on("someoneJoined", (data) => { console.log(`${data.name} has joined room`) })
-        socket.on("receiveMove", (data) => {
-            // this.setState({ messages: this.state.messages.concat(data.message) });
-            this.props.getGame();
-        })
     }
 
     newColor(pointColor) {
@@ -109,8 +96,8 @@ export default class GameBoardButton extends Component {
     }
 
     render() {
-        console.log(this.props.color);
-        console.log(this.newColor(this.props.color));
+        // console.log(this.props.color);
+        // console.log(this.newColor(this.props.color));
 
         let containerStyle;
 
