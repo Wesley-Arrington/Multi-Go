@@ -22,7 +22,6 @@ export default class GameBoardButton extends Component {
         // if valid move, then make changes to grid and persist to DB.
         // if invalid move, do nothing.
         if (g.placeStone(this.props.row, this.props.col, this.activeColor(parseInt(this.props.turn))) === true) {
-
             // result from the game logic file
             let grid = g.grid.flat().map((point) => {
 
