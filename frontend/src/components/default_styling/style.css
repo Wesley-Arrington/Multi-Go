@@ -47,6 +47,13 @@ p {
     flex-direction: column;
 }
 
+.simple-column-center-y {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100vh;
+}
+
 .simple-column-x-center {
     display: flex;
     flex-direction: column;
@@ -54,6 +61,14 @@ p {
     justify-items: center;
     align-content: center; */
     align-items: center;
+}
+
+.simple-column-x-center-center-y {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
 
 .simple-row {
