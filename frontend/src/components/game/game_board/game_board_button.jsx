@@ -42,8 +42,20 @@ export default class GameBoardButton extends Component {
             }
 
             this.props.makeMove(this.props.game_id, dummyData);
+            
+            const socket = io('http://localhost:5000');
+            socket.emit("sendingMove", { message: "moved" });
         }
+    }
 
+    componentDidMount() {
+        const socket = io('http://localhost:5000');
+        // socket.emit("join", {name: Math.random()*100});
+        // socket.on("someoneJoined", (data) => { console.log(`${data.name} has joined room`) })
+        socket.on("receiveMove", (data) => {
+            // this.setState({ messages: this.state.messages.concat(data.message) });
+            this.props.getGame();
+        })
     }
 
     newColor(pointColor) {
