@@ -1,4 +1,6 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import GameLogic from '../GameLogic/board';
+import Board from '../GameLogic/board';
 
 export default class GameBoardButton extends Component {
 
@@ -11,6 +13,12 @@ export default class GameBoardButton extends Component {
         switch (this.props.color) {
             case "R":
                 color = "red";
+                break
+            case "G":
+                color = "green";
+                break
+            case "Blu":
+                color = "blue";
                 break
             case "W":
                 color = "white";
@@ -40,14 +48,36 @@ export default class GameBoardButton extends Component {
             // just placeholder for testing
             bgColor: "blue"
             // Set this to current player color
-            // should trigger a patch AXIOS request to backend
         })
 
+        let b = new Board()
+
+        // insert game logic here 
+        if (true) {
+            // result from the game logic file
+            let grid = this.props.grid.map((point) => {
+                return {
+                    xCoord: point.xCoord,
+                    yCoord: point.yCoord,
+                    color: point.color
+                }
+            })
+
+            
+            let dummyData = {
+                player_ids: this.props.player_ids,
+                grid: this.props.grid,
+                // turn: this.props.turn
+                turn: "10"
+                
+            }
+
+            this.props.makeMove(this.props.game_id, dummyData);
+        }
 
     }
 
     render() {
-
         return (
             <div>
                 <div style={{backgroundColor: this.state.bgColor}} onClick={this.handleClick} className={"game-div-clickable-board-go-piece"}></div>

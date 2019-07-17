@@ -1,10 +1,10 @@
-import { postGame, getGame } from '../util/game_util';
+import { postGame, getGame, updateGame } from '../util/game_util';
 
 export const NEW_GAME = 'NEW_GAME';
 export const FETCH_GRID = 'FETCH_GRID';
+export const PATCH_GAME = 'PATCH_GAME';
 
 export const newGame = (data) => {
-
     return {
         type: NEW_GAME,
         // why is data nested twice?
@@ -13,11 +13,17 @@ export const newGame = (data) => {
 }
 
 export const fetchGrid = (game) => {
-    // debugger
     return {
         type: FETCH_GRID,
         game: game.data
     }
+}
+
+export const changeGame = (game) => {
+	return {
+        type: PATCH_GAME,
+        game: game.data 
+	}
 }
 
 export const fetchGame = (id) => dispatch => {
@@ -26,4 +32,8 @@ export const fetchGame = (id) => dispatch => {
 
 export const createGame = (data) => dispatch => {
     return postGame(data).then((data) => dispatch(newGame(data)))
+}
+
+export const patchGame = (game_id, grid) => dispatch => {
+    return updateGame(game_id, grid).then(data => dispatch(changeGame(data)))
 }
