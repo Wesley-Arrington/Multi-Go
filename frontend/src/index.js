@@ -49,6 +49,7 @@ if (localStorage.jwtToken) {
 // }
 
 window.dispatch = store.dispatch;
+window.logout = logout;
 window.store = store;
 
 ReactDOM.render(<Root store={store}/>, document.getElementById('root'));
