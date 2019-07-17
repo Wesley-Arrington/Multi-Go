@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import GameLogic from '../GameLogic/board';
-import Board from '../GameLogic/board';
+import Game from '../GameLogic/game';
 
 export default class GameBoardButton extends Component {
 
@@ -50,7 +49,7 @@ export default class GameBoardButton extends Component {
             // Set this to current player color
         })
 
-        let b = new Board()
+        let g = new Game(this.props.grid)
 
         // insert game logic here 
         if (true) {
@@ -63,13 +62,15 @@ export default class GameBoardButton extends Component {
                 }
             })
 
-            
+               
+            let newTurn = (parseInt(this.props.turn) + 1) % this.props.player_ids.length;
+
             let dummyData = {
                 player_ids: this.props.player_ids,
                 grid: this.props.grid,
                 // turn: this.props.turn
-                turn: "10"
-                
+                turn: "" + newTurn
+   
             }
 
             this.props.makeMove(this.props.game_id, dummyData);

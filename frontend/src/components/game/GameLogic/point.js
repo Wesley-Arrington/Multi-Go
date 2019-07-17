@@ -1,4 +1,4 @@
-class Point {
+export default class Point {
     // constructor( size, above, right, below, left , color="empty") {
     constructor(x, y, color = "empty") {
         this.color = color;
@@ -16,5 +16,3 @@ class Point {
 
 }
 
-module.exports = Point;
-// export default Point;

@@ -28,6 +28,8 @@ class Game extends Component {
                 }], 
             turn: "1"}
 
+        // the parameters of players and board size should come from a user form
+        // see Wez
         let b = new Board;
 
         // flatten array and transform data
