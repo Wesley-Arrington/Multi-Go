@@ -16,6 +16,7 @@ export default class Splash extends Component {
     handleClick() {
         // the parameters of players and board size should come from a user form
         // see Wez
+        
         let b = new Board;
 
         // kc: this is where we manually set the # of players until we fix things later.
@@ -35,12 +36,14 @@ export default class Splash extends Component {
         })
 
         data.grid = subData;
-
-        this.props.newGame(data);
+        // 
+        this.props.newGame(data).then((game) => this.props.history.push(`/lobby/${game.game_id}/`));
     }
 
     render() {
         let { isLoggedIn } = this.props
+        // debugger;
+        // let currentGame = this.store.getState().entities;
         if (isLoggedIn) {
         return (
             <div className="splash-page">
@@ -48,9 +51,7 @@ export default class Splash extends Component {
                 <div className="splash-page-create-lobby-div">
                     <h1 className="splash-page-app-title">Multi-Go</h1>
                     <h3 className="splash-page-app-sub-title">Play Go variations with friends</h3>
-                    <Link to="/lobby">
                     <button onClick={this.handleClick} className="blue-button" id="splash-page-create-lobby-button">Create Lobby</button>
-                    </Link>
                 </div>
                 <LobbyRows />
             </div>

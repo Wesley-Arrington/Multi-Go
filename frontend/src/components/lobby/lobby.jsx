@@ -6,6 +6,18 @@ import NavBar from '../nav_bar/nav_bar'
 
 export default class Lobby extends Component {
 
+    constructor(props) {
+        super(props);
+
+        this.handleClick = this.handleClick.bind(this);
+    }
+
+    handleClick() {
+        debugger;
+        let gameId = this.props.gameId;
+        this.props.history.push(`/game/${gameId}`)
+    }
+
     render() {
         return (
             <div className="lobby-page">
@@ -19,9 +31,7 @@ export default class Lobby extends Component {
                         <EditGame />
                         <LobbyPlayers />
                     </div>
-                    <Link to="/game">
-                        <button className="blue-button" id="lobby-start-game-button">Start Game</button>
-                    </Link>
+                    <button onClick={this.handleClick} className="blue-button" id="lobby-start-game-button">Start Game</button>
                 </div>
             </div>
         )
