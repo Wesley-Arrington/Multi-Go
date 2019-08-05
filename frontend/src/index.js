@@ -28,9 +28,13 @@ if (localStorage.jwtToken) {
         store.dispatch(logout());
         window.location.href = '/login';
     } 
+    window.dispatch = store.dispatch;
+    window.store = store;
 } else {
     // if this is a first time user, start w/ emptys tore
     store = configureStore({});
+    window.dispatch = store.dispatch;
+    window.store = store;
 }
 
 

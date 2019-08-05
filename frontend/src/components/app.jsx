@@ -5,7 +5,7 @@ import { Route, Switch } from 'react-router-dom';
 
 import SplashContainer from './splash/splash_container';
 import GameContainer from './game/game_container'
-import Lobby from './lobby/lobby'
+import LobbyContainer from './lobby/lobby_container'
 import './default_styling/reset.css'
 import './default_styling/style.css'
 import Modal from './nav_bar/modal'
@@ -16,8 +16,8 @@ const App = () => (
         <Modal />
         <Switch>
             <Route exact path="/" component={SplashContainer} />
-            <Route exact path="/lobby" component={Lobby} />
-            <Route exact path="/game" component={GameContainer} />
+            <Route exact path="/lobby/:gameId" component={LobbyContainer} />
+            <Route exact path="/game/:gameId" component={GameContainer} />
         </Switch>
     </div>
 );
