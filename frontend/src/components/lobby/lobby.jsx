@@ -13,7 +13,6 @@ export default class Lobby extends Component {
     }
 
     handleClick() {
-        debugger;
         let gameId = this.props.gameId;
         this.props.history.push(`/game/${gameId}`)
     }
