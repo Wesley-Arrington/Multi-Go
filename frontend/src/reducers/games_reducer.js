@@ -1,4 +1,4 @@
-import { NEW_GAME, FETCH_GRID, PATCH_GAME } from '../actions/game_action';
+import { NEW_GAME, FETCH_GRID, PATCH_GAME, GET_VALID_GAMES } from '../actions/game_action';
 
 import merge from 'lodash/merge';
 
@@ -23,6 +23,14 @@ function gamesReducer(state = {}, action) {
             newState = merge({}, state);
             newState["grid"] = action.game.grid;
             newState["turn"] = action.game.turn;
+            return newState;
+        case GET_VALID_GAMES:
+            newState = merge({}, state);
+            newState = JSON.parse(JSON.stringify(action.games))
+            // debugger;
+            // newState["grid"] = action.games.grid;
+            // newState["turn"] = action.games.turn;
+            // newState["player_ids"] = action.games.player_ids;
             return newState;
         default:
             return state
