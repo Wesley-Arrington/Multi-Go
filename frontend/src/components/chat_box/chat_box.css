@@ -10,6 +10,14 @@
     background-color: #F5F5F5;
 }
 
+.chat-box-chat-section {
+    padding-top: 10px;
+    padding-left: 15px;
+    height: 360px;
+    overflow: scroll;
+    /* overflow: scroll; */
+}
+
 .chat-box-nav-bar {
     color: white;
     background-color: #03A9F4;
@@ -57,7 +65,7 @@
 }
 
 .chat-box-message {
-    padding-left: 8px;
+    /* padding-left: 8px; */
 }
 
 /* .minus-icon {
