@@ -1,8 +1,16 @@
-import { postGame, getGame, updateGame } from '../util/game_util';
+import { postGame, getGame, updateGame, getGames } from '../util/game_util';
 
 export const NEW_GAME = 'NEW_GAME';
 export const FETCH_GRID = 'FETCH_GRID';
 export const PATCH_GAME = 'PATCH_GAME';
+export const GET_VALID_GAMES = "GET_VALID_GAMES";
+
+export const receiveValidGames = (games) => {
+    return {
+        type: GET_VALID_GAMES,
+        games: games.data
+    }
+}
 
 export const newGame = (data) => {
     return {
@@ -24,6 +32,15 @@ export const changeGame = (game) => {
         type: PATCH_GAME,
         game: game.data 
 	}
+}
+
+export const getValidGames = () => dispatch => {
+    return getGames().then((games) => {
+        // debugger;
+        // console.log("hello")
+        dispatch(receiveValidGames(games))
+        }
+     )
 }
 
 export const fetchGame = (id) => dispatch => {

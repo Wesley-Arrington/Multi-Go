@@ -12,6 +12,7 @@ export default class LobbyRow extends Component {
     }
     
     render() {
+        // debugger;
         return (
             <div className="lobby-row">
                 <h3 className="lobby-row-title">Server Title</h3>
@@ -23,8 +24,8 @@ export default class LobbyRow extends Component {
                 </div>
 
                 <div className="lobby-row-right-items">
-                    <h5>2/3 Players</h5>
-                    <button onClick={this.handleClick} className="blue-button" id="splash-page-join-lobby-button">Join Lobby</button>
+                    <h5>{this.props.playerCount}/5 Players</h5>
+                    <button onClick={this.handleClick} className="blue-button" id="splash-page-join-lobby-button">Join Game</button>
                 </div>
             </div>
         )
