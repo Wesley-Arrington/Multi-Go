@@ -18,7 +18,12 @@ class GameBoard extends Component {
         const socket = io('http://localhost:5000');
         socket.on("receiveMove", (data) => {
             console.log("received move")
-            this.props.getGame(this.props.game_id);
+            console.log(data.x);
+            console.log(data.y);
+            // debugger;
+            this.game.placeStone(data.x, data.y, "Black");
+            // this.setupUI();
+            // this.props.getGame(this.props.game_id);
         })
 
         this.props.getGame(this.props.game_id);
@@ -30,6 +35,7 @@ class GameBoard extends Component {
     }
 
     drawBoard() {
+        // debugger;
         // Box width
         let bw = this.size * 40 + 2 * this.padding;
         // Box height
@@ -89,6 +95,9 @@ class GameBoard extends Component {
             this.ctx.fill();
             this.ctx.stroke();
 
+            const socket = io('http://localhost:5000');
+            socket.emit("sendingMove", { message: "moved", x: Math.floor(event.clientX / 40), y: Math.floor(event.clientY / 40) });
+
 
             // console.log(this.game)
 
@@ -96,8 +105,7 @@ class GameBoard extends Component {
     }
 
     handleClick() {
-            const socket = io('http://localhost:5000');
-            socket.emit("sendingMove", { message: "moved" });
+            
     }
 
     render() {
