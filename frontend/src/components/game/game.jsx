@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import GameBoardContainer from './game_board/gameBoard_Container'
+
 import Players from './players/players'
 import ChatBoxContainer from '../chat_box/chat_box_container'
 import './game.css'
+
 
 // KC: I think when we click Start Game, we want to initialize a new Game from the GameLogic directory
 // KC: Then, persist the new Game into the DB.
@@ -19,14 +21,15 @@ class Game extends Component {
 
     render() {
 
-        if (typeof this.props.game_id.game_id !== "string") return null;
+        // if (typeof this.props.game_id.game_id !== "string") return null;
 
         return (
             <div className="game-div">
-                <GameBoardContainer game_id={this.props.game_id.game_id}/>
+                {/* <SquareBoard size={19 - 1} game_id={this.props.game_id.game_id}/> */}
+                <GameBoardContainer/>
                 <div>
-                    <Players />
-                    <ChatBoxContainer />
+                    {/* <Players /> */}
+                    {/* <ChatBoxContainer /> */}
                 </div>
             </div>
         )

@@ -13,7 +13,6 @@ const msp = state => {
 const mdp = dispatch => {
     return {
         getGame: (id) => dispatch(fetchGame(id))
-
     }
 }
 

@@ -1,15 +1,15 @@
 import Point from './point';
 
 export default class Game {
-    constructor(inputGrid, players = 2, size = 19) {
+    constructor(players = 2, size = 19) {
         this.size = size;
         this.players = players;
         this.history = null;
-        this.grid = this.setupBoard(inputGrid);
+        this.grid = this.setupBoard();
         this.setNeighbors();
     }
 
-    setupBoard(inputGrid) {
+    setupBoard() {
         // KC: really? no syntax to initialize a 2d array in js?
         let grid = new Array(this.size);
         
@@ -20,9 +20,15 @@ export default class Game {
         // if (!inputGrid) {
         //     // do nothing
         // } else {
-            inputGrid.map((point) => {
-                grid[point.xCoord][point.yCoord] = new Point(point.xCoord, point.yCoord, point.color);
-            })
+
+        for (let x=0; x<this.size; x++) {
+            for (let y=0; y<this.size; y++) {
+                grid[x][y] = new Point(x,y)
+            }
+        }
+            // return grid.map((point) => {
+            //     return new Point(point.xCoord, point.yCoord, point.color);
+            // })
         // }
 
         return grid;

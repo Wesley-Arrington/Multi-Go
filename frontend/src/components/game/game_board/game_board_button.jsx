@@ -9,7 +9,6 @@ export default class GameBoardButton extends Component {
     }
 
     handleClick() {
-      
         // game logic here 
         let g = new Game(this.props.grid, this.props.player_ids.length);
 

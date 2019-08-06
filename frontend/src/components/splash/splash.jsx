@@ -9,34 +9,39 @@ export default class Splash extends Component {
 
     constructor(props) {
         super(props)
-
         this.handleClick = this.handleClick.bind(this);
     }
 
     handleClick() {
         // the parameters of players and board size should come from a user form
         // see Wez
-        
-        let b = new Board;
 
-        // kc: this is where we manually set the # of players until we fix things later.
-        let data = {
-            player_ids: ["1", "2", "3"],
-            // grid: [{
-            //     xCoord: 0,
-            //     yCoord: 0,
-            //     color: "R"
-            // }],
-            turn: "0"
-        }
 
-        // flatten array and transform data
-        let subData = b.grid.flat().map(point => {
-            return { xCoord: point.position[0], yCoord: point.position[1], color: point.color }
-        })
+        // KC: commented out for now in order to develop canvas grid
 
-        data.grid = subData;
-        // 
+        // let b = new Board;
+
+        // // kc: this is where we manually set the # of players until we fix things later.
+        // let data = {
+        //     player_ids: ["1", "2", "3"],
+        //     // grid: [{
+        //     //     xCoord: 0,
+        //     //     yCoord: 0,
+        //     //     color: "R"
+        //     // }],
+        //     turn: "0"
+        // }
+
+        // // flatten array and transform data
+        // let subData = b.grid.flat().map(point => {
+        //     return { xCoord: point.position[0], yCoord: point.position[1], color: point.color }
+        // })
+
+
+        // data.grid = subData;
+
+        // this.props.newGame(data);
+
         this.props.newGame(data).then((game) => this.props.history.push(`/lobby/${game.game_id}/`));
     }
 
