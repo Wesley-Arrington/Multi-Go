@@ -17,9 +17,13 @@ export default class Game {
             grid[i] = new Array(this.size);
         }
 
-        inputGrid.map((point) => {
-            grid[point.xCoord][point.yCoord] = new Point(point.xCoord, point.yCoord, point.color);
-        })
+        // if (!inputGrid) {
+        //     // do nothing
+        // } else {
+            inputGrid.map((point) => {
+                grid[point.xCoord][point.yCoord] = new Point(point.xCoord, point.yCoord, point.color);
+            })
+        // }
 
         return grid;
     }

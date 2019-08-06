@@ -36,6 +36,7 @@ export default class Splash extends Component {
 
         data.grid = subData;
 
+        // KC: commented out for now in order to develop canvas grid
         this.props.newGame(data);
     }
 

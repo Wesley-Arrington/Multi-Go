@@ -3,18 +3,12 @@ import GameBoardButtonContainer from './gameBoardButton_Container';
 import io from 'socket.io-client';
 
 class GameBoard extends Component {
-
     constructor(props) {
         super(props)
         this.state = {};
-        this.handleClick = this.handleClick.bind(this);
-        this.createButtons = this.createButtons.bind(this)
+        // this.handleClick = this.handleClick.bind(this);
+        // this.createButtons = this.createButtons.bind(this)
     }
-
-    // componentDidMount() {
-    //     this.props.getGame(this.props.game_id)
-    //         // .then( res => this.setState({game: res }));
-    // }
 
     createButtons() {        
         let buttons = []
@@ -42,7 +36,6 @@ class GameBoard extends Component {
     }
 
     render() {
-
         if (this.props.game.grid === undefined) return null;
         
         let buttons = this.createButtons();
