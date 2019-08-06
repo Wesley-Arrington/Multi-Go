@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import NavBar from '../nav_bar/nav_bar';
-import LobbyRows from './lobby_rows/lobby_rows'
+import LobbyRowsContainer from './lobby_rows/lobby_rows_container'
 import './splash.css';
 import Board from '../game/GameLogic/board';
 
@@ -40,6 +40,11 @@ export default class Splash extends Component {
         this.props.newGame(data).then((game) => this.props.history.push(`/lobby/${game.game_id}/`));
     }
 
+    componentDidMount() {
+        // debugger;
+        this.props.getValidGames();
+    }
+
     render() {
         let { isLoggedIn } = this.props
         // debugger;
@@ -53,7 +58,7 @@ export default class Splash extends Component {
                     <h3 className="splash-page-app-sub-title">Play Go variations with friends</h3>
                     <button onClick={this.handleClick} className="blue-button" id="splash-page-create-lobby-button">Create Lobby</button>
                 </div>
-                <LobbyRows />
+                <LobbyRowsContainer />
             </div>
         )
         } else {
@@ -65,7 +70,7 @@ export default class Splash extends Component {
                     <h3 className="splash-page-app-sub-title">Play Go variations with friends</h3>
                         <button onClick={() => this.props.openModal('login')} className="blue-button" id="splash-page-create-lobby-button">Create Lobby</button>
                 </div>
-                <LobbyRows />
+                <LobbyRowsContainer />
             </div>
             )
         }
