@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import GameBoardContainer from './game_board/gameBoard_Container'
 
-import SquareBoard from './game_board/square_board/square_board'
 import Players from './players/players'
 import ChatBoxContainer from '../chat_box/chat_box_container'
 import './game.css'
@@ -22,12 +21,12 @@ class Game extends Component {
 
     render() {
 
-        if (typeof this.props.game_id.game_id !== "string") return null;
+        // if (typeof this.props.game_id.game_id !== "string") return null;
 
         return (
             <div className="game-div">
                 {/* <SquareBoard size={19 - 1} game_id={this.props.game_id.game_id}/> */}
-                <GameBoardContainer game_id={this.props.game_id.game_id}/>
+                <GameBoardContainer/>
                 <div>
                     {/* <Players /> */}
                     {/* <ChatBoxContainer /> */}
