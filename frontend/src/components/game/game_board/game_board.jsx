@@ -89,9 +89,7 @@ class GameBoard extends Component {
             this.ctx.fill();
             this.ctx.stroke();
 
-
             // console.log(this.game)
-
         })
     }
 
