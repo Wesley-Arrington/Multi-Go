@@ -17,7 +17,7 @@ export default class LobbyRows extends Component {
         
 
         return (
-            <div className="width-100">
+            <div className="width-100-column-reverse">
                 {rows}
             </div>
         )
