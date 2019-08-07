@@ -44,12 +44,14 @@ class GameBoard extends Component {
         let x = 0;
         let y = 0;
 
-        // for (let i = 0; i <= this.size; i++) {
-        //     this.ctx.moveTo(x + this.padding, this.padding);
-        //     this.ctx.lineTo(x + this.padding, bh - this.padding);
-        //     this.ctx.stroke();
-        //     x += 40
-        // }
+        this.ctx.beginPath();
+
+        for (let i = 0; i <= this.size; i++) {
+            this.ctx.moveTo(x + this.padding, this.padding);
+            this.ctx.lineTo(x + this.padding, bh - this.padding);
+            this.ctx.stroke();
+            x += 40
+        }
 
         for (let i = 0; i <= this.size; i++) {
             this.ctx.moveTo(this.padding, y + this.padding);
@@ -99,7 +101,7 @@ class GameBoard extends Component {
             const socket = io('http://localhost:5000');
             socket.emit("sendingMove", { message: "moved", x: xCoord, y: yCoord, color: "" });
 
-            // console.log(this.game)
+            console.log(this.game)
         })
     }
 
