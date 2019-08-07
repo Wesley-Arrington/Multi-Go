@@ -16,6 +16,7 @@ const mdp = dispatch => {
 const mapStateToProps = (state, ownProps) => {
     return {
         isLoggedIn: state.session.isAuthenticated,
+        currentUser: state.session.user
         // games: Object.values(state.entities.games)
     };
 };
