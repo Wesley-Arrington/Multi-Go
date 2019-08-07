@@ -9,7 +9,7 @@ class GameBoard extends Component {
         this.state = {};
         this.padding = 20;
         this.size = 19-1
-        this.game = new Game(2,this.size+1)
+        this.game = new Game(this.props.game.players.length,this.size+1)
     }
 
     componentDidMount() {

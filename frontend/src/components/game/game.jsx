@@ -30,7 +30,7 @@ class Game extends Component {
                 <GameBoardContainer game_id={this.props.game.game_id}/>
                 <div>
                     <PlayersContainer players={this.props.game.player_ids}/>
-                    {/* <ChatBoxContainer /> */}
+                    <ChatBoxContainer />
                 </div>
             </div>
         )
