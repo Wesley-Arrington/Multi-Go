@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import GameBoardButtonContainer from './gameBoardButton_Container';
+import GameBoardButtonContainer from './del_gameBoardButton_Container';
 import io from 'socket.io-client';
 import Game from '../GameLogic/gameWebSocks';
 
@@ -21,14 +21,14 @@ class GameBoard extends Component {
         socket.on("receiveMove", (data) => {
             console.log("received move")
             console.log(data);
-            this.game.placeStone(data.x, data.y, "black");
+            this.game.placeStone(data.x, data.y, data.color);
             this.ctx.clearRect(0,0,this.size*40+this.padding*2,this.size*40+this.padding*2)
             this.drawBoard();
 
             // this.props.getGame(this.props.game_id);
         })
 
-        this.props.getGame(this.props.game_id);
+        this.props.getGame(this.props.game.id);
 
         this.drawBoard();
         this.setupUI();
@@ -40,7 +40,7 @@ class GameBoard extends Component {
         // Box height
         let bh = this.size * 40 + 2 * this.padding;
 
-        // this.ctx.strokeStyle = "black";
+        // this.ctx.strokeStyle = "red";
         let x = 0;
         let y = 0;
 
@@ -49,18 +49,16 @@ class GameBoard extends Component {
         for (let i = 0; i <= this.size; i++) {
             this.ctx.moveTo(x + this.padding, this.padding);
             this.ctx.lineTo(x + this.padding, bh - this.padding);
-            this.ctx.stroke();
             x += 40
         }
 
         for (let i = 0; i <= this.size; i++) {
             this.ctx.moveTo(this.padding, y + this.padding);
             this.ctx.lineTo(bw - this.padding, y + this.padding);
-            this.ctx.stroke();
             y += 40
         }
 
-        // this.ctx.stroke();
+        this.ctx.stroke();
 
         this.game.grid.forEach((row, idx1) => {
             row.forEach((point, idx2) => {
@@ -75,17 +73,10 @@ class GameBoard extends Component {
         this.canvas1.addEventListener("mousemove", event => {
 
             if (this.xCoord !== Math.floor(event.clientX / 40) || this.yCoord !== Math.floor(event.clientY / 40)) {
-                // rerender Board;
                 this.ctx.clearRect(0, 0, this.size * 40 + 2 * this.padding, this.size * 40 + 2 * this.padding)
-                // const something = new Promise();
                 this.drawBoard();
-                // debugger
-                //yellow circle
-                // console.log(Math.floor(event.clientX/40))
-                // console.log(Math.floor(event.clientY/40))
                 this.drawCircle(Math.floor(event.clientX/40)*40+20, Math.floor(event.clientY/40)*40+20, "Yellow");
             }
-            // debugger
             this.xCoord = Math.floor(event.clientX / 40)
             this.yCoord = Math.floor(event.clientY / 40)
         })
@@ -93,15 +84,32 @@ class GameBoard extends Component {
         this.canvas1.addEventListener("click", event => {
             let xCoord = Math.floor(event.clientX/40)
             let yCoord = Math.floor(event.clientY/40)
-            this.game.placeStone(xCoord, yCoord, "black")
+
+            let stoneColor;
+            switch (this.props.game.turn % this.props.game.players.length) {
+                case 0:
+                    stoneColor="red";
+                    break;
+                case 1:
+                    stoneColor = "green";
+                    break;
+                case 2:
+                    stoneColor = "blue";
+                    break;
+            }
+
+            this.game.placeStone(xCoord, yCoord, stoneColor)
             
             this.ctx.clearRect(0, 0, this.size * 40 + 2 * this.padding, this.size * 40 + 2 * this.padding)
             this.drawBoard()
 
-            const socket = io('http://localhost:5000');
-            socket.emit("sendingMove", { message: "moved", x: xCoord, y: yCoord, color: "" });
+            // update frontend Store
+            this.props.updateTurn();
 
-            console.log(this.game)
+            const socket = io('http://localhost:5000');
+            socket.emit("sendingMove", { message: "moved", x: xCoord, y: yCoord, color: stoneColor, turn: `${this.props.game.turn}` });
+
+            // console.log(this.game)
         })
     }
 

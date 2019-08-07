@@ -1,7 +1,5 @@
 import { NEW_GAME, FETCH_GRID, PATCH_GAME, GET_VALID_GAMES } from '../actions/game_action';
-
 import merge from 'lodash/merge';
-
 
 function gamesReducer(state = {}, action) {
     Object.freeze(state);

@@ -6,7 +6,7 @@ const msp = state => {
     // let gameId = ownProps.match.params.gameId;
 
     return {
-        game_id: state.entities.games
+        game: state.entities.games
     }
 }
 
