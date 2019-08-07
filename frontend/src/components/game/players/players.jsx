@@ -24,7 +24,6 @@ class Players extends Component {
             )
         })
 
-
         switch (this.props.game.turn % this.props.game.players.length) {
             case 0:
                 players[0] = 

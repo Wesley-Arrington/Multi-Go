@@ -98,17 +98,19 @@ class GameBoard extends Component {
                     break;
             }
 
-            this.game.placeStone(xCoord, yCoord, stoneColor)
-            
-            this.ctx.clearRect(0, 0, this.size * 40 + 2 * this.padding, this.size * 40 + 2 * this.padding)
-            this.drawBoard()
+            // kc: if this move is valid then do the rest, if not do nothing
+            if (this.game.placeStone(xCoord, yCoord, stoneColor)) {
 
-            // update frontend Store
-            this.props.updateTurn();
+                this.ctx.clearRect(0, 0, this.size * 40 + 2 * this.padding, this.size * 40 + 2 * this.padding)
+                this.drawBoard()
 
-            const socket = io('http://localhost:5000');
-            socket.emit("sendingMove", { message: "moved", x: xCoord, y: yCoord, color: stoneColor, turn: `${this.props.game.turn}` });
+                // update frontend Store
+                this.props.updateTurn();
 
+                const socket = io('http://localhost:5000');
+                socket.emit("sendingMove", { message: "moved", x: xCoord, y: yCoord, color: stoneColor, turn: `${this.props.game.turn}` });
+            }
+        
             // console.log(this.game)
         })
     }
