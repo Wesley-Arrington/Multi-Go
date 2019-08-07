@@ -28,8 +28,8 @@ class Game extends Component {
                 {/* <SquareBoard size={19 - 1} game_id={this.props.game_id.game_id}/> */}
                 <GameBoardContainer/>
                 <div>
-                    {/* <Players /> */}
-                    {/* <ChatBoxContainer /> */}
+                    <Players />
+                    <ChatBoxContainer />
                 </div>
             </div>
         )
