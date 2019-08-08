@@ -16,6 +16,7 @@ const mdp = dispatch => {
         // newGame: (data) => dispatch(createGame(data)),
         joinGame: (data) => dispatch(patchGame(data))
     }
+    
 }
 
 export default connect(msp, mdp)(LobbyRow);
