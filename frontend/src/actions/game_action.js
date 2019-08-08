@@ -5,6 +5,14 @@ export const FETCH_GRID = 'FETCH_GRID';
 export const PATCH_GAME = 'PATCH_GAME';
 export const GET_VALID_GAMES = "GET_VALID_GAMES";
 
+export const UPDATE_TURN = 'UPDATE_TURN';
+
+export const updateTurn = () => {
+    return {
+        type: UPDATE_TURN
+    }
+}
+
 export const receiveValidGames = (games) => {
     return {
         type: GET_VALID_GAMES,
@@ -36,8 +44,6 @@ export const changeGame = (game) => {
 
 export const getValidGames = () => dispatch => {
     return getGames().then((games) => {
-        // debugger;
-        // console.log("hello")
         dispatch(receiveValidGames(games))
         }
      )

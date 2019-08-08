@@ -1,7 +1,5 @@
 import { NEW_GAME, FETCH_GRID, PATCH_GAME, GET_VALID_GAMES } from '../actions/game_action';
-
 import merge from 'lodash/merge';
-
 
 function gamesReducer(state = {}, action) {
     Object.freeze(state);
@@ -24,6 +22,7 @@ function gamesReducer(state = {}, action) {
             newState["grid"] = action.game.grid;
             newState["turn"] = action.game.turn;
             return newState;
+            
         case GET_VALID_GAMES:
             newState = merge({}, state);
             newState = JSON.parse(JSON.stringify(action.games))

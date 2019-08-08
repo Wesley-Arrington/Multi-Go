@@ -1,18 +1,20 @@
 import { connect } from 'react-redux';
-import { fetchGame } from '../../../actions/game_action';
+import { fetchGame, updateTurn, patchGame } from '../../../actions/game_action';
 
 import GameBoard from './game_board';
 
 const msp = state => {
 
     return {
-        game: state.entities.games
+        game: state.entities.game
     }
 }
 
 const mdp = dispatch => {
     return {
-        getGame: (id) => dispatch(fetchGame(id))
+        getGame: (id) => dispatch(fetchGame(id)),
+        makeMove: (id, grid) => dispatch(patchGame(id, grid)),
+        updateTurn: () => dispatch(updateTurn())
     }
 }
 

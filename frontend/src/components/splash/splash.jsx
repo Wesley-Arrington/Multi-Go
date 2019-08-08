@@ -16,7 +16,6 @@ export default class Splash extends Component {
         // the parameters of players and board size should come from a user form
         // see Wez
 
-
         // KC: commented out for now in order to develop canvas grid
 
         // let b = new Board;
