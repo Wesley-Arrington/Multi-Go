@@ -31,7 +31,8 @@ export default class ChatBox extends Component {
         // let { currentUser } = this.props;
         
         // socket.emit("sendingMessage", { message: currentUser.email + this.state.newMessage});
-        socket.emit("sendingMessage", { message: this.state.newMessage});
+        // debugger;
+        socket.emit("sendingMessage", { message: this.state.newMessage, author: this.props.currentUser.email});
         this.setState({ newMessage: ""})
         // this.props.login(this.state).then(this.props.closeModal);
         //.then(() => this.props.history.push('/user'));
@@ -40,7 +41,7 @@ export default class ChatBox extends Component {
     componentDidMount() {
         const socket = io('http://localhost:5000');
         socket.on("receiveMessage", (data) => {
-            this.setState({ messages: this.state.messages.concat(data.message)});
+            this.setState({ messages: this.state.messages.concat(data.author).concat(data.message)});
             })
     }
 
