@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { patchGame } from '../../../actions/game_action';
 import { fetchGame } from '../../../actions/game_action';
 
-import GameBoardButton from './del_game_board_button';
+import GameBoardButton from './DEL_game_board_button';
 
 const msp = state => {
 

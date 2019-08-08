@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import GameBoardButtonContainer from './del_gameBoardButton_Container';
+import GameBoardButtonContainer from './DEL_gameBoardButton_Container';
 import io from 'socket.io-client';
 import Game from '../GameLogic/gameWebSocks';
 
