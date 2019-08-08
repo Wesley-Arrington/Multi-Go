@@ -109,8 +109,27 @@ class GameBoard extends Component {
                 // kc: update frontend Store, may have to revisit later
                 // this.props.updateTurn();
 
+                // websocket communication
                 const socket = io('http://localhost:5000');
                 socket.emit("sendingMove", { message: "moved", x: xCoord, y: yCoord, color: stoneColor, turn: `${this.props.game.turn}` });
+
+
+                // backend Patch data
+                let grid = this.game.grid.flat().map(point => {
+                    return {
+                        xCoord: point.position[0],
+                        yCoord: point.position[1],
+                        color: point.color
+                    }
+                })
+
+                let placeHolderData = {
+                    player_ids: this.props.game.players,
+                    grid: grid,
+                    turn: "" + this.props.game.turn
+                }
+
+                this.props.makeMove(this.props.game.id, placeHolderData)
             }
         
             // console.log(this.game)
