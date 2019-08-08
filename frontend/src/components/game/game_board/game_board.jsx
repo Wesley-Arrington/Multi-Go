@@ -22,6 +22,8 @@ class GameBoard extends Component {
             console.log("received move")
             console.log(data);
             this.game.placeStone(data.x, data.y, data.color);
+            // kc: an issue with websocket communcation
+            this.props.updateTurn();
             this.ctx.clearRect(0,0,this.size*40+this.padding*2,this.size*40+this.padding*2)
             this.drawBoard();
 
@@ -104,8 +106,8 @@ class GameBoard extends Component {
                 this.ctx.clearRect(0, 0, this.size * 40 + 2 * this.padding, this.size * 40 + 2 * this.padding)
                 this.drawBoard()
 
-                // update frontend Store
-                this.props.updateTurn();
+                // kc: update frontend Store, may have to revisit later
+                // this.props.updateTurn();
 
                 const socket = io('http://localhost:5000');
                 socket.emit("sendingMove", { message: "moved", x: xCoord, y: yCoord, color: stoneColor, turn: `${this.props.game.turn}` });
