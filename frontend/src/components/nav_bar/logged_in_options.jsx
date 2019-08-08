@@ -8,6 +8,7 @@ export default class LoggedInOptions extends Component {
         this.state = {
             visable: false
         }
+        // debugger;
 
         this.toggleMenu = this.toggleMenu.bind(this);
     }
@@ -33,24 +34,26 @@ export default class LoggedInOptions extends Component {
         // let currentUser = store.getState().entities.user[currentSessionId].first_name
 
         let { currentUser } = this.props;
-
-
-        if(this.state.visable) {
-            return (
-                <div className="logged-in-options">
-                    {/* <img onClick={this.toggleMenu} className="logged-in-options-robot-image" src={"user-default-profile-picture.png"} alt=""/> */}
-                    <button onClick={this.toggleMenu} className="user-menu">{currentUser.email}</button>
-                    <DropDown />
-                </div>
-            )
+        let dropDown = <div>test</div>
+        if (this.state.visable) {
+            dropDown = <DropDown />
         } else {
-            return (
-                <div className="logged-in-options">
-                    {/* <img onClick={this.toggleMenu} className="logged-in-options-robot-image" src={"user-default-profile-picture.png"} alt="" /> */}
-                    <button onClick={this.toggleMenu} className="user-menu">{currentUser.email}</button>
-                </div>
-            )
+            dropDown = <div></div>
         }
-        return <div>logged in options</div>
+
+        let gameSettingsButton = <div></div>
+        // debugger;
+        if (this.props.currentGameId !== undefined) { //should change to check if first person in player_id for game and also on game screen
+            gameSettingsButton = <button className="user-menu" onClick={() => this.props.openModal('gameSettings')}><b> Game Settings </b></button>
+        }
+
+        return (
+            <div className="logged-in-options">
+                {/* <img onClick={this.toggleMenu} className="logged-in-options-robot-image" src={"user-default-profile-picture.png"} alt=""/> */}
+                {gameSettingsButton}
+                <button onClick={this.toggleMenu} className="user-menu">{currentUser.email}</button>
+                {dropDown}
+            </div>
+        )
     }
 }

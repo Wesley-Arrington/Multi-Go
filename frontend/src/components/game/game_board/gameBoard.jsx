@@ -73,19 +73,21 @@ class GameBoard extends Component {
 
     setupUI() {
         this.canvas1.addEventListener("mousemove", event => {
-
-            if (this.xCoord !== Math.floor(event.clientX / 40) || this.yCoord !== Math.floor(event.clientY / 40)) {
+            let mouseX = ((event.clientX-30) / 40);
+            let mouseY = ((event.clientY-91) / 40);
+            console.log(event.clientY);
+            if (this.xCoord !== Math.floor(mouseX) || this.yCoord !== Math.floor(mouseY)) {
                 this.ctx.clearRect(0, 0, this.size * 40 + 2 * this.padding, this.size * 40 + 2 * this.padding)
                 this.drawBoard();
-                this.drawCircle(Math.floor(event.clientX/40)*40+20, Math.floor(event.clientY/40)*40+20, "Yellow");
+                this.drawCircle(Math.floor(mouseX) * 40 + 20, Math.floor(mouseY)*40+20, "Yellow");
             }
-            this.xCoord = Math.floor(event.clientX / 40)
-            this.yCoord = Math.floor(event.clientY / 40)
+            this.xCoord = Math.floor(mouseX)
+            this.yCoord = Math.floor(mouseY)
         })
 
         this.canvas1.addEventListener("click", event => {
-            let xCoord = Math.floor(event.clientX/40)
-            let yCoord = Math.floor(event.clientY/40)
+            let xCoord = Math.floor((event.clientX-30)/40)
+            let yCoord = Math.floor((event.clientY-91)/40)
 
             let stoneColor;
             switch (this.props.game.turn % this.props.game.players.length) {

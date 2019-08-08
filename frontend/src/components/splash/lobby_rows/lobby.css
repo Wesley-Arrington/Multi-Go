@@ -89,3 +89,17 @@
 .lobby-go-player-color {
     margin-right: 5px;
 }
+
+.game-settings-white-background {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    height: 300px;
+    width: 352px;
+}
+
+.game-settings-content-container {
+    /* background-color: blue; */
+    width: 250px;
+}

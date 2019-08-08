@@ -37,7 +37,7 @@ export default class Splash extends Component {
         // data.grid = subData;
         // this.props.newGame(data);
 
-        this.props.newGame(data).then((game) => this.props.history.push(`/lobby/${game.game_id}/`));
+        this.props.newGame(data).then((game) => this.props.history.push(`/game/${game.game_id}/`));
     }
 
     componentDidMount() {
