@@ -10,6 +10,7 @@ class GameBoard extends Component {
 				this.size = 19-1
 				this.stoneColor = "red"
         this.game = new Game(this.props.game.players.length,this.size+1)
+
     }
 
     componentDidMount() {
@@ -75,13 +76,13 @@ class GameBoard extends Component {
 
         this.ctx.stroke();
 
-        this.game.grid.forEach((row, idx1) => {
-            row.forEach((point, idx2) => {
-                if (point.color !== 'empty') {
-                    this.drawCircle(idx1 * 40 + 20, idx2 * 40 + 20, point.color);
-                }
-            })
-        }) 
+        // this.game.grid.forEach((row, idx1) => {
+        //     row.forEach((point, idx2) => {
+        //         if (point.color !== 'empty') {
+        //             this.drawCircle(idx1 * 40 + 20, idx2 * 40 + 20, point.color);
+        //         }
+        //     })
+        // }) 
     }
 
     setupUI() {
@@ -145,8 +146,6 @@ class GameBoard extends Component {
 
                 this.props.makeMove(this.props.game.id, placeHolderData)
             }
-        
-            // console.log(this.game)
         })
     }
 
