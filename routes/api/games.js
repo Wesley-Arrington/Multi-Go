@@ -5,10 +5,10 @@ const passport = require('passport');
 
 const Game = require('../../models/Game');
 
-router.get('/:id', (req,res) => {
+router.get('/:id', (req, res) => {
 	Game.findById(req.params.id)
 		.then(game => res.json(game))
-		.catch(err => 
+		.catch(err =>
 			res.status(404).json({ nogamefound: 'No game found with that ID' })
 		);
 })
@@ -31,31 +31,32 @@ router.post('/',
 		const newBoard = new Game({
 			player_ids: req.body.player_ids,
 			grid: req.body.grid,
-			turn: req.body.turn 
+			turn: req.body.turn
 		});
-		
+
 		newBoard.save().then(board => res.json(board));
 	}
 );
 
-router.delete('/:id', (req,res) => {
-	Game.findByIdAndRemove({_id: req.params.id}, (err,game) => {
+router.delete('/:id', (req, res) => {
+	Game.findByIdAndRemove({ _id: req.params.id }, (err, game) => {
 		if (err) return res.json(err);
-		else return res.json('Successfully removed');		
+		else return res.json('Successfully removed');
 	})
 })
 
-router.patch('/:id', (req,res) => {
+router.patch('/:id', (req, res) => {
 
 	Game.findById(req.params.id, (err, game) => {
 		if (!game) return res.status(404).send("data is not found");
 		else {
-			game.player_ids = req.body.player_ids,
-			game.grid = req.body.grid,
-			game.turn = req.body.turn
-			
+
+			if (req.body.player_ids !== undefined) game.player_ids = req.body.player_ids;
+			if (req.body.grid !== undefined) game.grid = req.body.grid;
+			if (req.body.turn !== undefined) game.turn = req.body.turn;
+
 			game.save().then(savedGame => res.json(savedGame));
-		
+
 		}
 	})
 })
