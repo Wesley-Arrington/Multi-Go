@@ -9,12 +9,14 @@ export default class LobbyRow extends Component {
     handleClick() {
         // this.props.fetch information about game
         // this.props.patch it with the 2nd/3rd player's id
-        let data = {
-            player_ids: [1,2,3]
-            
+
+        let dummyData = {
+            player_ids: [1].push(this.props.session.email)
         }
 
-        this.props.joinGame(data);
+        // it currently needs a gameid and a grid. 
+        debugger
+        this.props.joinGame(this.props.games[0]._id, dummyData);
     }
     
     render() {
