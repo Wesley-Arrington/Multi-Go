@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ChatBoxNavBar from './chat_box_nav_bar'
 import ChatInput from './chat_input'
 import './chat_box.css';
-import io from 'socket.io-client'
+import io from 'socket.io-client';
 
 export default class ChatBox extends Component {
 
