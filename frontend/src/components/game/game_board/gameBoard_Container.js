@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
-import { fetchGame, updateTurn } from '../../../actions/game_action';
+import { fetchGame, updateTurn, patchGame } from '../../../actions/game_action';
 
-import GameBoard from './game_board';
+import GameBoard from './gameBoard';
 
 const msp = state => {
 
@@ -13,6 +13,7 @@ const msp = state => {
 const mdp = dispatch => {
     return {
         getGame: (id) => dispatch(fetchGame(id)),
+        makeMove: (id, grid) => dispatch(patchGame(id, grid)),
         updateTurn: () => dispatch(updateTurn())
     }
 }

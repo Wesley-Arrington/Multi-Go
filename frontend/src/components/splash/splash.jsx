@@ -16,11 +16,9 @@ export default class Splash extends Component {
         // the parameters of players and board size should come from a user form
         // see Wez
 
-        // KC: commented out for now in order to develop canvas grid
-
         // let b = new Board;
-
         // // kc: this is where we manually set the # of players until we fix things later.
+        
         let data = {
             player_ids: [this.props.currentUser.email],
             // grid: [{
@@ -36,9 +34,7 @@ export default class Splash extends Component {
         //     return { xCoord: point.position[0], yCoord: point.position[1], color: point.color }
         // })
 
-
         // data.grid = subData;
-
         // this.props.newGame(data);
 
         this.props.newGame(data).then((game) => this.props.history.push(`/lobby/${game.game_id}/`));

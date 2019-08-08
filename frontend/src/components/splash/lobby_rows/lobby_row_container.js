@@ -13,6 +13,8 @@ const mdp = dispatch => {
     return {
         // 1. fetch the game information
         // 2. patch the DB with 2nd player id
+        // newGame: (data) => dispatch(createGame(data)),
+        joinGame: (data) => dispatch(patchGame(data))
     }
 }
 

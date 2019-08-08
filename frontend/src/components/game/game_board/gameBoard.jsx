@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import GameBoardButtonContainer from './del_gameBoardButton_Container';
+import GameBoardButtonContainer from './DEL_gameBoardButton_Container';
 import io from 'socket.io-client';
 import Game from '../GameLogic/gameWebSocks';
 
@@ -9,7 +9,7 @@ class GameBoard extends Component {
         this.state = {};
         this.padding = 20;
         this.size = 19-1
-        this.game = new Game(2,this.size+1)
+        this.game = new Game(this.props.game.players.length,this.size+1)
     }
 
     componentDidMount() {
@@ -22,6 +22,8 @@ class GameBoard extends Component {
             console.log("received move")
             console.log(data);
             this.game.placeStone(data.x, data.y, data.color);
+            // kc: an issue with websocket communcation
+            this.props.updateTurn();
             this.ctx.clearRect(0,0,this.size*40+this.padding*2,this.size*40+this.padding*2)
             this.drawBoard();
 
@@ -98,17 +100,38 @@ class GameBoard extends Component {
                     break;
             }
 
-            this.game.placeStone(xCoord, yCoord, stoneColor)
-            
-            this.ctx.clearRect(0, 0, this.size * 40 + 2 * this.padding, this.size * 40 + 2 * this.padding)
-            this.drawBoard()
+            // kc: if this move is valid then do the rest, if not do nothing
+            if (this.game.placeStone(xCoord, yCoord, stoneColor)) {
 
-            // update frontend Store
-            this.props.updateTurn();
+                this.ctx.clearRect(0, 0, this.size * 40 + 2 * this.padding, this.size * 40 + 2 * this.padding)
+                this.drawBoard()
 
-            const socket = io('http://localhost:5000');
-            socket.emit("sendingMove", { message: "moved", x: xCoord, y: yCoord, color: stoneColor, turn: `${this.props.game.turn}` });
+                // kc: update frontend Store, may have to revisit later
+                // this.props.updateTurn();
 
+                // websocket communication
+                const socket = io('http://localhost:5000');
+                socket.emit("sendingMove", { message: "moved", x: xCoord, y: yCoord, color: stoneColor, turn: `${this.props.game.turn}` });
+
+
+                // backend Patch data
+                let grid = this.game.grid.flat().map(point => {
+                    return {
+                        xCoord: point.position[0],
+                        yCoord: point.position[1],
+                        color: point.color
+                    }
+                })
+
+                let placeHolderData = {
+                    player_ids: this.props.game.players,
+                    grid: grid,
+                    turn: "" + this.props.game.turn
+                }
+
+                this.props.makeMove(this.props.game.id, placeHolderData)
+            }
+        
             // console.log(this.game)
         })
     }
