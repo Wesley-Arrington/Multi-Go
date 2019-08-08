@@ -1,6 +1,27 @@
 import React, { Component } from 'react';
+import io from 'socket.io-client';
 
 export default class GameSettings extends Component {
+
+    constructor(props) {
+        super(props);
+
+        this.handleClick = this.handleClick.bind(this);
+    }
+
+    handleClick() {
+        console.log("click")
+        const socket = io('http://localhost:5000');
+        socket.emit("start", { message: "start" });
+    }
+
+    componentDidMount() {
+        const socket = io('http://localhost:5000');
+        socket.on("start", (data) => { 
+            console.log("start game message received");
+        })
+    }
+
     render() {
         return (
             <div className="game-settings-white-background">
@@ -17,7 +38,7 @@ export default class GameSettings extends Component {
                             <option value="Andean">5 Player</option>
                         </select>
 
-                        <button className="blue-button" id="lobby-save-settings-button"> Save Settings </button>
+                        <button onClick={this.handleClick} className="blue-button" id="lobby-save-settings-button"> Save Settings </button>
                     </div>
                 </div>
             </div>

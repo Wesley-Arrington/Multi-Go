@@ -75,7 +75,7 @@ class GameBoard extends Component {
         this.canvas1.addEventListener("mousemove", event => {
             let mouseX = ((event.clientX-30) / 40);
             let mouseY = ((event.clientY-91) / 40);
-            console.log(event.clientY);
+            // console.log(event.clientY);
             if (this.xCoord !== Math.floor(mouseX) || this.yCoord !== Math.floor(mouseY)) {
                 this.ctx.clearRect(0, 0, this.size * 40 + 2 * this.padding, this.size * 40 + 2 * this.padding)
                 this.drawBoard();
