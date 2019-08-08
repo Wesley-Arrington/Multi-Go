@@ -12,8 +12,8 @@ export const getGames = () => {
 	return axios.get(`/api/games`);
 }
 
-export const updateGame = (game_id, grid) => {
-	return axios.patch(`/api/games/${game_id}`, grid);
+export const updateGame = (game_id, data) => {
+	return axios.patch(`/api/games/${game_id}`, data);
 }
 
 export const deleteGame = (id) => {

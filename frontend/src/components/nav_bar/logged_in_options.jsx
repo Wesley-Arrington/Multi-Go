@@ -8,7 +8,6 @@ export default class LoggedInOptions extends Component {
         this.state = {
             visable: false
         }
-        // debugger;
 
         this.toggleMenu = this.toggleMenu.bind(this);
     }
@@ -42,7 +41,6 @@ export default class LoggedInOptions extends Component {
         }
 
         let gameSettingsButton = <div></div>
-        // debugger;
         if (this.props.currentGameId !== undefined) { //should change to check if first person in player_id for game and also on game screen
             gameSettingsButton = <button className="user-menu" onClick={() => this.props.openModal('gameSettings')}><b> Game Settings </b></button>
         }

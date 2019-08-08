@@ -57,6 +57,6 @@ export const createGame = (data) => dispatch => {
     return postGame(data).then((data) => dispatch(newGame(data)))
 }
 
-export const patchGame = (game_id, grid) => dispatch => {
-    return updateGame(game_id, grid).then(data => dispatch(changeGame(data)))
+export const patchGame = (game_id, data) => dispatch => {
+    return updateGame(game_id, data).then(data => dispatch(changeGame(data)))
 }
