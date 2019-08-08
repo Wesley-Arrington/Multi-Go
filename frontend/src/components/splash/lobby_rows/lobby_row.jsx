@@ -10,17 +10,17 @@ export default class LobbyRow extends Component {
         // this.props.fetch information about game
         // this.props.patch it with the 2nd/3rd player's id
 
-        let dummyData = {
-            player_ids: [1].push(this.props.session.email)
-        }
+        this.props.games[this.props.idx].player_ids.push(this.props.session.user.email)
 
-        // it currently needs a gameid and a grid. 
-        debugger
-        this.props.joinGame(this.props.games[0]._id, dummyData);
+        let dummyData = {
+            player_ids: this.props.games[this.props.idx].player_ids     
+        }
+        
+        this.props.joinGame(this.props.games[this.props.idx]._id, dummyData);
+        this.props.history.push(`/game/${this.props.games[this.props.idx]._id}/`)
     }
     
     render() {
-        // debugger;
         return (
             <div className="lobby-row">
                 <h3 className="lobby-row-title">Server Title</h3>

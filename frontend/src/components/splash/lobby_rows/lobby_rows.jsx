@@ -6,10 +6,9 @@ export default class LobbyRows extends Component {
     render() {
         // if (typeof this.props.games === "object") return null;
         
-        let rows = this.props.games.map(game =>  {
-            // debugger;
+        let rows = this.props.games.map((game,idx) =>  {
             if (typeof game.player_ids === "object") {
-                return (<LobbyRowContainer playerCount={game.player_ids.length}/>)
+                return (<LobbyRowContainer idx={idx} playerCount={game.player_ids.length}/>)
             }
         })
 

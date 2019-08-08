@@ -26,7 +26,6 @@ function gamesReducer(state = {}, action) {
         case GET_VALID_GAMES:
             newState = merge({}, state);
             newState = JSON.parse(JSON.stringify(action.games))
-            // debugger;
             // newState["grid"] = action.games.grid;
             // newState["turn"] = action.games.turn;
             // newState["player_ids"] = action.games.player_ids;
