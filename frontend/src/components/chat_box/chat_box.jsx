@@ -9,7 +9,10 @@ export default class ChatBox extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            messages: [],
+            messages: {
+                body: [],
+                authors: []
+            },
             newMessage: ""
         }
 
@@ -32,7 +35,7 @@ export default class ChatBox extends Component {
         
         // socket.emit("sendingMessage", { message: currentUser.email + this.state.newMessage});
         // debugger;
-        socket.emit("sendingMessage", { message: this.state.newMessage, author: this.props.currentUser.email});
+        socket.emit("sendingMessage", { body: this.state.newMessage, author: this.props.currentUser.email});
         this.setState({ newMessage: ""})
         // this.props.login(this.state).then(this.props.closeModal);
         //.then(() => this.props.history.push('/user'));
@@ -41,8 +44,15 @@ export default class ChatBox extends Component {
     componentDidMount() {
         const socket = io('http://localhost:5000');
         socket.on("receiveMessage", (data) => {
-            this.setState({ messages: this.state.messages.concat(data.author).concat(data.message)});
-            })
+            // debugger;
+            this.setState({ 
+                messages: { 
+                    body: this.state.messages.body.concat(data.body),
+                    authors: this.state.messages.authors.concat(data.author)
+                },
+                
+            });
+        })
     }
 
     handleKeyPress = (event) => {
@@ -53,6 +63,7 @@ export default class ChatBox extends Component {
     }
 
     render() {
+        // debugger;
         return (
             <div className="chat-box">
                 <ChatBoxNavBar />
@@ -60,8 +71,22 @@ export default class ChatBox extends Component {
                     
 
                     {
-                        this.state.messages.map(function (message) {
-                            return <p className="chat-box-message" key={message}>{message}</p>
+                        this.state.messages.authors.map(function (author, idx) {
+                            // debugger;
+                            return (
+                                <div>
+                                    {/* <h1>{this.state.messages[key].author}</h1> */}
+                                    <p className="chat-box-message" key={author}>{author}</p>
+                                </div>)
+                        }),
+
+                        this.state.messages.body.map(function (body, idx) {
+                            // debugger;
+                            return (
+                                <div>
+                                    {/* <h1>{this.state.messages[key].author}</h1> */}
+                                    <p className="chat-box-message" key={body}>{body}</p>
+                                </div>)
                         })
                     }
                     {/* for(let i = 0; i < this.state.messages.length; i++) {
