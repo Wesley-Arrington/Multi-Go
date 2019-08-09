@@ -8,7 +8,8 @@ import GreenCircle from '../../../images/circular-shape-silhouette-green.png';
 
 class Players extends Component {
     constructor(props) {
-        super(props)
+				super(props)
+		
     }
 
     render() {
@@ -16,6 +17,8 @@ class Players extends Component {
         const colors = ['Red', 'Green', 'Blue']
 
         const players = this.props.game.players.map((player, idx) => {
+		
+		
             return (
             <div className='lobby-players-player'>
                     {/* <img className="lobby-go-piece-image" src={`${colors[idx]}Circle`} alt="" /> */}
@@ -27,19 +30,19 @@ class Players extends Component {
         switch (this.props.game.turn % this.props.game.players.length) {
             case 0:
                 players[0] = 
-                    <div style={{ backgroundColor: "yellow" }} className='lobby-players-player'>
+                    <div style={{ backgroundColor: "red" }} className='lobby-players-player'>
                         <b>{colors[0]}</b>
                     </div>
                 break;
             case 1:
                 players[1] = 
-                    <div style={{ backgroundColor: "yellow" }} className='lobby-players-player'>
+                    <div style={{ backgroundColor: "green" }} className='lobby-players-player'>
                         <b>{colors[1]}</b>
                     </div>
                 break;
             case 2:
                 players[2] =
-                    <div style={{ backgroundColor: "yellow" }} className='lobby-players-player'>
+                    <div style={{ backgroundColor: "blue" }} className='lobby-players-player'>
                         <b>{colors[2]}</b>
                     </div>
                 break;
