@@ -4,6 +4,16 @@ export default class LobbyRow extends Component {
     constructor(props) {
         super(props);
         this.handleClick = this.handleClick.bind(this);
+
+        let count = 0;
+        let players = this.props.games[this.props.idx].player_ids;
+        for (let i = 0; i < players.length; i++) {
+            if (players[i]) {
+                count += 1
+            }
+        }
+        // debugger;
+        this.state = {count: count}
     }
 
     handleClick() {
@@ -16,6 +26,7 @@ export default class LobbyRow extends Component {
 
         let players = this.props.games[this.props.idx].player_ids;
         let flag;
+        
         for (let i = 0; i<players.length; i++) {
             if (!players[i]) {
                 players[i] = this.props.session.user.email;
@@ -46,7 +57,7 @@ export default class LobbyRow extends Component {
                 </div>
 
                 <div className="lobby-row-right-items">
-                    <h5>{this.props.playerCount}/5 Players</h5>
+                    <h5>{this.state.count}/5 Players</h5>
                     <button onClick={this.handleClick} className="blue-button" id="splash-page-join-lobby-button">Join Game</button>
                 </div>
             </div>

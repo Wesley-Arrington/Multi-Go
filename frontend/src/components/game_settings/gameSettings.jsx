@@ -34,6 +34,8 @@ export default class GameSettings extends Component {
             turn: "0"
         }
 
+        this.props.closeModal();
+
         this.props.newGame(data).then((game) => {
             return (
             this.props.history.push(`/game/${game.game._id}/`))
