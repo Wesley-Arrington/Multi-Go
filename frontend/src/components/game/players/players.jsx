@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PlayersContainer from './players_container';
 import BlackCircle from '../../../images/circular-shape-silhouette-black.png';
 import WhiteCircle from '../../../images/circular-shape-silhouette-white.png';
 import BlueCircle from '../../../images/circular-shape-silhouette-blue.png';
@@ -13,9 +12,10 @@ class Players extends Component {
     }
 
     render() {
-
+        // if (!this.props.game.players) return;
         const colors = ['Red', 'Green', 'Blue']
 
+        // kc, wtf is happening? 
         const players = this.props.game.players.map((player, idx) => {
 		
 		
@@ -47,6 +47,8 @@ class Players extends Component {
                     </div>
                 break;
         }
+
+        // console.log(players)
 
         return (
             <div className="lobby-players">

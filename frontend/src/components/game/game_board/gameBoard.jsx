@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import io from 'socket.io-client';
 import Game from '../GameLogic/gameWebSocks';
+import PlayersContainer from '../players/players_container';
+
 
 class GameBoard extends Component {
     constructor(props) {
@@ -16,7 +18,6 @@ class GameBoard extends Component {
     }
 
     componentDidMount() {
-        // we can move this to game component and pass down ctx as props
         this.canvas1 = document.getElementById('canvas');
         this.ctx = this.canvas1.getContext('2d');
 				
@@ -30,12 +31,22 @@ class GameBoard extends Component {
 						this.nextTurn()
 
             this.drawBoard();
-
-            // this.props.getGame(this.props.game_id);
         })
 
-        this.props.getGame(this.props.game.id);
+
+        //this.props.getGame(this.props.game.id);
 			
+
+        socket.on("start", (data) => {
+            console.log(data);
+            this.game = new Game(data.players.length, 20 - 1);
+            this.setState({game: this.game});
+
+            data.players[0] = this.props.session.user.email;
+            this.props.updateSetting(data);
+        })
+
+
         this.drawBoard();
         this.setupUI();
 		}
@@ -99,6 +110,7 @@ class GameBoard extends Component {
 					}
 				}
 
+
         this.game.grid.forEach((row, idx1) => {
             row.forEach((point, idx2) => {
                 if (point.color !== 'empty') {
@@ -117,6 +129,16 @@ class GameBoard extends Component {
 
 			
 		}
+<!--         if (this.game) {
+            this.game.grid.forEach((row, idx1) => {
+                row.forEach((point, idx2) => {
+                    if (point.color !== 'empty') {
+                        this.drawCircle(idx1 * 40 + 20, idx2 * 40 + 20 + this.offset, point.color);
+                    }
+                })
+            }) 
+        }
+    } -->
 
     setupUI() {
 
@@ -127,7 +149,9 @@ class GameBoard extends Component {
             // console.log(event.clientY);
             if (this.xCoord !== Math.floor(mouseX) || this.yCoord !== Math.floor(mouseY)) {
                 this.drawBoard();
+
 							this.drawCircle(Math.floor(mouseX) * 40 + 20, Math.floor(mouseY) * 40 + 20 + this.offset, this.stoneColor, 17, 0.2);
+
             }
             this.xCoord = Math.floor(mouseX)
             this.yCoord = Math.floor(mouseY)
@@ -135,8 +159,10 @@ class GameBoard extends Component {
 
 				// gets position for stone placement when clicked
         this.canvas1.addEventListener("click", event => {
+
 					let xCoord = Math.floor((event.clientX-30)/40);
 					let yCoord = Math.floor((event.clientY-91 - this.offset)/40);
+
 
 
 
@@ -145,6 +171,7 @@ class GameBoard extends Component {
 						if (this.game.placeStone(xCoord, yCoord, this.stoneColor)) {
 
 								this.drawBoard()
+
 
 								// kc: update frontend Store, may have to revisit later
 								// this.props.updateTurn();
@@ -195,24 +222,37 @@ class GameBoard extends Component {
         this.ctx.beginPath();
         this.ctx.arc(x, y, size, 0, 2 * Math.PI)
         this.ctx.fillStyle = color;
-				this.ctx.fill();
-				this.ctx.globalAlpha = 1;
+        this.ctx.fill();
+        this.ctx.globalAlpha = 1;
         // this.ctx.stroke();
     }
 
     render() {
-        // if (this.props.game.grid === undefined) return null;
-        
+        // if (this.game.grid === undefined) return null;
+            
         const background = {
             background: 'tan',
             height: this.size * 40 + 2 * this.padding + this.offset,
             width: this.size * 40 + 2 * this.padding
         }
 
+        let stoplight;
+        if (this.game) stoplight = <PlayersContainer/>
+
+        const style = {
+            display: 'flex',
+            flexDirection: 'row'
+        }
         return (
-            <div style={background}>
-                <canvas id="canvas" style={background} height={this.size * 40 + 2 * this.padding + this.offset} width={this.size * 40 + 2 * this.padding}></canvas>
+            <div style={style}>
+                <div style={background}>
+                    <canvas id="canvas" style={background} height={this.size * 40 + 2 * this.padding + this.offset} width={this.size * 40 + 2 * this.padding}></canvas>
+                </div>
+                <div>
+                    {stoplight}
+                </div>
             </div>
+
         )
     }
 }

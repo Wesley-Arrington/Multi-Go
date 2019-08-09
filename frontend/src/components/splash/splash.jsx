@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import NavBar from '../nav_bar/nav_bar';
 import LobbyRowsContainer from './lobby_rows/lobby_rows_container'
 import './splash.css';
-import Board from '../game/GameLogic/board';
 
 export default class Splash extends Component {
 
@@ -13,11 +12,6 @@ export default class Splash extends Component {
     }
 
     handleClick() {
-        // the parameters of players and board size should come from a user form
-        // see Wez
-
-        // let b = new Board;
-        // // kc: this is where we manually set the # of players until we fix things later.
         
         let data = {
             player_ids: [this.props.currentUser.email],
@@ -33,22 +27,43 @@ export default class Splash extends Component {
         // let subData = b.grid.flat().map(point => {
         //     return { xCoord: point.position[0], yCoord: point.position[1], color: point.color }
         // })
-
         // data.grid = subData;
         // this.props.newGame(data);
 
-        this.props.newGame(data).then((game) => this.props.history.push(`/game/${game.game_id}/`));
+        let players = new Array(2)
+        players[0] = this.props.session.user.email;
+        
+        let storeData = {
+            players: players
+        }
+
+        this.props.openModal('gameSettings');
+        // this.props.updateSetting(storeData);
+
+        // this.props.newGame(data).then((game) => {
+        //     return (
+        //     this.props.history.push(`/game/${game.game_id}/`))}
+        //     );
     }
 
     componentDidMount() {
-        // debugger;
         this.props.getValidGames();
     }
 
     render() {
         let { isLoggedIn } = this.props
-        // debugger;
         // let currentGame = this.store.getState().entities;
+
+        // let colors = ['Red','Green','Blue']
+        // let style;
+        // let msg1 = "Multi-Go".split('').map((letter,idx) => {
+        //     style
+        //     return (
+        //         <div style={}>letter</div>
+
+        //     )
+        // }).join('')
+
         if (isLoggedIn) {
         return (
             <div className="splash-page">
