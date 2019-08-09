@@ -42,14 +42,14 @@ export default class LoggedInOptions extends Component {
 
         let gameSettingsButton = <div></div>
 
-        if (window.location.href.includes("game")) { //should change to check if first person in player_id for game and also on game screen
-            gameSettingsButton = <button className="user-menu" onClick={() => this.props.openModal('gameSettings')}><b> Game Settings </b></button>
-        }
+        // if (window.location.href.includes("game")) { //should change to check if first person in player_id for game and also on game screen
+        //     gameSettingsButton = <button className="user-menu" onClick={() => this.props.openModal('gameSettings')}><b> Game Settings </b></button>
+        // }
 
         return (
             <div className="logged-in-options">
                 {/* <img onClick={this.toggleMenu} className="logged-in-options-robot-image" src={"user-default-profile-picture.png"} alt=""/> */}
-                {gameSettingsButton}
+                {/* {gameSettingsButton} */}
                 <button onClick={this.toggleMenu} className="user-menu">{currentUser.email}</button>
                 {dropDown}
             </div>
