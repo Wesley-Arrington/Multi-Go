@@ -13,7 +13,7 @@ export default class LobbyRow extends Component {
             player_ids: this.props.games[this.props.idx].player_ids     
         }
 
-        // debugger
+
         let players = this.props.games[this.props.idx].player_ids;
         let flag;
         for (let i = 0; i<players.length; i++) {

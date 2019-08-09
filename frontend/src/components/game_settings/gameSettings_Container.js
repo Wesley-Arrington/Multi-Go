@@ -1,7 +1,8 @@
 import { connect } from 'react-redux';
-import { createGame, getValidGames, updateSetting } from '../../actions/game_action';
+import { withRouter } from 'react-router-dom';
+import { createGame,  updateSetting } from '../../actions/game_action';
 import { openModal, closeModal } from '../../actions/modal_action'
-import GameSetting from './game_setting';
+import GameSetting from './gameSettings';
 
 const msp = (state, ownProps) => {
     return {
@@ -19,4 +20,4 @@ const mdp = dispatch => {
 
 
 
-export default connect(msp, mdp)(GameSetting);
+export default withRouter(connect(msp, mdp)(GameSetting));

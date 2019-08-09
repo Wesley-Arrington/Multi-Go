@@ -9,11 +9,12 @@ class GameBoard extends Component {
         super(props)
         this.state = {};
         this.padding = 20;
-				this.size = 19-1;
-				this.stoneColor = "red";	// initial color for transparent circle
-				this.offset = 50;					// space at top for messages
-				this.message = "When it's your turn, click to place stone" // initial message
-				this.game = new Game(this.props.game.players.length,this.size+1);
+        this.size = 19-1;
+        this.stoneColor = "red";	// initial color for transparent circle
+        this.offset = 50;					// space at top for messages
+        this.message = "When it's your turn, click to place stone" // initial message
+        // debugger
+        this.game = new Game(this.props.game.players.length,this.size+1);
 				
     }
 
@@ -129,16 +130,16 @@ class GameBoard extends Component {
 
 			
 		}
-<!--         if (this.game) {
-            this.game.grid.forEach((row, idx1) => {
-                row.forEach((point, idx2) => {
-                    if (point.color !== 'empty') {
-                        this.drawCircle(idx1 * 40 + 20, idx2 * 40 + 20 + this.offset, point.color);
-                    }
-                })
-            }) 
-        }
-    } -->
+// <!--         if (this.game) {
+//             this.game.grid.forEach((row, idx1) => {
+//                 row.forEach((point, idx2) => {
+//                     if (point.color !== 'empty') {
+//                         this.drawCircle(idx1 * 40 + 20, idx2 * 40 + 20 + this.offset, point.color);
+//                     }
+//                 })
+//             }) 
+//         }
+//     } -->
 
     setupUI() {
 
@@ -202,7 +203,7 @@ class GameBoard extends Component {
 								this.props.makeMove(this.props.game.id, placeHolderData)
 								// localStorage.setItem("game", JSON.stringify(placeHolderData))
 								// let g = JSON.parse(localStorage.getItem("game"));
-								// debugger
+
 						} 
 
 					}
