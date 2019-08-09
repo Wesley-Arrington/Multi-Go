@@ -21,7 +21,7 @@ const Modal = ({ modal, closeModal, login, errors, createNewUser }) => {
             component = <SignUp createNewUser={createNewUser} openModal={openModal} closeModal={closeModal} errors={errors} />;
             break;
         case 'gameSettings':
-            component = <GameSettingsContainer />
+            component = <GameSettingsContainer closeModal={closeModal}/>
             break;
         default:
             return null;
