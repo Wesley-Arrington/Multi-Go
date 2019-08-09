@@ -6,20 +6,41 @@ export default class GameSettings extends Component {
     constructor(props) {
         super(props);
 
+        this.state = {
+            numPlayers: 2
+        }
         this.handleClick = this.handleClick.bind(this);
     }
 
     handleClick() {
-        console.log("click")
-        const socket = io('http://localhost:5000');
-        socket.emit("start", { message: "start" });
+        // kc will have to eventaully take input value from form
+        this.setState({
+            numPlayers: 3
+        })
+
+            // , this.emitMsg()
+        // callback should do the same thing as componentDidUpdate
+
     }
 
-    componentDidMount() {
+    componentDidUpdate() {
+        console.log(this.state)
+        console.log("click")
         const socket = io('http://localhost:5000');
-        socket.on("start", (data) => { 
-            console.log("start game message received");
-        })
+        socket.emit("start", { 
+            message: "start", 
+            numPlayers: this.state.numPlayers});  
+    }
+
+    // emitMsg() {
+    //     console.log(this.state)
+    //     console.log("click")
+    //     const socket = io('http://localhost:5000');
+    //     socket.emit("start", { message: "start" });
+    // }
+
+    componentDidMount() {
+        
     }
 
     render() {

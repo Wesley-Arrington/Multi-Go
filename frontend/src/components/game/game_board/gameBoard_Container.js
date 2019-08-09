@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { fetchGame, updateTurn, patchGame } from '../../../actions/game_action';
+import { fetchGame, updateTurn, patchGame, changeSetting } from '../../../actions/game_action';
 
 import GameBoard from './gameBoard';
 
@@ -14,7 +14,8 @@ const mdp = dispatch => {
     return {
         getGame: (id) => dispatch(fetchGame(id)),
         makeMove: (id, grid) => dispatch(patchGame(id, grid)),
-        updateTurn: () => dispatch(updateTurn())
+        updateTurn: () => dispatch(updateTurn()),
+        changeSetting: (numPlayers) => dispatch(changeSetting(numPlayers))
     }
 }
 

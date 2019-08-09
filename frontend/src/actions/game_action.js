@@ -6,10 +6,18 @@ export const PATCH_GAME = 'PATCH_GAME';
 export const GET_VALID_GAMES = "GET_VALID_GAMES";
 
 export const UPDATE_TURN = 'UPDATE_TURN';
+export const CHANGE_SETTING = 'CHANGE_SETTING';
 
 export const updateTurn = () => {
     return {
         type: UPDATE_TURN
+    }
+}
+
+export const changeSetting = (numPlayers) => {
+    return {
+        type: CHANGE_SETTING,
+        numPlayers
     }
 }
 
