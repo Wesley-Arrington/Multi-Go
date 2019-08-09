@@ -19,9 +19,13 @@ export default class GameSettings extends Component {
 
         // , this.emitMsg()
         // callback should do the same thing as componentDidUpdate
-        debugger    
+
+        // #ofplayers should come from the form in modal 
+        let players = new Array(3)
+        players[0] = this.props.session.user.email;
+
         let data = {
-            player_ids: [this.props.session.user.email],
+            player_ids: players,
             // grid: [{
             //     xCoord: 0,
             //     yCoord: 0,
@@ -32,8 +36,15 @@ export default class GameSettings extends Component {
 
         this.props.newGame(data).then((game) => {
             return (
-            this.props.history.push(`/game/${game.game_id}/`))
+            this.props.history.push(`/game/${game.game._id}/`))
         });
+
+
+
+        // let fakedata = {
+        //     players: players
+        // }
+        // this.props.updateSetting(fakedata)
             
     }
 

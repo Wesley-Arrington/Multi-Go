@@ -6,9 +6,10 @@ function gameReducer(state = {}, action) {
     let newState;
     switch (action.type) {
         case NEW_GAME:
+            // debugger
             newState = merge({}, state);
-            newState.id = action.game_id;
-            // newState.players = new Array(2);
+            newState.id = action.game._id;
+            newState.players = action.game.player_ids;
             newState.turn = 0;
             return newState;
         case UPDATE_TURN:
@@ -16,6 +17,7 @@ function gameReducer(state = {}, action) {
             newState.turn += 1;
             return newState;
         case UPDATE_SETTING:
+            // debugger
             newState = merge({}, state);
 
             if (action.data.id) newState.id = action.data.id;

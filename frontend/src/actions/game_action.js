@@ -36,10 +36,11 @@ export const getValidGames = () => dispatch => {
 }
 
 export const newGame = (data) => {
+    // debugger
     return {
         type: NEW_GAME,
         // why is data nested twice?
-        game_id: data.data._id
+        game: data.data
     }
 }
 

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { closeModal, openModal } from '../../actions/modal_action';
 import Login from '../login/login';
 import SignUp from '../sign_up/sign_up';
-import GameSettings from '../game_settings/game_settings';
+import GameSettingsContainer from '../game_settings/gameSettings_Container';
 import { login, signup } from '../../actions/session_actions';
 
 const Modal = ({ modal, closeModal, login, errors, createNewUser }) => {
@@ -21,7 +21,7 @@ const Modal = ({ modal, closeModal, login, errors, createNewUser }) => {
             component = <SignUp createNewUser={createNewUser} openModal={openModal} closeModal={closeModal} errors={errors} />;
             break;
         case 'gameSettings':
-            component = <GameSettings />
+            component = <GameSettingsContainer />
             break;
         default:
             return null;
