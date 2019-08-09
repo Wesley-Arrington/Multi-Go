@@ -12,7 +12,7 @@ export default class LobbyRow extends Component {
                 count += 1
             }
         }
-        debugger;
+        // debugger;
         this.state = {count: count}
     }
 
