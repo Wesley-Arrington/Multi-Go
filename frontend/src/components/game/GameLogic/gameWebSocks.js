@@ -89,8 +89,8 @@ export default class Game {
 
         // 1. stone already present?
         if (placingPoint.color !== 'empty') {
-            console.log("Stone already here")
-            return false;
+            throw "stone already here";
+       
         }
 
         // 2. check for capture
@@ -113,8 +113,8 @@ export default class Game {
                 } else {
                     if (this.history === placingPoint) {
                         this.setStone(x, y, 'empty');
-                        console.log("Ko: wait a turn")
-                        return false;
+                        throw "Ko: wait a turn";
+                      
                     } else {
                         this.history = captureGroups[0].values().next().value;
                         this.removeCapturedGroups(captureGroups);
@@ -132,8 +132,8 @@ export default class Game {
         this.buildGroup(placingPoint, group);
         if (!this.checkLiberties(group)) {
             this.setStone(x, y, 'empty');
-            console.log("Suicide not allowed")
-            return false;
+            throw "suicide not allowed";
+ 
         }
 
         this.history = null;
