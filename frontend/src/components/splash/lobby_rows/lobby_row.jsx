@@ -7,16 +7,30 @@ export default class LobbyRow extends Component {
     }
 
     handleClick() {
-        // this.props.fetch information about game
-        // this.props.patch it with the 2nd/3rd player's id
-
         this.props.games[this.props.idx].player_ids.push(this.props.session.user.email)
 
         let dummyData = {
             player_ids: this.props.games[this.props.idx].player_ids     
         }
+
+        // debugger
+        let players = this.props.games[this.props.idx].player_ids;
+        let flag;
+        for (let i = 0; i<players.length; i++) {
+            if (!players[i]) {
+                players[i] = this.props.session.user.email;
+                flag = true;
+            }
+            if (flag) break;
+        }
+
+        let data = {
+            id: this.props.games[this.props.idx]._id,
+            players: players
+        }
         
         this.props.joinGame(this.props.games[this.props.idx]._id, dummyData);
+        this.props.updateSetting(data);
         this.props.history.push(`/game/${this.props.games[this.props.idx]._id}/`)
     }
     

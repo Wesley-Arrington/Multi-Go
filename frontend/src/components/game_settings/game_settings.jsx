@@ -6,16 +6,15 @@ export default class GameSettings extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            numPlayers: 2
-        }
+        this.state = {}
         this.handleClick = this.handleClick.bind(this);
     }
 
     handleClick() {
         // kc will have to eventaully take input value from form
         this.setState({
-            numPlayers: 3
+            players: new Array(3),
+            size: 19
         })
 
             // , this.emitMsg()
@@ -29,7 +28,7 @@ export default class GameSettings extends Component {
         const socket = io('http://localhost:5000');
         socket.emit("start", { 
             message: "start", 
-            numPlayers: this.state.numPlayers});  
+            players: this.state.players});  
     }
 
     // emitMsg() {

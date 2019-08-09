@@ -1,4 +1,4 @@
-import { NEW_GAME, UPDATE_TURN, CHANGE_SETTING } from '../actions/game_action';
+import { NEW_GAME, UPDATE_TURN, CHANGE_SETTING, UPDATE_SETTING } from '../actions/game_action';
 import merge from 'lodash/merge';
 
 function gameReducer(state = {}, action) {
@@ -14,11 +14,16 @@ function gameReducer(state = {}, action) {
             newState = merge({}, state);
             newState.turn += 1;
             return newState;
-        case CHANGE_SETTING:
+        // case CHANGE_SETTING:
+        //     newState = merge({}, state);
+        //     newState.players = action.numPlayers;
+        //     newState.turn = 0;
+        //     return newState;
+        case UPDATE_SETTING:
             newState = merge({}, state);
-            newState.players = action.numPlayers;
-            // newState.gridSize = 20;
-            // newState.gridShape = Square;
+            if (!newState.id) newState.id = action.data.id;
+            if (!newState.players) newState.players = action.data.players;
+    //      newState.turn = 0;
             return newState;
         default:
             return state

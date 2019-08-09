@@ -4,6 +4,14 @@ import { createGame, getValidGames } from '../../actions/game_action';
 import { openModal, closeModal } from '../../actions/modal_action'
 import Splash from './splash';
 
+const msp = (state, ownProps) => {
+    return {
+        isLoggedIn: state.session.isAuthenticated,
+        currentUser: state.session.user
+        // games: Object.values(state.entities.games)
+    };
+};
+
 const mdp = dispatch => {
     return {
         newGame: (data) => dispatch(createGame(data)),
@@ -13,12 +21,6 @@ const mdp = dispatch => {
     }
 }
 
-const mapStateToProps = (state, ownProps) => {
-    return {
-        isLoggedIn: state.session.isAuthenticated,
-        currentUser: state.session.user
-        // games: Object.values(state.entities.games)
-    };
-};
 
-export default connect(mapStateToProps, mdp)(Splash);
+
+export default connect(msp, mdp)(Splash);

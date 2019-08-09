@@ -14,26 +14,16 @@ class Players extends Component {
 
         const colors = ['Red', 'Green', 'Blue']
 
-        const players= new Array(this.props.game.players);
-        
-        for (let i=0; i<this.props.game.players; i++) {
-            players[i] = 
-            
+        const players = this.props.game.players.map((player, idx) => {
+            return (
             <div className='lobby-players-player'>
-                {/* <img className="lobby-go-piece-image" src={`${colors[idx]}Circle`} alt="" /> */}
-                <b>{colors[i]}</b>
+                    {/* <img className="lobby-go-piece-image" src={`${colors[idx]}Circle`} alt="" /> */}
+                    <b>{colors[idx]}</b>
             </div>
-        }
-        // players = players.map((player, idx) => {
-        //     return (
-        //     <div className='lobby-players-player'>
-        //             {/* <img className="lobby-go-piece-image" src={`${colors[idx]}Circle`} alt="" /> */}
-        //             <b>{colors[idx]}</b>
-        //     </div>
-        //     )
-        // })
+            )
+        })
 
-        switch (this.props.game.turn % this.props.game.players) {
+        switch (this.props.game.turn % this.props.game.players.length) {
             case 0:
                 players[0] = 
                     <div style={{ backgroundColor: "yellow" }} className='lobby-players-player'>
@@ -54,7 +44,7 @@ class Players extends Component {
                 break;
         }
 
-        console.log(players)
+        // console.log(players)
 
         return (
             <div className="lobby-players">

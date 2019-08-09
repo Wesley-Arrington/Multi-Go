@@ -16,7 +16,6 @@ class Game extends Component {
             <div>
                 <NavBar />
                 <div className="game-div">
-                    {/* kc: taken out for dev */}
                     {/* game_id={this.props.game.game_id} */}
                     <GameBoardContainer/>
                     <div>

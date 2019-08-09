@@ -7,16 +7,14 @@ import PlayersContainer from '../players/players_container';
 class GameBoard extends Component {
     constructor(props) {
         super(props)
-        this.state = {
-        };
+        this.state = {};
         this.padding = 20;
-        this.size = 19-1
+        this.size = 19-1;
         this.stoneColor = "red"
         // this.game = new Game(this.props.numPlayers,this.size+1)
     }
 
     componentDidMount() {
-        // this.props.openModal();
         this.canvas1 = document.getElementById('canvas');
         this.ctx = this.canvas1.getContext('2d');
 
@@ -25,8 +23,8 @@ class GameBoard extends Component {
             console.log("received move")
             console.log(data);
             this.game.placeStone(data.x, data.y, data.color);
-            // kc: an issue with websocket communcation
-            this.props.updateTurn();
+
+            // this.props.updateTurn();
             
             switch (this.props.game.turn % this.game.players) {
                 case 0:
@@ -45,14 +43,13 @@ class GameBoard extends Component {
         })
 
         socket.on("start", (data) => {
-            console.log("debug")
             console.log(data);
-            this.game = new Game(data.numPlayers, 20 - 1);
+            this.game = new Game(data.players.length, 20 - 1);
             this.setState({game: this.game});
-            this.props.changeSetting(data.numPlayers);
-        })
 
-        // this.props.getGame(this.props.game.id);
+            data.players[0] = this.props.session.user.email;
+            this.props.updateSetting(data);
+        })
 
         this.drawBoard();
         this.setupUI();
@@ -131,7 +128,7 @@ class GameBoard extends Component {
                 this.drawBoard()
 
                 // kc: update frontend Store, may have to revisit later
-                // this.props.updateTurn();
+                this.props.updateTurn();
 
                 const socket = io('http://localhost:5000');
                 socket.emit("sendingMove", { message: "moved", x: xCoord, y: yCoord, color: this.stoneColor, turn: `${this.game.turn}` });
@@ -179,8 +176,12 @@ class GameBoard extends Component {
         let stoplight;
         if (this.game) stoplight = <PlayersContainer/>
 
+        const style = {
+            display: 'flex',
+            flexDirection: 'row'
+        }
         return (
-            <div>
+            <div style={style}>
                 <div style={background}>
                     <canvas id="canvas" style={background} height={this.size * 40 + 2 * this.padding} width={this.size * 40 + 2 * this.padding}></canvas>
                 </div>
