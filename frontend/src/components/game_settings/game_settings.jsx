@@ -11,24 +11,40 @@ export default class GameSettings extends Component {
     }
 
     handleClick() {
-        // kc will have to eventaully take input value from form
+        // kc will have to eventaullyx take input value from form
         this.setState({
             players: new Array(3),
             size: 19
         })
 
-            // , this.emitMsg()
+        // , this.emitMsg()
         // callback should do the same thing as componentDidUpdate
+        debugger    
+        let data = {
+            player_ids: [this.props.session.user.email],
+            // grid: [{
+            //     xCoord: 0,
+            //     yCoord: 0,
+            //     color: "R"
+            // }],
+            turn: "0"
+        }
 
+        this.props.newGame(data).then((game) => {
+            return (
+            this.props.history.push(`/game/${game.game_id}/`))
+        });
+            
     }
 
     componentDidUpdate() {
         console.log(this.state)
-        console.log("click")
         const socket = io('http://localhost:5000');
         socket.emit("start", { 
             message: "start", 
-            players: this.state.players});  
+            players: this.state.players
+        });
+
     }
 
     // emitMsg() {
@@ -58,7 +74,7 @@ export default class GameSettings extends Component {
                             <option value="Andean">5 Player</option>
                         </select>
 
-                        <button onClick={this.handleClick} className="blue-button" id="lobby-save-settings-button"> Save Settings </button>
+                        <button onClick={this.handleClick} className="blue-button" id="lobby-save-settings-button"> Play! </button>
                     </div>
                 </div>
             </div>

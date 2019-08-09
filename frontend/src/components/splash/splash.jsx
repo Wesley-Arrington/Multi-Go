@@ -27,7 +27,6 @@ export default class Splash extends Component {
         // let subData = b.grid.flat().map(point => {
         //     return { xCoord: point.position[0], yCoord: point.position[1], color: point.color }
         // })
-
         // data.grid = subData;
         // this.props.newGame(data);
 
@@ -37,13 +36,14 @@ export default class Splash extends Component {
         let storeData = {
             players: players
         }
-        
-        this.props.updateSetting(storeData);
 
-        this.props.newGame(data).then((game) => {
-            return (
-            this.props.history.push(`/game/${game.game_id}/`))}
-            );
+        this.props.openModal('gameSettings');
+        // this.props.updateSetting(storeData);
+
+        // this.props.newGame(data).then((game) => {
+        //     return (
+        //     this.props.history.push(`/game/${game.game_id}/`))}
+        //     );
     }
 
     componentDidMount() {
@@ -53,6 +53,17 @@ export default class Splash extends Component {
     render() {
         let { isLoggedIn } = this.props
         // let currentGame = this.store.getState().entities;
+
+        // let colors = ['Red','Green','Blue']
+        // let style;
+        // let msg1 = "Multi-Go".split('').map((letter,idx) => {
+        //     style
+        //     return (
+        //         <div style={}>letter</div>
+
+        //     )
+        // }).join('')
+
         if (isLoggedIn) {
         return (
             <div className="splash-page">

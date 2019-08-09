@@ -4,8 +4,6 @@ import LoggedInOptionsContainer from './logged_in_options_container'
 
 export default class RightNavBarItems extends Component {
 
-
-
     render() {
         // let currentSession = store.getState().session.isAuthenticated
 
