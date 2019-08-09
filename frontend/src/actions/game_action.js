@@ -21,16 +21,6 @@ export const updateTurn = () => {
     }
 }
 
-// export const CHANGE_SETTING = 'CHANGE_SETTING';
-// export const changeSetting = (numPlayers) => {
-//     return {
-//         type: CHANGE_SETTING,
-//         numPlayers
-//     }
-// }
-
-
-
 export const receiveValidGames = (games) => {
     return {
         type: GET_VALID_GAMES,

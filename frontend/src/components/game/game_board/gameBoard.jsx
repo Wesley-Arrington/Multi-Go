@@ -166,7 +166,7 @@ class GameBoard extends Component {
 
     render() {
         // if (this.game.grid === undefined) return null;
-        
+            
         const background = {
             background: 'lightblue',
             height: this.size * 40 + 2 * this.padding,
