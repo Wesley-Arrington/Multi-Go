@@ -14,14 +14,16 @@ function gameReducer(state = {}, action) {
             return newState;
         case UPDATE_TURN:
             newState = merge({}, state);
-            newState.turn += 1;
+            newState.turn = "" + (parseInt(newState.turn, 10) + 1);
             return newState;
         case UPDATE_SETTING:
             // debugger
             newState = merge({}, state);
 
             if (action.data.id) newState.id = action.data.id;
-            if (action.data.players) newState.players = action.data.players;
+						if (action.data.players) newState.players = action.data.players;
+						// if (action.data.grid) newState.grid = action.data.grid;
+						if (action.data.turn) newState.turn = action.data.turn;
     //      newState.turn = 0;
             return newState;
         default:

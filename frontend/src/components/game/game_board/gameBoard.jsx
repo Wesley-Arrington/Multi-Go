@@ -14,11 +14,27 @@ class GameBoard extends Component {
         this.offset = 50;					// space at top for messages
         this.message = "When it's your turn, click to place stone" // initial message
         // debugger
-        this.game = new Game(this.props.game.players.length,this.size+1);
+   
 				
     }
 
     componentDidMount() {
+				this.game = new Game(2, this.size + 1);
+				if (this.props.game.players === undefined) {
+					let g = JSON.parse(localStorage.getItem("game"));
+					this.props.updateSetting(g);
+					this.game.unflatten(g.grid);
+
+					let turn = g.turn % g.players.length
+					if ( turn === 0) this.stoneColor = "red";
+					else if ( turn === 1) this.stoneColor = "green";
+					else this.stoneColor = "blue";
+
+					
+
+				} else {
+					this.game = new Game(this.props.game.players.length, this.size + 1);
+				}
         this.canvas1 = document.getElementById('canvas');
         this.ctx = this.canvas1.getContext('2d');
 				
@@ -38,14 +54,14 @@ class GameBoard extends Component {
         //this.props.getGame(this.props.game.id);
 			
 
-        socket.on("start", (data) => {
-            console.log(data);
-            this.game = new Game(data.players.length, 20 - 1);
-            this.setState({game: this.game});
+        // socket.on("start", (data) => {
+        //     console.log(data);
+        //     this.game = new Game(data.players.length, 20 - 1);
+        //     this.setState({game: this.game});
 
-            data.players[0] = this.props.session.user.email;
-            this.props.updateSetting(data);
-        })
+        //     data.players[0] = this.props.session.user.email;
+        //     this.props.updateSetting(data);
+        // })
 
 
         this.drawBoard();
@@ -111,7 +127,7 @@ class GameBoard extends Component {
 					}
 				}
 
-
+			
         this.game.grid.forEach((row, idx1) => {
             row.forEach((point, idx2) => {
                 if (point.color !== 'empty') {
@@ -201,9 +217,16 @@ class GameBoard extends Component {
 								this.drawBoard();
 								this.nextTurn();
 								this.props.makeMove(this.props.game.id, placeHolderData)
-								// localStorage.setItem("game", JSON.stringify(placeHolderData))
+								localStorage.setItem("game", JSON.stringify(
+									{
+										id: this.props.game.id,
+										players: this.props.game.players,
+										grid: grid,
+										turn: "" + this.props.game.turn
+									}
+								))
 								// let g = JSON.parse(localStorage.getItem("game"));
-
+								// debugger
 						} 
 
 					}
