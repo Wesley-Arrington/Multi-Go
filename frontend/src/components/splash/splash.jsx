@@ -12,8 +12,6 @@ export default class Splash extends Component {
     }
 
     handleClick() {
-        // the parameters of players and board size should come from a user form
-        // see Wez
         
         let data = {
             player_ids: [this.props.currentUser.email],
@@ -32,6 +30,15 @@ export default class Splash extends Component {
 
         // data.grid = subData;
         // this.props.newGame(data);
+
+        let players = new Array(2)
+        players[0] = this.props.session.user.email;
+        
+        let storeData = {
+            players: players
+        }
+        
+        this.props.updateSetting(storeData);
 
         this.props.newGame(data).then((game) => {
             return (

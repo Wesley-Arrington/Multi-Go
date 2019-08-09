@@ -6,6 +6,14 @@ export const PATCH_GAME = 'PATCH_GAME';
 export const GET_VALID_GAMES = "GET_VALID_GAMES";
 
 export const UPDATE_TURN = 'UPDATE_TURN';
+export const UPDATE_SETTING = 'UPDATE_SETTING';
+
+export const updateSetting = (data) => {
+    return {
+        type: UPDATE_SETTING,
+        data
+    }
+}
 
 export const updateTurn = () => {
     return {
@@ -18,6 +26,13 @@ export const receiveValidGames = (games) => {
         type: GET_VALID_GAMES,
         games: games.data
     }
+}
+
+export const getValidGames = () => dispatch => {
+    return getGames().then((games) => {
+        dispatch(receiveValidGames(games))
+        }
+     )
 }
 
 export const newGame = (data) => {
@@ -36,17 +51,10 @@ export const fetchGrid = (game) => {
 }
 
 export const changeGame = (game) => {
-	return {
+    return {
         type: PATCH_GAME,
-        game: game.data 
-	}
-}
-
-export const getValidGames = () => dispatch => {
-    return getGames().then((games) => {
-        dispatch(receiveValidGames(games))
-        }
-     )
+        game: game.data
+    }
 }
 
 export const fetchGame = (id) => dispatch => {
