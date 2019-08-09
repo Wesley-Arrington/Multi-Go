@@ -64,31 +64,45 @@ export default class ChatBox extends Component {
 
     render() {
         // debugger;
+        let messages = []
+        for (let i = 0; i < this.state.messages.authors.length; i++) {
+            
+            messages.push(<div className="message-div"><h5>{this.state.messages.authors[i]}</h5> <h4>{this.state.messages.body[i]}</h4></div>)
+            // debugger;
+        }
+        
         return (
             <div className="chat-box">
                 <ChatBoxNavBar />
                 <div className="chat-box-chat-section">
+
+                    { 
+                        
+                    }
                     
+                    {
+                        // this.state.messages.authors.map(function (author, idx) {
+                        //     // debugger;
+                        //     return (
+                        //         <div>
+                        //             {/* <h1>{this.state.messages[key].author}</h1> */}
+                        //             <p className="chat-box-message" key={author}>{author}</p>
+                        //         </div>)
+                        // })
+                    }
 
                     {
-                        this.state.messages.authors.map(function (author, idx) {
-                            // debugger;
-                            return (
-                                <div>
-                                    {/* <h1>{this.state.messages[key].author}</h1> */}
-                                    <p className="chat-box-message" key={author}>{author}</p>
-                                </div>)
-                        }),
 
-                        this.state.messages.body.map(function (body, idx) {
-                            // debugger;
-                            return (
-                                <div>
-                                    {/* <h1>{this.state.messages[key].author}</h1> */}
-                                    <p className="chat-box-message" key={body}>{body}</p>
-                                </div>)
-                        })
+                        // this.state.messages.body.map(function (body, idx) {
+                        //     // debugger;
+                        //     return (
+                        //         <div>
+                        //             {/* <h1>{this.state.messages[key].author}</h1> */}
+                        //             <p className="chat-box-message" key={body}>{body}</p>
+                        //         </div>)
+                        // })
                     }
+                    {messages}
                     {/* for(let i = 0; i < this.state.messages.length; i++) {
                         <li className="simple-column">{this.state.messages[i]}</li>
                     } */}
