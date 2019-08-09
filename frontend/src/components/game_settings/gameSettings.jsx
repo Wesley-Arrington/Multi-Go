@@ -28,7 +28,7 @@ export default class GameSettings extends Component {
             player_ids: players,
             // grid: [{
             //     xCoord: 0,
-            //     yCoord: 0,
+            //     yCgit boord: 0,
             //     color: "R"
             // }],
             turn: "0"
@@ -38,13 +38,6 @@ export default class GameSettings extends Component {
             return (
             this.props.history.push(`/game/${game.game._id}/`))
         });
-
-
-
-        // let fakedata = {
-        //     players: players
-        // }
-        // this.props.updateSetting(fakedata)
             
     }
 
