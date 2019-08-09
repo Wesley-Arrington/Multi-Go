@@ -68,6 +68,10 @@
     /* padding-left: 8px; */
 }
 
+.message-div {
+    padding-bottom: 10px;
+}
+
 /* .minus-icon {
     fill: white;
 }
