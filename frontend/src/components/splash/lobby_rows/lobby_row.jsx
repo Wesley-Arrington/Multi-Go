@@ -12,18 +12,11 @@ export default class LobbyRow extends Component {
                 count += 1
             }
         }
-        // debugger;
+
         this.state = {count: count}
     }
 
     handleClick() {
-        this.props.games[this.props.idx].player_ids.push(this.props.session.user.email)
-
-        let dummyData = {
-            player_ids: this.props.games[this.props.idx].player_ids     
-        }
-
-
         let players = this.props.games[this.props.idx].player_ids;
         let flag;
         
@@ -35,17 +28,28 @@ export default class LobbyRow extends Component {
             if (flag) break;
         }
 
+        let dummyData = {
+            player_ids: players
+        }
+
         let data = {
             id: this.props.games[this.props.idx]._id,
             players: players
         }
         
+        debugger
         this.props.joinGame(this.props.games[this.props.idx]._id, dummyData);
         this.props.updateSetting(data);
         this.props.history.push(`/game/${this.props.games[this.props.idx]._id}/`)
     }
     
     render() {
+        // let games = [];
+        // for (let i=0;i<this.props.games.length;i++) {
+        //     games[i] = 
+        //     <h5> {this.state.count}/{this.props.games[i].player_ids.length} Players </h5>
+        // }
+
         return (
             <div className="lobby-row">
                 <h3 className="lobby-row-title">Server Title</h3>
@@ -57,7 +61,7 @@ export default class LobbyRow extends Component {
                 </div>
 
                 <div className="lobby-row-right-items">
-                    <h5>{this.state.count}/5 Players</h5>
+                    <h5>{this.state.count}/{this.props.games[this.props.idx].player_ids.length} Players</h5>
                     <button onClick={this.handleClick} className="blue-button" id="splash-page-join-lobby-button">Join Game</button>
                 </div>
             </div>

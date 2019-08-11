@@ -19,6 +19,7 @@ class Game extends Component {
                     {/* game_id={this.props.game.game_id} */}
                     <GameBoardContainer/>
                     <div>
+                        <PlayersContainer />
                         <ChatBoxContainer />
                     </div>
                 </div>

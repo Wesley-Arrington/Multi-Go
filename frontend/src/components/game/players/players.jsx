@@ -7,35 +7,46 @@ import GreenCircle from '../../../images/circular-shape-silhouette-green.png';
 
 class Players extends Component {
     constructor(props) {
-				super(props)
-		
+        super(props)
+        this.players = this.setPlayers();      
     }
 
-    render() {
-        // if (!this.props.game.players) return;
+    setPlayers() { 
+        let players;
+
+        // kc: at first entry, information is in frontend store.
+        if (Object.keys(this.props.game).length > 0) {
+            players = this.createStopLight(this.props.game.players, this.props.game.turn)
+        } else if (Object.keys(this.props.game).length === 0) {
+        // kc: on refresh, information is in localStorage
+            let localGame = JSON.parse(localStorage.getItem('game'))
+            players = this.createStopLight(localGame.players, parseInt(localGame.turn))
+        }
+
+        return players
+    }
+
+    createStopLight(players, turn) {
         const colors = ['Red', 'Green', 'Blue']
 
-        // kc, wtf is happening? 
-        const players = this.props.game.players.map((player, idx) => {
-		
-		
+        players = players.map((player, idx) => {
             return (
-            <div className='lobby-players-player'>
+                <div className='lobby-players-player'>
                     {/* <img className="lobby-go-piece-image" src={`${colors[idx]}Circle`} alt="" /> */}
                     <b>{colors[idx]}</b>
-            </div>
+                </div>
             )
         })
 
-        switch (this.props.game.turn % this.props.game.players.length) {
+        switch (turn % players.length) {
             case 0:
-                players[0] = 
+                players[0] =
                     <div style={{ backgroundColor: "red" }} className='lobby-players-player'>
                         <b>{colors[0]}</b>
                     </div>
                 break;
             case 1:
-                players[1] = 
+                players[1] =
                     <div style={{ backgroundColor: "green" }} className='lobby-players-player'>
                         <b>{colors[1]}</b>
                     </div>
@@ -48,11 +59,15 @@ class Players extends Component {
                 break;
         }
 
-        // console.log(players)
+        return players
+    }
+
+    render() {
+        // if (!this.props.game.players) return;
 
         return (
             <div className="lobby-players">
-                {players}
+                {this.players}
             </div>
         )
     }
