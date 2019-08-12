@@ -15,7 +15,7 @@ function gameReducer(state = {}, action) {
             newState = merge({}, state);
             newState.id = action.game._id;
             newState.players = action.game.player_ids;
-            newState.turn = parseInt(action.game.turn,10);
+            newState.turn = action.game.turn;
             return newState;
         case UPDATE_TURN:
             newState = merge({}, state);
@@ -26,7 +26,8 @@ function gameReducer(state = {}, action) {
             if (action.data.id) newState.id = action.data.id;
             if (action.data.players) newState.players = action.data.players;
             // if (action.data.grid) newState.grid = action.data.grid;
-            if (action.data.turn) newState.turn = action.data.turn;
+            // kc: oh shit, 0 is a falsey value in JS
+            if (action.data.turn || action.data.turn === 0) newState.turn = action.data.turn;
             return newState;
         default:
             return state

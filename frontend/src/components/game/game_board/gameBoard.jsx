@@ -13,7 +13,6 @@ class GameBoard extends Component {
         this.stoneColor = "red";	// initial color for transparent circle
         this.offset = 50;					// space at top for messages
         this.message = "When it's your turn, click to place stone" // initial message
-
     }
 
     componentDidMount() {
@@ -21,7 +20,6 @@ class GameBoard extends Component {
         // kc attempting to store game info to localstorage on first entry
         // b/c i set localstorage.game to {} when creating game on splash page
         if (Object.keys(JSON.parse(localStorage.getItem('game'))).length === 0 ) {
-
             this.game = new Game(this.props.game.players.length, this.size + 1);
             let grid = this.game.grid.flat().map(point => {
                 return {
@@ -36,13 +34,12 @@ class GameBoard extends Component {
                     id: this.props.game.id,
                     players: this.props.game.players,
                     grid: grid,
-                    turn: "" + 0
+                    turn: 0
                 }
-            ))
+            ));
         }
 
         // kc: upon refresh, return game infromation from local storage
-
         if (Object.keys(this.props.game).length === 0) {
             let g = JSON.parse(localStorage.getItem("game"));
             this.game = new Game(g.players.length, this.size + 1);
@@ -53,6 +50,7 @@ class GameBoard extends Component {
             if ( turn === 0) this.stoneColor = "red";
             else if ( turn === 1) this.stoneColor = "green";
             else this.stoneColor = "blue";
+            // debugger
 
         } else {
             this.game = new Game(this.props.game.players.length, this.size + 1);
@@ -67,19 +65,15 @@ class GameBoard extends Component {
             console.log(data);
             this.game.placeStone(data.x, data.y, data.color);
             // kc: an issue with websocket communcation
-            // this.nextTurn()
             this.drawBoard();
         })
-
-        //this.props.getGame(this.props.game.id);
 
         this.drawBoard();
         this.setupUI();
     }
 		
     nextTurn() {
-        this.props.updateTurn();
-
+        // this.props.updateTurn();
         switch (this.props.game.turn % this.props.game.players.length) {
         case 0:
             this.stoneColor = "red";
@@ -179,10 +173,6 @@ class GameBoard extends Component {
 
                     this.drawBoard()
 
-                    // websocket communication
-                    const socket = io('http://localhost:5000');
-                    socket.emit("sendingMove", { message: "moved", x: xCoord, y: yCoord, color: this.stoneColor, turn: `${this.props.game.turn}` });
-
                     // backend Patch data
                     let grid = this.game.grid.flat().map(point => {
                         return {
@@ -192,25 +182,39 @@ class GameBoard extends Component {
                         }
                     })
 
-                    let placeHolderData = {
+                    let data = {
+                        id: this.props.game.id, 
                         player_ids: this.props.game.players,
                         grid: grid,
-                        turn: this.props.game.turn
+                        turn: this.props.game.turn + 1
                     }
-                    
+
                     this.message = "Legal move, thank you"
                     this.drawBoard();
-                    this.nextTurn();
-                    this.props.makeMove(this.props.game.id, placeHolderData)
-                    debugger    
-                    localStorage.setItem("game", JSON.stringify(
-                        {
-                            id: this.props.game.id,
-                            players: this.props.game.players,
-                            grid: grid,
+                    this.props.makeMove(data).then(() => {
+                        debugger
+                        this.nextTurn();
+                        // localStorage
+                        localStorage.setItem("game", JSON.stringify(
+                            {
+                                id: this.props.game.id,
+                                players: this.props.game.players,
+                                grid: grid,
+                                turn: this.props.game.turn
+                            }
+                        ))
+
+                        // websocket communication
+                        const socket = io('http://localhost:5000');
+                        socket.emit("sendingMove", {
+                            message: "moved",
+                            x: xCoord,
+                            y: yCoord,
+                            color: this.stoneColor,
                             turn: this.props.game.turn
-                        }
-                    ))
+                        });
+                    })
+
                 } 
 
             }
@@ -240,9 +244,6 @@ class GameBoard extends Component {
             height: this.size * 40 + 2 * this.padding + this.offset,
             width: this.size * 40 + 2 * this.padding
         }
-
-        // let stoplight;
-        // if (this.game) stoplight = <PlayersContainer/>
 
         const style = {
             display: 'flex',
