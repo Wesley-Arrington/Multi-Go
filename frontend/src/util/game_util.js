@@ -12,10 +12,11 @@ export const getGames = () => {
 	return axios.get(`/api/games`);
 }
 
-export const updateGame = (game_id, data) => {
-	return axios.patch(`/api/games/${game_id}`, data);
+export const updateGame = (data) => {
+	return axios.patch(`/api/games/${data.id}`, data);
+	// this returns a promise
 }
 
 export const deleteGame = (id) => {
 	return axios.delete(`/api/games/${id}`);
-}
+	}
