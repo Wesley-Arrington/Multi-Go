@@ -20,9 +20,12 @@ class Game extends Component {
                         {/* game_id={this.props.game.game_id} */}
                         <GameBoardContainer/>
                     </div>
-                    <div className="chat-box-container-div">
+                    
+                    <div className="game-right-side-container">
                         <PlayersContainer />
-                        <ChatBoxContainer />
+                        <div className="chat-box-container-div">
+                            <ChatBoxContainer />
+                        </div>
                     </div>
                 </div>
             </div>
