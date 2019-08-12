@@ -16,6 +16,7 @@ class Players extends Component {
 
         // kc: at first entry, information is in frontend store.
         if (Object.keys(this.props.game).length > 0) {
+
             players = this.createStopLight(this.props.game.players, this.props.game.turn)
         } else if (Object.keys(this.props.game).length === 0) {
         // kc: on refresh, information is in localStorage
@@ -28,7 +29,6 @@ class Players extends Component {
 
     createStopLight(players, turn) {
         const colors = ['Red', 'Green', 'Blue']
-
         players = players.map((player, idx) => {
             return (
                 <div className='lobby-players-player'>

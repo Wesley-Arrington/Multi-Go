@@ -13,7 +13,7 @@ const msp = state => {
 
 const mdp = dispatch => {
     return {
-        joinGame: (gameId, data) => dispatch(patchGame(gameId, data)),
+        joinGame: (data) => dispatch(patchGame(data)),
         updateSetting: (data) => dispatch(updateSetting(data))
     }
 

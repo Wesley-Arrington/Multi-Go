@@ -67,8 +67,7 @@ class GameBoard extends Component {
             console.log(data);
             this.game.placeStone(data.x, data.y, data.color);
             // kc: an issue with websocket communcation
-            this.nextTurn()
-
+            // this.nextTurn()
             this.drawBoard();
         })
 
@@ -196,19 +195,20 @@ class GameBoard extends Component {
                     let placeHolderData = {
                         player_ids: this.props.game.players,
                         grid: grid,
-                        turn: "" + this.props.game.turn
+                        turn: this.props.game.turn
                     }
                     
                     this.message = "Legal move, thank you"
                     this.drawBoard();
-                    // this.nextTurn();
+                    this.nextTurn();
                     this.props.makeMove(this.props.game.id, placeHolderData)
+                    debugger    
                     localStorage.setItem("game", JSON.stringify(
                         {
                             id: this.props.game.id,
                             players: this.props.game.players,
                             grid: grid,
-                            turn: "" + this.props.game.turn
+                            turn: this.props.game.turn
                         }
                     ))
                 } 

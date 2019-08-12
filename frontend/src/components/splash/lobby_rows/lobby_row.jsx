@@ -3,7 +3,8 @@ import React, { Component } from 'react'
 export default class LobbyRow extends Component {
     constructor(props) {
         super(props);
-        this.handleClick = this.handleClick.bind(this);
+        this.handleClickJoin = this.handleClickJoin.bind(this);
+        this.handleClickView = this.handleClickView.bind(this);
 
         let count = 0;
         let players = this.props.games[this.props.idx].player_ids;
@@ -16,39 +17,43 @@ export default class LobbyRow extends Component {
         this.state = {count: count}
     }
 
-    handleClick() {
+    handleClickJoin() {
         let players = this.props.games[this.props.idx].player_ids;
-        let flag;
         
+        // kc: setting localStorage.game to {} for systematic approach
+        localStorage.setItem("game", JSON.stringify(
+            {}
+        ))
+
         for (let i = 0; i<players.length; i++) {
             if (!players[i]) {
                 players[i] = this.props.session.user.email;
-                flag = true;
+                break;
             }
-            if (flag) break;
         }
 
-        let dummyData = {
-            player_ids: players
-        }
+        // let data = {
+        //     player_ids: players,
+        // }
 
         let data = {
             id: this.props.games[this.props.idx]._id,
-            players: players
+            player_ids: players,
+            turn: 0
         }
-        
-        debugger
-        this.props.joinGame(this.props.games[this.props.idx]._id, dummyData);
-        this.props.updateSetting(data);
-        this.props.history.push(`/game/${this.props.games[this.props.idx]._id}/`)
+
+        // this.props.updateSetting(frontendData);
+
+        // kc: used a .then perfectly!
+        this.props.joinGame(data).then(() => {
+        this.props.history.push(`/game/${this.props.games[this.props.idx]._id}/`)})
     }
     
+    handleClickView() {
+        this.props.history.push(`/game/${this.props.games[this.props.idx]._id}/`)
+    }
+
     render() {
-        // let games = [];
-        // for (let i=0;i<this.props.games.length;i++) {
-        //     games[i] = 
-        //     <h5> {this.state.count}/{this.props.games[i].player_ids.length} Players </h5>
-        // }
 
         return (
             <div className="lobby-row">
@@ -62,7 +67,11 @@ export default class LobbyRow extends Component {
 
                 <div className="lobby-row-right-items">
                     <h5>{this.state.count}/{this.props.games[this.props.idx].player_ids.length} Players</h5>
-                    <button onClick={this.handleClick} className="blue-button" id="splash-page-join-lobby-button">Join Game</button>
+
+                    {(this.state.count/this.props.games[this.props.idx].player_ids.length === 1) ? 
+                        <button className="blue-button" id="splash-page-join-lobby-button">Full Game</button> : 
+                        <button onClick={this.handleClickJoin} className="blue-button" id="splash-page-join-lobby-button">Join Game</button>}
+
                 </div>
             </div>
         )
