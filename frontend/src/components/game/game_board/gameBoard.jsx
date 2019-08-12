@@ -61,6 +61,16 @@ class GameBoard extends Component {
 				
         const socket = io('http://localhost:5000');
         socket.on("receiveMove", (data) => {
+            // localStorage
+            localStorage.setItem("game", JSON.stringify(
+                {
+                    id: this.props.game.id,
+                    players: this.props.game.players,
+                    grid: data.grid,
+                    turn: data.turn
+                }
+            ))
+
             console.log("received move")
             console.log(data);
             this.game.placeStone(data.x, data.y, data.color);
@@ -185,17 +195,6 @@ class GameBoard extends Component {
                 };
                 
                 this.game.placeStone(xCoord, yCoord, this.stoneColor);
-                    
-                // websocket communication
-                const socket = io('http://localhost:5000');
-                socket.emit("sendingMove", {
-                    message: "moved",
-                    x: xCoord,
-                    y: yCoord,
-                    color: this.stoneColor,
-                    turn: this.props.game.turn + 1
-                });
-
 
                 this.drawBoard();
 
@@ -208,6 +207,17 @@ class GameBoard extends Component {
                     }
                 });
 
+                // websocket communication
+                const socket = io('http://localhost:5000');
+                socket.emit("sendingMove", {
+                    message: "moved",
+                    x: xCoord,
+                    y: yCoord,
+                    color: this.stoneColor,
+                    turn: this.props.game.turn + 1,
+                    grid: grid
+                });
+
                 let data = {
                     id: this.props.game.id, 
                     player_ids: this.props.game.players,
@@ -218,16 +228,7 @@ class GameBoard extends Component {
                 this.message = "Legal move, thank you"
                 this.drawBoard();
                 this.props.makeMove(data).then(() => {
-                    // localStorage
-                    localStorage.setItem("game", JSON.stringify(
-                        {
-                            id: this.props.game.id,
-                            players: this.props.game.players,
-                            grid: grid,
-                            turn: this.props.game.turn
-                        }
-                    ))
-
+     
                 })
  
 

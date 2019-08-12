@@ -9,15 +9,22 @@ import GreenCircle from '../../../images/circular-shape-silhouette-green.png';
 class Players extends Component {
     constructor(props) {
         super(props)
-        this.players = this.setPlayers();      
+        this.players = this.setPlayers();    
     }
 
     // kc: this is not working as expected. seems to be lagging by one.
     // also, shouldn't makeMove in gameBoard trigger a rerender b/c this component is mapped to game slice of state?
 
-    // componentDidUpdate() {
+    // componentWillUnmount() {
     //     this.players = this.setPlayers();
     // }
+    // componentDidMount() {
+    //     this.players = this.setPlayers();
+    // }
+    componentDidUpdate() {
+        debugger
+        this.players = this.setPlayers();
+    }
 
     setPlayers() { 
         let players;
@@ -39,7 +46,7 @@ class Players extends Component {
     createStopLight(players, turn) {
         const colors = ['Red', 'Green', 'Blue']
         // debugger
-        players = players.map((player, idx) => {
+        let stopLight = players.map((player, idx) => {
             return (
                 <div className='lobby-players-player' key={idx}>
                     {/* <img className="lobby-go-piece-image" src={`${colors[idx]}Circle`} alt="" /> */}
@@ -48,34 +55,34 @@ class Players extends Component {
             )
         })
 
-        // debugger    
         console.log(`modular: ${turn % players.length}`)
         switch (turn % players.length) {
             case 0:
-                players[0] =
+                stopLight[0] =
                     <div style={{ backgroundColor: "red" }} key={0} className='lobby-players-player'>
                         <b>{colors[0]}</b>
                     </div>
                 break;
             case 1:
-                players[1] =
+                stopLight[1] =
                     <div style={{ backgroundColor: "green" }} key={1} className='lobby-players-player'>
                         <b>{colors[1]}</b>
                     </div>
                 break;
             case 2:
-                players[2] =
+                stopLight[2] =
                     <div style={{ backgroundColor: "blue" }} key={2} className='lobby-players-player'>
                         <b>{colors[2]}</b>
                     </div>
                 break;
         }
 
-        return players
+        return stopLight
     }
 
     render() {
         // if (!this.props.game.players) return;
+
         return (
             <div className="lobby-players">
                 {this.players}
