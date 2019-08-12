@@ -67,10 +67,11 @@ class GameBoard extends Component {
             this.drawBoard();
         })
 
+        // const socket = io('http://localhost:5000')
         socket.on("joinGame", (data) => {
             console.log("joinGame")
             console.log(data);
-
+            this.props.updateSetting(data)
         })
 
         this.drawBoard();
@@ -208,7 +209,6 @@ class GameBoard extends Component {
                     this.message = "Legal move, thank you"
                     this.drawBoard();
                     this.props.makeMove(data).then(() => {
-                        debugger
                         this.nextTurn();
                         // localStorage
                         localStorage.setItem("game", JSON.stringify(

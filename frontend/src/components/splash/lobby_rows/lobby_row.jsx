@@ -47,7 +47,7 @@ export default class LobbyRow extends Component {
             const socket = io('http://localhost:5000');
             socket.emit("joinGame", {
                 message: "new player has joined the game",
-                userEmail: this.props.session.user.email
+                players: this.props.games[this.props.idx].player_ids
             });
 
             this.props.history.push(`/game/${this.props.games[this.props.idx]._id}/`)
