@@ -21,6 +21,7 @@ class Game extends Component {
                         <GameBoardContainer/>
                     </div>
                     <div className="chat-box-container-div">
+                        <PlayersContainer />
                         <ChatBoxContainer />
                     </div>
                 </div>

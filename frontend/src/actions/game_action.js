@@ -1,12 +1,18 @@
 import { postGame, getGame, updateGame, getGames } from '../util/game_util';
 
+export const UPDATE_TURN = 'UPDATE_TURN';
+export const UPDATE_SETTING = 'UPDATE_SETTING';
+
+export const GET_VALID_GAMES = "GET_VALID_GAMES";
 export const NEW_GAME = 'NEW_GAME';
 export const FETCH_GRID = 'FETCH_GRID';
 export const PATCH_GAME = 'PATCH_GAME';
-export const GET_VALID_GAMES = "GET_VALID_GAMES";
 
-export const UPDATE_TURN = 'UPDATE_TURN';
-export const UPDATE_SETTING = 'UPDATE_SETTING';
+export const updateTurn = () => {
+    return {
+        type: UPDATE_TURN
+    }
+}
 
 export const updateSetting = (data) => {
     return {
@@ -15,11 +21,7 @@ export const updateSetting = (data) => {
     }
 }
 
-export const updateTurn = () => {
-    return {
-        type: UPDATE_TURN
-    }
-}
+// kc: actions below are caught but thunk middleware
 
 export const receiveValidGames = (games) => {
     return {
@@ -28,19 +30,10 @@ export const receiveValidGames = (games) => {
     }
 }
 
-export const getValidGames = () => dispatch => {
-    return getGames().then((games) => {
-        dispatch(receiveValidGames(games))
-        }
-     )
-}
-
-export const newGame = (data) => {
-    // debugger
+export const newGame = (game) => {
     return {
         type: NEW_GAME,
-        // why is data nested twice?
-        game: data.data
+        game: game.data
     }
 }
 
@@ -58,14 +51,18 @@ export const changeGame = (game) => {
     }
 }
 
-export const fetchGame = (id) => dispatch => {
-    return getGame(id).then((game) => dispatch(fetchGrid(game)))
+export const getValidGames = () => dispatch => {
+    return getGames().then((games) => { dispatch(receiveValidGames(games)) })
 }
 
 export const createGame = (data) => dispatch => {
     return postGame(data).then((data) => dispatch(newGame(data)))
 }
 
-export const patchGame = (game_id, data) => dispatch => {
-    return updateGame(game_id, data).then(data => dispatch(changeGame(data)))
+export const fetchGame = (id) => dispatch => {
+    return getGame(id).then((game) => dispatch(fetchGrid(game)))
+}
+
+export const patchGame = (data) => dispatch => {
+    return updateGame(data).then(data => dispatch(changeGame(data)))
 }

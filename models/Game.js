@@ -7,7 +7,7 @@ const GameSchema = new Schema(
 
 
 	player_ids:  [{ 
-				type: String		
+		type: String		
 	}],
 
 	grid:[{
@@ -26,7 +26,7 @@ const GameSchema = new Schema(
 	}],
 
 	turn: {
-		type: String
+		type: Number
 	} 
 
 })

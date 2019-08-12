@@ -59,6 +59,11 @@ io.on('connection', function (socket) {
         console.log(`${data.message}`)
     })
 
+    socket.on("joinGame", (data) => {
+        socket.to("should be game id").emit("joinGame", data)
+        console.log(`${data.message}`)
+    })
+
     socket.on("start", (data) => {
         socket.to("should be game id").emit("start", data)
         console.log(`${data.message}`)

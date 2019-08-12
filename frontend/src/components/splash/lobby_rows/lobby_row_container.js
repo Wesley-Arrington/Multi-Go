@@ -13,9 +13,7 @@ const msp = state => {
 
 const mdp = dispatch => {
     return {
-        // 1. fetch the game information
-        // 2. patch the DB with 2nd player id
-        joinGame: (gameId, data) => dispatch(patchGame(gameId, data)),
+        joinGame: (data) => dispatch(patchGame(data)),
         updateSetting: (data) => dispatch(updateSetting(data))
     }
 

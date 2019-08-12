@@ -45,8 +45,9 @@ router.delete('/:id', (req, res) => {
 	})
 })
 
+// kc do we have to add /game/?
+// see game util file
 router.patch('/:id', (req, res) => {
-
 	Game.findById(req.params.id, (err, game) => {
 		if (!game) return res.status(404).send("data is not found");
 		else {

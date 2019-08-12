@@ -1,9 +1,12 @@
 import React, { Component } from 'react'
+import io from 'socket.io-client';
+
 
 export default class LobbyRow extends Component {
     constructor(props) {
         super(props);
-        this.handleClick = this.handleClick.bind(this);
+        this.handleClickJoin = this.handleClickJoin.bind(this);
+        this.handleClickView = this.handleClickView.bind(this);
 
         let count = 0;
         let players = this.props.games[this.props.idx].player_ids;
@@ -12,40 +15,51 @@ export default class LobbyRow extends Component {
                 count += 1
             }
         }
-        // debugger;
+
         this.state = {count: count}
     }
 
-    handleClick() {
-        this.props.games[this.props.idx].player_ids.push(this.props.session.user.email)
-
-        let dummyData = {
-            player_ids: this.props.games[this.props.idx].player_ids     
-        }
-
-
+    handleClickJoin() {
         let players = this.props.games[this.props.idx].player_ids;
-        let flag;
         
+        // kc: setting localStorage.game to {} for systematic approach
+        localStorage.setItem("game", JSON.stringify(
+            {}
+        ))
+
         for (let i = 0; i<players.length; i++) {
             if (!players[i]) {
                 players[i] = this.props.session.user.email;
-                flag = true;
+                break;
             }
-            if (flag) break;
         }
 
         let data = {
             id: this.props.games[this.props.idx]._id,
-            players: players
+            player_ids: players,
+            turn: 0
         }
-        
-        this.props.joinGame(this.props.games[this.props.idx]._id, dummyData);
-        this.props.updateSetting(data);
-        this.props.history.push(`/game/${this.props.games[this.props.idx]._id}/`)
+
+        // kc: used a .then perfectly!
+        this.props.joinGame(data).then(() => {
+
+            // Kc: ask Wez about Socket msging
+            const socket = io('http://localhost:5000');
+            socket.emit("joinGame", {
+                message: "new player has joined the game",
+                players: this.props.games[this.props.idx].player_ids
+            });
+
+            this.props.history.push(`/game/${this.props.games[this.props.idx]._id}/`)
+        })
     }
     
+    handleClickView() {
+        this.props.history.push(`/game/${this.props.games[this.props.idx]._id}/`)
+    }
+
     render() {
+
         return (
             <div className="lobby-row">
                 <h3 className="lobby-row-title">Server Title</h3>
@@ -57,8 +71,12 @@ export default class LobbyRow extends Component {
                 </div>
 
                 <div className="lobby-row-right-items">
-                    <h5>{this.state.count}/5 Players</h5>
-                    <button onClick={this.handleClick} className="blue-button" id="splash-page-join-lobby-button">Join Game</button>
+                    <h5>{this.state.count}/{this.props.games[this.props.idx].player_ids.length} Players</h5>
+
+                    {(this.state.count/this.props.games[this.props.idx].player_ids.length === 1) ? 
+                        <button className="blue-button" id="splash-page-join-lobby-button">Full Game</button> : 
+                        <button onClick={this.handleClickJoin} className="blue-button" id="splash-page-join-lobby-button">Join Game</button>}
+
                 </div>
             </div>
         )
