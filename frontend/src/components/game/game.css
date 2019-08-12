@@ -76,3 +76,9 @@
     width: 20px;
     height: 20px;
 }
+
+.game-right-side-container {
+    display: flex;
+    flex-direction: column;
+    margin-left: 30px;
+}
