@@ -14,7 +14,7 @@ class Players extends Component {
 
     // kc: this is not working as expected. seems to be lagging by one.
     // also, shouldn't makeMove in gameBoard trigger a rerender b/c this component is mapped to game slice of state?
-    
+
     // componentDidUpdate() {
     //     this.players = this.setPlayers();
     // }
@@ -41,7 +41,7 @@ class Players extends Component {
         // debugger
         players = players.map((player, idx) => {
             return (
-                <div className='lobby-players-player'>
+                <div className='lobby-players-player' key={idx}>
                     {/* <img className="lobby-go-piece-image" src={`${colors[idx]}Circle`} alt="" /> */}
                     <b>{colors[idx]}</b>
                 </div>
@@ -53,19 +53,19 @@ class Players extends Component {
         switch (turn % players.length) {
             case 0:
                 players[0] =
-                    <div style={{ backgroundColor: "red" }} className='lobby-players-player'>
+                    <div style={{ backgroundColor: "red" }} key={0} className='lobby-players-player'>
                         <b>{colors[0]}</b>
                     </div>
                 break;
             case 1:
                 players[1] =
-                    <div style={{ backgroundColor: "green" }} className='lobby-players-player'>
+                    <div style={{ backgroundColor: "green" }} key={1} className='lobby-players-player'>
                         <b>{colors[1]}</b>
                     </div>
                 break;
             case 2:
                 players[2] =
-                    <div style={{ backgroundColor: "blue" }} className='lobby-players-player'>
+                    <div style={{ backgroundColor: "blue" }} key={2} className='lobby-players-player'>
                         <b>{colors[2]}</b>
                     </div>
                 break;

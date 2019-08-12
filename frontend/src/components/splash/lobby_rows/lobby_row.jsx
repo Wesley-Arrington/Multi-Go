@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import io from 'socket.io-client';
+
 
 export default class LobbyRow extends Component {
     constructor(props) {
@@ -32,21 +34,24 @@ export default class LobbyRow extends Component {
             }
         }
 
-        // let data = {
-        //     player_ids: players,
-        // }
-
         let data = {
             id: this.props.games[this.props.idx]._id,
             player_ids: players,
             turn: 0
         }
 
-        // this.props.updateSetting(frontendData);
-
         // kc: used a .then perfectly!
         this.props.joinGame(data).then(() => {
-        this.props.history.push(`/game/${this.props.games[this.props.idx]._id}/`)})
+
+            // Kc: ask Wez about Socket msging
+            const socket = io('http://localhost:5000');
+            socket.emit("joinGame", {
+                message: "new player has joined the game",
+                userEmail: this.props.session.user.email
+            });
+
+            this.props.history.push(`/game/${this.props.games[this.props.idx]._id}/`)
+        })
     }
     
     handleClickView() {

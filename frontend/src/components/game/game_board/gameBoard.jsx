@@ -39,7 +39,7 @@ class GameBoard extends Component {
             ));
         }
 
-        // kc: upon refresh, return game infromation from local storage
+        // kc: upon refresh, return game information from local storage
         if (Object.keys(this.props.game).length === 0) {
             let g = JSON.parse(localStorage.getItem("game"));
             this.game = new Game(g.players.length, this.size + 1);
@@ -64,8 +64,13 @@ class GameBoard extends Component {
             console.log("received move")
             console.log(data);
             this.game.placeStone(data.x, data.y, data.color);
-            // kc: an issue with websocket communcation
             this.drawBoard();
+        })
+
+        socket.on("joinGame", (data) => {
+            console.log("joinGame")
+            console.log(data);
+
         })
 
         this.drawBoard();
@@ -171,6 +176,17 @@ class GameBoard extends Component {
                     this.message = "Cannot start. Not enough players in game"
                 } else if (this.game.placeStone(xCoord, yCoord, this.stoneColor)) {
 
+                    // websocket communication
+                    const socket = io('http://localhost:5000');
+                    socket.emit("sendingMove", {
+                        message: "moved",
+                        x: xCoord,
+                        y: yCoord,
+                        color: this.stoneColor,
+                        turn: this.props.game.turn
+                    });
+
+
                     this.drawBoard()
 
                     // backend Patch data
@@ -204,15 +220,7 @@ class GameBoard extends Component {
                             }
                         ))
 
-                        // websocket communication
-                        const socket = io('http://localhost:5000');
-                        socket.emit("sendingMove", {
-                            message: "moved",
-                            x: xCoord,
-                            y: yCoord,
-                            color: this.stoneColor,
-                            turn: this.props.game.turn
-                        });
+
                     })
 
                 } 
