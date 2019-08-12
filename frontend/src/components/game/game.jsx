@@ -15,10 +15,12 @@ class Game extends Component {
         return (
             <div>
                 <NavBar />
-                <div className="game-div">
-                    {/* game_id={this.props.game.game_id} */}
-                    <GameBoardContainer/>
-                    <div>
+                <div className="game-div-content-container">
+                    <div className="game-div">
+                        {/* game_id={this.props.game.game_id} */}
+                        <GameBoardContainer/>
+                    </div>
+                    <div className="chat-box-container-div">
                         <PlayersContainer />
                         <ChatBoxContainer />
                     </div>
