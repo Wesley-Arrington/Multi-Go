@@ -20,11 +20,11 @@ class Players extends Component {
     // }
     // componentDidMount() {
     //     this.players = this.setPlayers();
+    // // }
+    // componentDidUpdate() {
+    //     debugger
+    //     this.players = this.setPlayers();
     // }
-    componentDidUpdate() {
-        debugger
-        this.players = this.setPlayers();
-    }
 
     setPlayers() { 
         let players;
@@ -82,6 +82,8 @@ class Players extends Component {
 
     render() {
         // if (!this.props.game.players) return;
+        debugger
+        this.players = this.setPlayers();
 
         return (
             <div className="lobby-players">

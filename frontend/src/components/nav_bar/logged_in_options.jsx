@@ -8,7 +8,8 @@ export default class LoggedInOptions extends Component {
         this.state = {
             visable: false
         }
-
+        this.goHome = this.goHome.bind(this);
+        this.rejoinGame = this.rejoinGame.bind(this);
         this.toggleMenu = this.toggleMenu.bind(this);
     }
 
@@ -26,6 +27,15 @@ export default class LoggedInOptions extends Component {
         //this whole toggle thing is stupid instead do a menu that is always exists and then modify 
         //the value of visable or location or what evs to render it
         //class is user_drop_down_options
+    }
+
+    goHome() {
+        this.props.history.push('/');
+    }
+
+    rejoinGame() {
+        console.log(this.props.game.id)
+        this.props.history.push(`/game/${this.props.game.id}`);
     }
 
     render() {
@@ -49,7 +59,8 @@ export default class LoggedInOptions extends Component {
         return (
             <div className="logged-in-options">
                 {/* <img onClick={this.toggleMenu} className="logged-in-options-robot-image" src={"user-default-profile-picture.png"} alt=""/> */}
-                {/* {gameSettingsButton} */}
+                <button onClick={this.goHome} className="user-menu">Home</button>
+                <button onClick={this.rejoinGame} className="user-menu">Rejoin Game</button>
                 <button onClick={this.toggleMenu} className="user-menu">{currentUser.email}</button>
                 {dropDown}
             </div>
