@@ -64,6 +64,10 @@ class GameBoard extends Component {
             console.log("received move")
             console.log(data);
             this.game.placeStone(data.x, data.y, data.color);
+            this.props.updateSetting(data);
+            this.nextTurn();
+
+
             this.drawBoard();
         })
 
@@ -160,8 +164,8 @@ class GameBoard extends Component {
                 this.drawCircle(Math.floor(mouseX) * 40 + 20, Math.floor(mouseY) * 40 + 20 + this.offset, this.stoneColor, 17, 0.2);
             }
 
-            this.xCoord = Math.floor(mouseX)
-            this.yCoord = Math.floor(mouseY)
+            this.xCoord = Math.floor(mouseX);
+            this.yCoord = Math.floor(mouseY);
         })
 
         // gets position for stone placement when clicked
@@ -174,56 +178,58 @@ class GameBoard extends Component {
             try {
                 // kc: if the # of players is not met, cannot place stone
                 if (this.props.game.players.includes(null)) {
-                    this.message = "Cannot start. Not enough players in game"
-                } else if (this.game.placeStone(xCoord, yCoord, this.stoneColor)) {
+                    throw "Cannot start. Not enough players in game";
+                } else if (this.props.game.players.indexOf(this.props.session.user.email) !==
+                           this.props.game.turn % this.props.game.players.length) {
+                    throw "Not your turn";
+                };
+                
+                this.game.placeStone(xCoord, yCoord, this.stoneColor);
+                    
+                // websocket communication
+                const socket = io('http://localhost:5000');
+                socket.emit("sendingMove", {
+                    message: "moved",
+                    x: xCoord,
+                    y: yCoord,
+                    color: this.stoneColor,
+                    turn: this.props.game.turn + 1
+                });
 
-                    // websocket communication
-                    const socket = io('http://localhost:5000');
-                    socket.emit("sendingMove", {
-                        message: "moved",
-                        x: xCoord,
-                        y: yCoord,
-                        color: this.stoneColor,
-                        turn: this.props.game.turn
-                    });
 
+                this.drawBoard();
 
-                    this.drawBoard()
-
-                    // backend Patch data
-                    let grid = this.game.grid.flat().map(point => {
-                        return {
-                            xCoord: point.position[0],
-                            yCoord: point.position[1],
-                            color: point.color
-                        }
-                    })
-
-                    let data = {
-                        id: this.props.game.id, 
-                        player_ids: this.props.game.players,
-                        grid: grid,
-                        turn: this.props.game.turn + 1
+                // backend Patch data
+                let grid = this.game.grid.flat().map(point => {
+                    return {
+                        xCoord: point.position[0],
+                        yCoord: point.position[1],
+                        color: point.color
                     }
+                });
 
-                    this.message = "Legal move, thank you"
-                    this.drawBoard();
-                    this.props.makeMove(data).then(() => {
-                        this.nextTurn();
-                        // localStorage
-                        localStorage.setItem("game", JSON.stringify(
-                            {
-                                id: this.props.game.id,
-                                players: this.props.game.players,
-                                grid: grid,
-                                turn: this.props.game.turn
-                            }
-                        ))
+                let data = {
+                    id: this.props.game.id, 
+                    player_ids: this.props.game.players,
+                    grid: grid,
+                    turn: this.props.game.turn + 1
+                }
 
+                this.message = "Legal move, thank you"
+                this.drawBoard();
+                this.props.makeMove(data).then(() => {
+                    // localStorage
+                    localStorage.setItem("game", JSON.stringify(
+                        {
+                            id: this.props.game.id,
+                            players: this.props.game.players,
+                            grid: grid,
+                            turn: this.props.game.turn
+                        }
+                    ))
 
-                    })
-
-                } 
+                })
+ 
 
             }
             catch (err) {
