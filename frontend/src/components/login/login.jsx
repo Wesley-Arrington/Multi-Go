@@ -21,7 +21,8 @@ export default class Login extends Component {
         };
 
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.demoLogin = this.demoLogin.bind(this);
+        this.demoLogin1 = this.demoLogin1.bind(this);
+        this.demoLogin2 = this.demoLogin2.bind(this);
         this.switchToSignUp = this.switchToSignUp.bind(this);
     }
 
@@ -37,11 +38,11 @@ export default class Login extends Component {
         //.then(() => this.props.history.push('/user'));
     }
 
-    async demoLogin(e) {
+    async demoLogin1(e) {
         e.preventDefault();
 
         const demoUser = {
-            email: 'sally@gmail.com',
+            email: 'PlayerOne@gmail.com',
             password: 'password'
         };
 
@@ -67,17 +68,42 @@ export default class Login extends Component {
         // document.getElementById("password-input").blur();
     }
 
+    async demoLogin2(e) {
+        e.preventDefault();
+
+        const demoUser = {
+            email: 'PlayerTwo@gmail.com',
+            password: 'password'
+        };
+
+        const sleep = ms => new Promise(res => setTimeout(res, ms));
+
+        document.getElementById('email-input').focus();
+        for (let i = 1; i <= demoUser.email.length; i++) {
+            this.setState({ email: demoUser.email.substr(0, i) });
+            await sleep(50);
+        }
+
+        await sleep(250);
+
+        document.getElementById("password-input").focus();
+        for (let i = 1; i <= demoUser.password.length; i++) {
+            this.setState({ password: demoUser.password.substr(0, i) });
+            await sleep(50);
+        }
+
+        await sleep(250);
+
+        document.getElementById('session-submit-button').click();
+    }
+
+
     switchToSignUp() {
         this.props.closeModal();
-
-        // dispatch(this.props.openModal('signup'));
+        this.props.openModal('signup');
     }
 
     render() {
-        // if (!this.state.visible) {
-        //     return <div></div>;
-        // }
-
         return (
             // <div className="session-grey-background" onClick={this.props.toggleLoginModal}>
                 // <div onClick={e => e.stopPropagation()}>
@@ -103,12 +129,13 @@ export default class Login extends Component {
 
                         <p className="session-additional-option-text">Or</p>
 
-                        <div onClick={this.demoLogin} className="color-button" id="session-demo-login-button"> DEMO LOG IN </div>
+                        <div onClick={this.demoLogin1} className="color-button" id="session-demo-login-button"> DEMO LOG IN (Player 1)</div>
+                        <div onClick={this.demoLogin2} className="color-button" id="session-demo-login-button"> DEMO LOG IN (Player 2)</div>
                     </form>
 
                     <div className="login-signup-option-row" onClick={this.switchToSignUp}>
                         <h4 className="switch-to-sign-up-text">New to Gogo?</h4>
-                        <button className="switch-to-sign-up-button"> Sign Up </button>
+                        <button onClick={this.switchToSignUp} className="switch-to-sign-up-button"> Sign Up </button>
                     </div>
                 </div>
 

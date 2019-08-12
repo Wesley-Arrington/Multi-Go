@@ -17,19 +17,11 @@ export default class Game {
             grid[i] = new Array(this.size);
         }
 
-        // if (!inputGrid) {
-        //     // do nothing
-        // } else {
-
         for (let x=0; x<this.size; x++) {
             for (let y=0; y<this.size; y++) {
                 grid[x][y] = new Point(x,y)
             }
         }
-            // return grid.map((point) => {
-            //     return new Point(point.xCoord, point.yCoord, point.color);
-            // })
-        // }
 
         return grid;
 		}

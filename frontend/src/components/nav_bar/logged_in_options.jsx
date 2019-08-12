@@ -34,7 +34,7 @@ export default class LoggedInOptions extends Component {
     }
 
     rejoinGame() {
-        console.log(this.props.game.id)
+        debugger
         this.props.history.push(`/game/${this.props.game.id}`);
     }
 

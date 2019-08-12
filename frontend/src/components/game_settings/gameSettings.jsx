@@ -38,36 +38,12 @@ export default class GameSettings extends Component {
         this.props.closeModal();
 
         this.props.newGame(data).then((game) => {
-            return (
-                this.props.history.push(`/game/${game.game._id}/`))
+            return this.props.history.push(`/game/${game.game._id}/`)
         });
 
         // , this.emitMsg()
         // callback should do the same thing as componentDidUpdate
         // #ofplayers should come from the form in modal 
-    }
-
-    componentDidUpdate() {
-        // console.log(this.state)
-        // const socket = io('http://localhost:5000');
-        // socket.emit("start", { 
-        //     message: "start", 
-        //     players: this.state.players
-        // });
-
-
-
-    }
-
-    // emitMsg() {
-    //     console.log(this.state)
-    //     console.log("click")
-    //     const socket = io('http://localhost:5000');
-    //     socket.emit("start", { message: "start" });
-    // }
-
-    componentDidMount() {
-        
     }
 
     render() {
