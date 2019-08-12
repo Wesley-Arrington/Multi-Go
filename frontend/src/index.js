@@ -15,11 +15,11 @@ window.axios = axios;
 
 let store;
 
-if (localStorage.jwtToken) {
-    setAuthToken(localStorage.jwtToken);
-    const decodedUser = jwt_decode(localStorage.jwtToken);
+if (sessionStorage.jwtToken) {
+    setAuthToken(sessionStorage.jwtToken);
+    const decodedUser = jwt_decode(sessionStorage.jwtToken);
     const preloadedState = { session: { isAuthenticated: true, user: decodedUser } };
-    // debugger;
+
     store = configureStore(preloadedState);
 
     const currentTime = Date.now() / 1000;

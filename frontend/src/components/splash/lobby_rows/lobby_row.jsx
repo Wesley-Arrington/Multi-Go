@@ -22,8 +22,8 @@ export default class LobbyRow extends Component {
     handleClickJoin() {
         let players = this.props.games[this.props.idx].player_ids;
         
-        // kc: setting localStorage.game to {} for systematic approach
-        localStorage.setItem("game", JSON.stringify(
+        // kc: setting sessionStorage.game to {} for systematic approach
+        sessionStorage.setItem("game", JSON.stringify(
             {}
         ))
 
@@ -74,7 +74,7 @@ export default class LobbyRow extends Component {
                     <h5>{this.state.count}/{this.props.games[this.props.idx].player_ids.length} Players</h5>
 
                     {(this.state.count/this.props.games[this.props.idx].player_ids.length === 1) ? 
-                        <button className="blue-button" id="splash-page-join-lobby-button">Full Game</button> : 
+                        <div>Full Game</div> : 
                         <button onClick={this.handleClickJoin} className="blue-button" id="splash-page-join-lobby-button">Join Game</button>}
 
                 </div>

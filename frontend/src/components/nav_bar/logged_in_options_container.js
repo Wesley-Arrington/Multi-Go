@@ -8,6 +8,7 @@ const mapStateToProps = (state, ownProps) => {
 
     return {
         // isLoggedIn: state.session.isAuthenticated,
+        game: state.entities.game,
         currentUser: state.session.user,
         currentGameId: state.entities.game.id
     };

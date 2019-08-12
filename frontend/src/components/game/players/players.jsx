@@ -34,8 +34,8 @@ class Players extends Component {
             players = this.createStopLight(this.props.game.players, this.props.game.turn)
             // debugger
         } else if (Object.keys(this.props.game).length === 0) {
-        // kc: on refresh, information is in localStorage
-            let localGame = JSON.parse(localStorage.getItem('game'))
+        // kc: on refresh, information is in sessionStorage
+            let localGame = JSON.parse(sessionStorage.getItem('game'))
             // debugger
             players = this.createStopLight(localGame.players, localGame.turn)
         }
@@ -82,7 +82,6 @@ class Players extends Component {
 
     render() {
         // if (!this.props.game.players) return;
-        debugger
         this.players = this.setPlayers();
 
         return (

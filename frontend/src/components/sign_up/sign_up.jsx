@@ -19,7 +19,7 @@ export default class SignUp extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            handle: '',
+            // handle: '',
             password: '',
             email: ''
         };
@@ -79,8 +79,8 @@ export default class SignUp extends Component {
                         <p className="session-label">Email</p>
                         <input placeholder="Your  Username" className="session-input" type="text" value={this.state.email} onChange={this.handleInput('email')} />
 
-                        <p className="session-label">Username</p>
-                        <input placeholder="Your  Username" className="session-input" type="text" value={this.state.handle} onChange={this.handleInput('handle')}/>
+                        {/* <p className="session-label">Username</p>
+                        <input placeholder="Your  Username" className="session-input" type="text" value={this.state.handle} onChange={this.handleInput('handle')}/> */}
 
                         <p className="session-label">Password</p>
                         <input placeholder="Password" className="session-input-password" type="password" value={this.state.password} onChange={this.handleInput('password')}/>
