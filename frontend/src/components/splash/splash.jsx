@@ -35,7 +35,7 @@ export default class Splash extends Component {
 
         let data = {
             name: "DEMO",
-            player_ids: players,
+            players: players,
             size: 13,
             turn: 0
         }
@@ -56,25 +56,11 @@ export default class Splash extends Component {
         socket.on("reloadIdxPage", (data) => {
             this.props.getValidGames();
         });
-
     }
 
     render() {
-        let { isLoggedIn } = this.props
 
-        // let currentGame = this.store.getState().entities;
-
-        // let colors = ['Red','Green','Blue']
-        // let style;
-        // let msg1 = "Multi-Go".split('').map((letter,idx) => {
-        //     style
-        //     return (
-        //         <div style={}>letter</div>
-
-        //     )
-        // }).join('')
-     
-        if (isLoggedIn) {
+        if (this.props.session.isAuthenticated) {
         return (
             <div className="splash-page">
                 <NavBar />

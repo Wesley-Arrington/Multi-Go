@@ -8,7 +8,7 @@ const GameSchema = new Schema(
 		type: String
 	},
 	
-	player_ids:  [{ 
+	players:  [{ 
 		type: String		
 	}],
 

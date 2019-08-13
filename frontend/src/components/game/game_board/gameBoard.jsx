@@ -7,9 +7,6 @@ class GameBoard extends Component {
         super(props)
         this.state = {};
         this.padding = 20;
-        // this.size = 19-1;
-        // this.size = 13-1;z
-        // this.size = 25-1;
         // kc: -1 because canvas needs to be adjusted by 1. otherwise protruding lines
         this.size = this.props.game.size-1;
         this.stoneColor = "red";	// initial color for transparent circle
@@ -79,8 +76,6 @@ class GameBoard extends Component {
                 this.drawBoard();
 
             })
-
-
         }
 
         this.canvas1 = document.getElementById('canvas');
@@ -308,7 +303,7 @@ class GameBoard extends Component {
 
             let data = {
                 id: this.props.game.id,
-                player_ids: this.props.game.players,
+                players: this.props.game.players,
                 grid: grid,
                 turn: this.props.game.turn + 1
             }

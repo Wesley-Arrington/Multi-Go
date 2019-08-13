@@ -7,15 +7,15 @@ export default class LobbyRow extends Component {
         super(props);
         this.handleClickJoin = this.handleClickJoin.bind(this);
         this.handleClickView = this.handleClickView.bind(this);
+        this.handleClickLogin = this.handleClickLogin.bind(this);
     }
 
-    componentDidMount() {
-
-
+    handleClickLogin() {
+        this.props.openModal('login');
     }
 
     handleClickJoin() {
-        let players = this.props.games[this.props.idx].player_ids;
+        let players = this.props.games[this.props.idx].players;
         
         // kc: setting sessionStorage.game to {} for systematic approach
         sessionStorage.setItem("game", JSON.stringify({}))
@@ -29,7 +29,7 @@ export default class LobbyRow extends Component {
 
         let data = {
             id: this.props.games[this.props.idx]._id,
-            player_ids: players,
+            players: players,
             turn: 0
         }
 
@@ -40,7 +40,7 @@ export default class LobbyRow extends Component {
             const socket = io('http://localhost:5000');
             socket.emit("joinGame", {
                 message: "new player has joined the game",
-                players: this.props.games[this.props.idx].player_ids
+                players: this.props.games[this.props.idx].players
             });
 
             socket.emit("indexPage", {
@@ -56,26 +56,52 @@ export default class LobbyRow extends Component {
     }
 
     render() {
+        // kc: delete later after development. weird bug
+        if (this.props.games[this.props.idx] === undefined) debugger
 
-        return (
-            <div className="lobby-row">
-                <h3 className="lobby-row-title">{this.props.games[this.props.idx].name}</h3>
+        if (this.props.session.isAuthenticated) {
+            return (
+                <div className="lobby-row">
+                    <h3 className="lobby-row-title">{this.props.games[this.props.idx].name}</h3>
 
-                <div className="simple-column">
-                    <h4>chat-enabled: Yes</h4>
-                    <h4>board-size: {this.props.games[this.props.idx].size}x{this.props.games[this.props.idx].size}</h4>
-                    <h4>grid-layout: Square Grid</h4>
+                    <div className="simple-column">
+                        <h4>chat-enabled: Yes</h4>
+                        <h4>board-size: {this.props.games[this.props.idx].size}x{this.props.games[this.props.idx].size}</h4>
+                        <h4>grid-layout: Square Grid</h4>
+                    </div>
+
+                    <div className="lobby-row-right-items">
+                        <h5>{this.props.games[this.props.idx].players.filter(ele => { return ele }).length}/{this.props.games[this.props.idx].players.length} Players</h5>
+
+                        {(this.props.games[this.props.idx].players.filter(ele => { return ele }).length / this.props.games[this.props.idx].players.length === 1) ?
+                            <div>Full Game</div> :
+                            <button onClick={this.handleClickJoin} className="blue-button" id="splash-page-join-lobby-button">Join Game</button>}
+
+                    </div>
                 </div>
+            )
+        } else {
+            return (
+                <div className="lobby-row">
+                    <h3 className="lobby-row-title">{this.props.games[this.props.idx].name}</h3>
 
-                <div className="lobby-row-right-items">
-                    <h5>{this.props.games[this.props.idx].player_ids.filter(ele => { return ele }).length}/{this.props.games[this.props.idx].player_ids.length} Players</h5>
+                    <div className="simple-column">
+                        <h4>chat-enabled: Yes</h4>
+                        <h4>board-size: {this.props.games[this.props.idx].size}x{this.props.games[this.props.idx].size}</h4>
+                        <h4>grid-layout: Square Grid</h4>
+                    </div>
 
-                    {(this.props.games[this.props.idx].player_ids.filter(ele => { return ele }).length/this.props.games[this.props.idx].player_ids.length === 1) ? 
-                        <div>Full Game</div> : 
-                        <button onClick={this.handleClickJoin} className="blue-button" id="splash-page-join-lobby-button">Join Game</button>}
+                    <div className="lobby-row-right-items">
+                        <h5>{this.props.games[this.props.idx].players.filter(ele => { return ele }).length}/{this.props.games[this.props.idx].players.length} Players</h5>
 
+                        {(this.props.games[this.props.idx].players.filter(ele => { return ele }).length / this.props.games[this.props.idx].players.length === 1) ?
+                            <div>Full Game</div> :
+                            <button onClick={this.handleClickLogin} className="blue-button" id="splash-page-join-lobby-button">Join Game</button>}
+
+                    </div>
                 </div>
-            </div>
-        )
+            )
+        }
+      
     }
 }
