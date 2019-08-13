@@ -8,14 +8,17 @@ function gameReducer(state = {}, action) {
         case NEW_GAME:
             newState = merge({}, state);
             newState.id = action.game._id;
+            newState.name = action.game.name;
             newState.players = action.game.player_ids;
             newState.turn = 0;
+            newState.size = action.game.size;
             return newState;
         case PATCH_GAME:
             newState = merge({}, state);
             newState.id = action.game._id;
             newState.players = action.game.player_ids;
             newState.turn = action.game.turn;
+            newState.size = action.game.size;
             return newState;
         case UPDATE_TURN:
             newState = merge({}, state);
@@ -25,6 +28,7 @@ function gameReducer(state = {}, action) {
             newState = merge({}, state);
             if (action.data.id) newState.id = action.data.id;
             if (action.data.players) newState.players = action.data.players;
+            if (action.data.size) newState.size = action.data.size;
             // if (action.data.grid) newState.grid = action.data.grid;
             // kc: oh shit, 0 is a falsey value in JS
             if (action.data.turn || action.data.turn === 0) newState.turn = action.data.turn;

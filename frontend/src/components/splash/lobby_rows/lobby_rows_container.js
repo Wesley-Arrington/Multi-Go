@@ -3,7 +3,7 @@ import LobbyRows from './lobby_rows';
 
 const msp = (state, ownProps) => {
     return {
-        games: Object.values(state.entities.games)
+        games: state.entities.games
     };
 };
 

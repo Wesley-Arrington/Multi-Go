@@ -64,10 +64,15 @@ io.on('connection', function (socket) {
         console.log(`${data.message}`)
     })
 
-    socket.on("start", (data) => {
-        socket.to("should be game id").emit("start", data)
+    socket.on("indexPage", data => {
+        socket.to("should be game id").emit("reloadIdxPage", data)
         console.log(`${data.message}`)
     })
+
+    // socket.on("start", (data) => {
+    //     socket.to("should be game id").emit("start", data)
+    //     console.log(`${data.message}`)
+    // })
 });
 
 http.listen(port, () => console.log(`Server is running on port ${port}`));

@@ -4,11 +4,17 @@ const Schema = mongoose.Schema;
 
 const GameSchema = new Schema(
 {
-
-
+	name: {
+		type: String
+	},
+	
 	player_ids:  [{ 
 		type: String		
 	}],
+
+	size: {
+		type: Number
+	},
 
 	grid:[{
 

@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { closeModal, openModal } from '../../actions/modal_action';
-import Login from '../login/login';
-import SignUp from '../sign_up/sign_up';
+import LoginContainer from '../login/login_container';
+import SignUpContainer from '../sign_up/sign_up_container';
 import GameSettingsContainer from '../game_settings/gameSettings_Container';
 import { login, signup } from '../../actions/session_actions';
 
@@ -15,10 +15,10 @@ const Modal = ({ modal, closeModal, login, errors, createNewUser }) => {
     let component;
     switch (modal) {
         case 'login':
-            component = <Login login={login} openModal={openModal} closeModal={closeModal} errors={errors} />;
+            component = <LoginContainer login={login} openModal={openModal} closeModal={closeModal} errors={errors} />;
             break;
         case 'signup':
-            component = <SignUp createNewUser={createNewUser} openModal={openModal} closeModal={closeModal} errors={errors} />;
+            component = <SignUpContainer createNewUser={createNewUser} openModal={openModal} closeModal={closeModal} errors={errors} />;
             break;
         case 'gameSettings':
             component = <GameSettingsContainer closeModal={closeModal}/>
