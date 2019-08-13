@@ -14,7 +14,7 @@
     bottom: 0px;
     right: 0px; */
     width: 400px;
-    height: 450px;
+    height: 411px;
     border: 1px solid lightgray;
     border-radius: 5px;
     
@@ -24,7 +24,7 @@
 .chat-box-chat-section {
     padding-top: 10px;
     padding-left: 15px;
-    height: 360px;
+    height: 350px;
     overflow: scroll;
     /* overflow: scroll; */
 }

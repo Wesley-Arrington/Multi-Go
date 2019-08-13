@@ -7,6 +7,7 @@ export default class ChatBoxNavBar extends Component {
             <div className="chat-box-nav-bar">
                 {/* <MinusIcon /> */}
                 {/* <button className="chat-box-nav-bar-button">-</button> */}
+                
                 <img src={"minus-symbol.svg"} alt="" className="chat-box-nav-bar-button"/>
             </div>
         )

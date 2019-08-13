@@ -73,7 +73,7 @@ export default class ChatBox extends Component {
         
         return (
             <div className="chat-box">
-                <ChatBoxNavBar />
+                {/* <ChatBoxNavBar /> */}
                 <div className="chat-box-chat-section">
 
                     { 
