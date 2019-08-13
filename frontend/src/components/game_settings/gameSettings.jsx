@@ -71,7 +71,6 @@ export default class GameSettings extends Component {
     }
 
     render() {
-        console.log(this.state)
         let config = `Players: ${this.state.players.length}, Size: ${this.state.size}x${this.state.size}`
 
         return (

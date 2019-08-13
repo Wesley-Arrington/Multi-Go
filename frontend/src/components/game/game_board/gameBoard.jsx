@@ -8,7 +8,7 @@ class GameBoard extends Component {
         this.state = {};
         this.padding = 20;
         // this.size = 19-1;
-        // this.size = 13-1;
+        // this.size = 13-1;z
         // this.size = 25-1;
         // kc: -1 because canvas needs to be adjusted by 1. otherwise protruding lines
         this.size = this.props.game.size-1;
@@ -23,6 +23,7 @@ class GameBoard extends Component {
         // kc: there's  a bug if game creator immediately refreshes page before 1st move
         // kc attempting to store game info to sessionStorage on first entry
         // b/c i set sessionStorage.game to {} when creating game on splash page
+
         if (sessionStorage.getItem('game')===null ||
             Object.keys(JSON.parse(sessionStorage.getItem('game'))).length === 0 ) {
             this.game = new Game(this.props.game.players.length, this.size + 1);
@@ -33,7 +34,7 @@ class GameBoard extends Component {
                     color: point.color
                 }
             })
-
+            // sessionStorage stores a 1d array
             sessionStorage.setItem("game", JSON.stringify(
                 {
                     id: this.props.game.id,
@@ -64,6 +65,22 @@ class GameBoard extends Component {
         } else {
             // kc: adjust size + 1 from canvas to gamelogic
             this.game = new Game(this.props.game.players.length, this.size + 1);
+
+            // kc: fetch game info from the DB or sessionStorage
+            let id = this.props.game.id || JSON.parse(sessionStorage.getItem('game')).id
+
+            this.props.fetchGame(id).then(() => {
+                if (this.props.game.fetchedGrid.length > 0) {
+                    this.game.unflatten(this.props.game.fetchedGrid);
+                    this.nextTurn(this.props.game.turn);
+                } else if (JSON.parse(sessionStorage.getItem('game')).id === this.props.game.id) {
+                    this.game.unflatten(JSON.parse(sessionStorage.getItem('game')).grid);
+                }
+                this.drawBoard();
+
+            })
+
+
         }
 
         this.canvas1 = document.getElementById('canvas');
@@ -98,7 +115,6 @@ class GameBoard extends Component {
 
         socket.on("joinGame", (data) => {
             console.log("joinGame")
-            console.log(data);
             this.props.updateSetting(data)
 
             if (this.props.game.players.indexOf(this.props.session.user.email) === 0 &&
@@ -117,20 +133,24 @@ class GameBoard extends Component {
 		
     nextTurn(turn) {
         // kc: update
-        switch (turn % this.game.players) {
-            case 0:
-                this.stoneColor = "red";
-                break;
-            case 1:
-                this.stoneColor = "green";
-                break;
-            case 2:
-                this.stoneColor = "blue";
-                break;
-            case 3:
-                this.stoneColor = "yellow"    
-                break;
-        }
+        return new Promise ((resolve, reject) => {
+            switch (turn % this.game.players) {
+                case 0:
+                    this.stoneColor = "red";
+                    break;
+                case 1:
+                    this.stoneColor = "green";
+                    break;
+                case 2:
+                    this.stoneColor = "blue";
+                    break;
+                case 3:
+                    this.stoneColor = "yellow"    
+                    break;
+            }
+            resolve();
+
+        });
     }
 
     drawBoard() {	
@@ -147,7 +167,7 @@ class GameBoard extends Component {
         this.ctx.clearRect(0, 0, bw, bh + this.offset);
         this.ctx.beginPath();
         
-        this.drawMessage(bw);
+        this.drawMessage(bw); 
 
         for (let i = 0; i <= this.size; i++) {
             this.ctx.moveTo(x + this.padding, this.padding+ this.offset);
@@ -186,6 +206,7 @@ class GameBoard extends Component {
             }
         }
 
+        // 2d array
         this.game.grid.forEach((row, idx1) => {
             row.forEach((point, idx2) => {
                 if (point.color !== 'empty') {
@@ -226,15 +247,21 @@ class GameBoard extends Component {
         let xCoord = Math.floor((event.clientX - 30) / 40);
         let yCoord = Math.floor((event.clientY - 91 - this.offset) / 40);
 
-        this.move(xCoord, yCoord).then(() => {
-
-            if (this.props.game.players.includes('Computer')) {
-                this.nextTurn(this.props.game.turn);
-                this.move(1, this.props.game.turn).then(() => { this.nextTurn(this.props.game.turn) })
-                    .then(() => { this.canvas1.addEventListener("click", this.handleClick) });
+        this.move(xCoord, yCoord).then((err) => {
+            if (!err) {
+                if (this.props.game.players.includes('Computer')) {
+                    this.nextTurn(this.props.game.turn);
+                    this.move(1, this.props.game.turn).then(() => { this.nextTurn(this.props.game.turn) })
+                        .then(() => { this.canvas1.addEventListener("click", this.handleClick) });
+                } else {
+                    // for non computer game
+                    this.canvas1.addEventListener("click", this.handleClick)
+                }
             } else {
+                // 
                 this.canvas1.addEventListener("click", this.handleClick);  
             }
+
 
         });
     }
@@ -293,10 +320,11 @@ class GameBoard extends Component {
             }
             catch (err) {
                 this.message = "Illegal move, " + err;
+
                 this.drawBoard();
                 // kc: changed to resolve b/c throw err would cause failure when 
                 // adding listener back
-                resolve();
+                resolve(err);
             }
         })
     }
