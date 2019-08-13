@@ -6,6 +6,7 @@ export default class GameSettings extends Component {
     constructor(props) {
         super(props);
         this.state = { 
+            name: "Game Name",
             value: "2",
             players: new Array(2),
             size: 13
@@ -13,6 +14,13 @@ export default class GameSettings extends Component {
         this.handleClick = this.handleClick.bind(this);
         this.handleChangePlayers = this.handleChangePlayers.bind(this);
         this.handleChangeSize = this.handleChangeSize.bind(this);
+        this.handleChangeName = this.handleChangeName.bind(this);
+    }
+
+    handleChangeName(e) {
+        this.setState({
+            name: e.target.value
+        })
     }
 
     handleChangePlayers(e) {
@@ -34,6 +42,7 @@ export default class GameSettings extends Component {
 
         players[0] = this.props.session.user.email;
         let data = {
+            name: this.state.name,
             player_ids: players,
             size: this.state.size,
             turn: 0
@@ -75,7 +84,7 @@ export default class GameSettings extends Component {
                         </h3>
                         
                         {/* KC: Probably link Lobby Name to Server Title on Splash Page  */}
-                        <input className="edit-game-input-text" placeholder="Lobby Name" type="text" name="" id="" />
+                        <input className="edit-game-input-text" type="text" placeHolder="Game Name" value={this.state.name} onChange={this.handleChangeName}/>
                         
                         <label htmlFor=""> Number of Players:</label>
                         <select value={this.state.value} onChange={this.handleChangePlayers} name="">

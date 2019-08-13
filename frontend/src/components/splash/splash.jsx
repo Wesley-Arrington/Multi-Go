@@ -34,6 +34,7 @@ export default class Splash extends Component {
         players[1] = "Computer"
 
         let data = {
+            name: "DEMO",
             player_ids: players,
             size: 13,
             turn: 0

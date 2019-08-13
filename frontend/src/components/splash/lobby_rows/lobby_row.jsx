@@ -7,16 +7,6 @@ export default class LobbyRow extends Component {
         super(props);
         this.handleClickJoin = this.handleClickJoin.bind(this);
         this.handleClickView = this.handleClickView.bind(this);
-
-        let count = 0;
-        let players = this.props.games[this.props.idx].player_ids;
-        for (let i = 0; i < players.length; i++) {
-            if (players[i]) {
-                count += 1
-            }
-        }
-        debugger
-        this.state = {count: count}
     }
 
     componentDidMount() {
@@ -28,9 +18,7 @@ export default class LobbyRow extends Component {
         let players = this.props.games[this.props.idx].player_ids;
         
         // kc: setting sessionStorage.game to {} for systematic approach
-        sessionStorage.setItem("game", JSON.stringify(
-            {}
-        ))
+        sessionStorage.setItem("game", JSON.stringify({}))
 
         for (let i = 0; i<players.length; i++) {
             if (!players[i]) {
@@ -71,7 +59,7 @@ export default class LobbyRow extends Component {
 
         return (
             <div className="lobby-row">
-                <h3 className="lobby-row-title">Server Title</h3>
+                <h3 className="lobby-row-title">{this.props.games[this.props.idx].name}</h3>
 
                 <div className="simple-column">
                     <h4>chat-enabled: Yes</h4>

@@ -26,6 +26,7 @@ router.post('/',
 
 	(req, res) => {
 		const newBoard = new Game({
+			name: req.body.name,
 			player_ids: req.body.player_ids,
 			size: req.body.size,
 			grid: req.body.grid,

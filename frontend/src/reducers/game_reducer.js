@@ -8,6 +8,7 @@ function gameReducer(state = {}, action) {
         case NEW_GAME:
             newState = merge({}, state);
             newState.id = action.game._id;
+            newState.name = action.game.name;
             newState.players = action.game.player_ids;
             newState.turn = 0;
             newState.size = action.game.size;
