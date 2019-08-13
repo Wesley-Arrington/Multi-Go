@@ -7,11 +7,7 @@ export default class LobbyRows extends Component {
     constructor(props) {
         super(props)
     }
-
-    componentDidMount() {
-        this.props.getValidGames();
-    }
-
+    
     render() {
         if (Object.values(this.props.games).length === 0) return null;
         let rows = Object.values(this.props.games).map((game,idx) =>  {

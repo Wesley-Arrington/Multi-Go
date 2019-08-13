@@ -9,19 +9,18 @@ function gameReducer(state = {}, action) {
             newState = merge({}, state);
             newState.id = action.game._id;
             newState.name = action.game.name;
-            newState.players = action.game.player_ids;
+            newState.players = action.game.players;
             newState.turn = 0;
             newState.size = action.game.size;
             return newState;
         case PATCH_GAME:
             newState = merge({}, state);
             newState.id = action.game._id;
-            newState.players = action.game.player_ids;
+            newState.players = action.game.players;
             newState.turn = action.game.turn;
             newState.size = action.game.size;
             return newState;
         case FETCH_GRID:
-            // debugger
             newState = merge({}, state);
             newState.fetchedGrid = action.game.grid;
             return newState;
