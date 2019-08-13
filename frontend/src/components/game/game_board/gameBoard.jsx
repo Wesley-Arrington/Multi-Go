@@ -13,6 +13,7 @@ class GameBoard extends Component {
         this.stoneColor = "red";	// initial color for transparent circle
         this.offset = 50;					// space at top for messages
         this.message = "When it's your turn, click to place stone" // initial message
+    
     }
 
     componentDidMount() {
@@ -50,7 +51,6 @@ class GameBoard extends Component {
             if ( turn === 0) this.stoneColor = "red";
             else if ( turn === 1) this.stoneColor = "green";
             else this.stoneColor = "blue";
-            // debugger
 
         } else {
             this.game = new Game(this.props.game.players.length, this.size + 1);
@@ -74,7 +74,8 @@ class GameBoard extends Component {
             
             this.game.placeStone(data.x, data.y, data.color);
             this.props.updateSetting(data);
-            this.nextTurn();
+
+            this.nextTurn(data.turn);
             
             if (this.props.game.players.indexOf(this.props.session.user.email) ===
                 this.props.game.turn % this.props.game.players.length) {
@@ -83,7 +84,6 @@ class GameBoard extends Component {
             };
 
             // if (this.props.game.players[this.props.game.turn % this.props.game.players.length] === 'Computer') {
-            //     debugger
             //     // this.stoneColor = "Green";
             //     this.move(1, this.props.game.turn);
             // }
@@ -111,9 +111,10 @@ class GameBoard extends Component {
         this.setupUI();
     }
 		
-    nextTurn() {
+    nextTurn(turn) {
         // this.props.updateTurn();
-        switch (this.props.game.turn % this.props.game.players.length) {
+
+        switch (turn % this.game.players) {
         case 0:
             this.stoneColor = "red";
             break;
@@ -203,26 +204,40 @@ class GameBoard extends Component {
             let xCoord = Math.floor((event.clientX-30)/40);
             let yCoord = Math.floor((event.clientY-91 - this.offset)/40);
 
-            this.move(xCoord, yCoord);
+            // let promise1 = new Promise((res, rej) => {
+            this.move(xCoord, yCoord).then(() => {
+
+                if (this.props.game.players.includes('Computer')) {
+                    this.nextTurn(this.props.game.turn);
+                    this.move(1, this.props.game.turn).then(() => {this.nextTurn(this.props.game.turn)})
+
+                }
+            });
 
         })
     }
     
     move(xCoord, yCoord) {
         // kc: if this move is valid then do the rest, if not do nothing
+
+        return new Promise((resolve, reject) => {
+
+        let counter = 0;
         try {
-            debugger
+        
             // kc: if the # of players is not met, cannot place stone
             if (this.props.game.players.includes(null)) {
                 
                 throw "Cannot start. Not enough players in game";
-            } else if ((this.props.game.players.indexOf(this.props.session.user.email) !==
-                        this.props.game.turn % this.props.game.players.length) &&
-                        (!this.props.game.players.includes("Computer"))) {
-                debugger
+            } else if (this.props.game.players.indexOf("Computer") ===
+                this.props.game.turn % this.props.game.players.length){
+
+            
+            } else if (this.props.game.players.indexOf(this.props.session.user.email) !==
+                        this.props.game.turn % this.props.game.players.length) {
                 throw "Not your turn";
             };
-            debugger
+
             this.game.placeStone(xCoord, yCoord, this.stoneColor);
             this.drawBoard();
 
@@ -255,16 +270,15 @@ class GameBoard extends Component {
 
             this.message = "Legal move, thank you"
             this.drawBoard();
-            this.props.makeMove(data).then(() => {
-              
-             })
-
+            this.props.makeMove(data).then(() => { resolve() })
 
         }
         catch (err) {
             this.message = "Illegal move, " + err;
             this.drawBoard();
+            reject();
         }
+        })
     }
 
     drawCircle(x, y, color, size, alpha = 1) {
