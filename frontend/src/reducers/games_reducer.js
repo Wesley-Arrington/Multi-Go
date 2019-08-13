@@ -24,11 +24,22 @@ function gamesReducer(state = {}, action) {
             return newState;
             
         case GET_VALID_GAMES:
+            // debugger
             newState = merge({}, state);
-            newState = JSON.parse(JSON.stringify(action.games))
-            // newState["grid"] = action.games.grid;
-            // newState["turn"] = action.games.turn;
-            // newState["player_ids"] = action.games.player_ids;
+            
+            let fullgames = [];
+            let notfullgames = []
+            let games = action.games.forEach(game => {
+                if (game.player_ids.includes(null)) {
+                    notfullgames.push(game)
+                } else {
+                    fullgames.push(game)
+                }
+            })
+
+            games = fullgames.concat(notfullgames);
+            newState = games;
+
             return newState;
         default:
             return state

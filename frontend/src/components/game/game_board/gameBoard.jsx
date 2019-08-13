@@ -79,8 +79,6 @@ class GameBoard extends Component {
                 this.drawBoard();
 
             })
-
-
         }
 
         this.canvas1 = document.getElementById('canvas');

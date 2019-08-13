@@ -3,13 +3,20 @@ import './lobby.css'
 import LobbyRowContainer from './lobby_row_container'
 
 export default class LobbyRows extends Component {
+
+    constructor(props) {
+        super(props)
+    }
+
+    componentDidMount() {
+        this.props.getValidGames();
+    }
+
     render() {
-        // if (typeof this.props.games === "object") return null;
+        if (Object.values(this.props.games).length === 0) return null;
         let rows = Object.values(this.props.games).map((game,idx) =>  {
-            if (typeof game !== "undefined" && typeof game.player_ids === "object") {
-                return (<LobbyRowContainer idx={idx} playerCount={game.player_ids.length}/>)
-            }
-        })
+            return (<LobbyRowContainer idx={idx}/>)
+        });
 
         return (
             <div className="width-100-column-reverse">
