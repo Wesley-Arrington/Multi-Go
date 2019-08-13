@@ -115,7 +115,6 @@ class GameBoard extends Component {
 
         socket.on("joinGame", (data) => {
             console.log("joinGame")
-            console.log(data);
             this.props.updateSetting(data)
 
             if (this.props.game.players.indexOf(this.props.session.user.email) === 0 &&
