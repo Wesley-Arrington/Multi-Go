@@ -34,11 +34,10 @@ export default class LoggedInOptions extends Component {
     }
 
     rejoinGame() {
-        // kc: how do i get the game information back? // fetch game info from the DB
-        let id = this.props.game.id || JSON.parse(sessionStorage.getItem('game')).id
-        debugger
+        // // kc: how do i get the game information back? // fetch game info from the DB
+        // let id = this.props.game.id || JSON.parse(sessionStorage.getItem('game')).id
 
-        this.props.fetchGame(id);
+        // this.props.fetchGame(id);
         this.props.history.push(`/game/${this.props.game.id}`);
     }
 

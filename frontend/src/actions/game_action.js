@@ -38,7 +38,6 @@ export const newGame = (game) => {
 }
 
 export const fetchGrid = (game) => {
-    debugger
     return {
         type: FETCH_GRID,
         game: game.data
@@ -61,7 +60,6 @@ export const createGame = (data) => dispatch => {
 }
 
 export const fetchGame = (id) => dispatch => {
-    debugger
     return getGame(id).then((game) => dispatch(fetchGrid(game)))
 }
 

@@ -23,6 +23,7 @@ class GameBoard extends Component {
         // kc: there's  a bug if game creator immediately refreshes page before 1st move
         // kc attempting to store game info to sessionStorage on first entry
         // b/c i set sessionStorage.game to {} when creating game on splash page
+
         if (sessionStorage.getItem('game')===null ||
             Object.keys(JSON.parse(sessionStorage.getItem('game'))).length === 0 ) {
             this.game = new Game(this.props.game.players.length, this.size + 1);
@@ -33,7 +34,7 @@ class GameBoard extends Component {
                     color: point.color
                 }
             })
-
+            // sessionStorage stores a 1d array
             sessionStorage.setItem("game", JSON.stringify(
                 {
                     id: this.props.game.id,
@@ -64,6 +65,22 @@ class GameBoard extends Component {
         } else {
             // kc: adjust size + 1 from canvas to gamelogic
             this.game = new Game(this.props.game.players.length, this.size + 1);
+
+            // kc: fetch game info from the DB or sessionStorage
+            let id = this.props.game.id || JSON.parse(sessionStorage.getItem('game')).id
+
+            this.props.fetchGame(id).then(() => {
+                if (this.props.game.fetchedGrid.length > 0) {
+                    this.game.unflatten(this.props.game.fetchedGrid);
+                    this.nextTurn(this.props.game.turn);
+                } else if (JSON.parse(sessionStorage.getItem('game')).id === this.props.game.id) {
+                    this.game.unflatten(JSON.parse(sessionStorage.getItem('game')).grid);
+                }
+                this.drawBoard();
+
+            })
+
+
         }
 
         this.canvas1 = document.getElementById('canvas');
@@ -190,6 +207,7 @@ class GameBoard extends Component {
             }
         }
 
+        // 2d array
         this.game.grid.forEach((row, idx1) => {
             row.forEach((point, idx2) => {
                 if (point.color !== 'empty') {
