@@ -12,8 +12,9 @@ class GameBoard extends Component {
         this.size = 19-1;
         this.stoneColor = "red";	// initial color for transparent circle
         this.offset = 50;					// space at top for messages
-        this.message = "When it's your turn, click to place stone" // initial message
-    
+        this.message = "When it's your turn, click to place stone"; // initial message
+
+        this.handleClick = this.handleClick.bind(this);
     }
 
     componentDidMount() {
@@ -113,17 +114,16 @@ class GameBoard extends Component {
 		
     nextTurn(turn) {
         // this.props.updateTurn();
-
         switch (turn % this.game.players) {
-        case 0:
-            this.stoneColor = "red";
+            case 0:
+                this.stoneColor = "red";
+                break;
+            case 1:
+                this.stoneColor = "green";
+                break;
+            case 2:
+                this.stoneColor = "blue";
             break;
-        case 1:
-            this.stoneColor = "green";
-            break;
-        case 2:
-            this.stoneColor = "blue";
-        break;
         }
     }
 
@@ -190,7 +190,6 @@ class GameBoard extends Component {
 
             if (this.xCoord !== Math.floor(mouseX) || this.yCoord !== Math.floor(mouseY)) {
                 this.drawBoard();
-
                 this.drawCircle(Math.floor(mouseX) * 40 + 20, Math.floor(mouseY) * 40 + 20 + this.offset, this.stoneColor, 17, 0.2);
             }
 
@@ -199,40 +198,45 @@ class GameBoard extends Component {
         })
 
         // gets position for stone placement when clicked
-        this.canvas1.addEventListener("click", event => {
-
-            let xCoord = Math.floor((event.clientX-30)/40);
-            let yCoord = Math.floor((event.clientY-91 - this.offset)/40);
-
-            // let promise1 = new Promise((res, rej) => {
-            this.move(xCoord, yCoord).then(() => {
-
-                if (this.props.game.players.includes('Computer')) {
-                    this.nextTurn(this.props.game.turn);
-                    this.move(1, this.props.game.turn).then(() => {this.nextTurn(this.props.game.turn)})
-
-                }
-            });
-
-        })
+        this.canvas1.addEventListener("click", this.handleClick)
     }
     
+    handleClick(event) {
+        this.canvas1.removeEventListener("click", this.handleClick);
+        let xCoord = Math.floor((event.clientX - 30) / 40);
+        let yCoord = Math.floor((event.clientY - 91 - this.offset) / 40);
+
+        this.move(xCoord, yCoord).then(() => {
+
+            if (this.props.game.players.includes('Computer')) {
+                this.nextTurn(this.props.game.turn);
+                this.move(1, this.props.game.turn).then(() => { this.nextTurn(this.props.game.turn) })
+                    .then(() => { 
+
+                        this.canvas1.addEventListener("click", this.handleClick) });
+                        debugger
+            } else {
+                // why isn't this working for regular multiplayer
+
+                this.canvas1.addEventListener("click", this.handleClick); 
+                debugger    
+            }
+
+        });
+    }
+
     move(xCoord, yCoord) {
         // kc: if this move is valid then do the rest, if not do nothing
 
         return new Promise((resolve, reject) => {
 
-        let counter = 0;
         try {
-        
             // kc: if the # of players is not met, cannot place stone
-            if (this.props.game.players.includes(null)) {
-                
+            if (this.props.game.players.includes(null)) { 
                 throw "Cannot start. Not enough players in game";
             } else if (this.props.game.players.indexOf("Computer") ===
                 this.props.game.turn % this.props.game.players.length){
-
-            
+                    // do nothing
             } else if (this.props.game.players.indexOf(this.props.session.user.email) !==
                         this.props.game.turn % this.props.game.players.length) {
                 throw "Not your turn";
@@ -272,12 +276,14 @@ class GameBoard extends Component {
             this.drawBoard();
             this.props.makeMove(data).then(() => { resolve() })
 
-        }
-        catch (err) {
-            this.message = "Illegal move, " + err;
-            this.drawBoard();
-            reject();
-        }
+            }
+            catch (err) {
+                this.message = "Illegal move, " + err;
+                this.drawBoard();
+                // kc: changed to resolve b/c throw err would cause failure when 
+                // adding listener back
+                resolve();
+            }
         })
     }
 
