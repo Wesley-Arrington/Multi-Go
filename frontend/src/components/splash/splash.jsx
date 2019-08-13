@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import NavBar from '../nav_bar/nav_bar';
 import LobbyRowsContainer from './lobby_rows/lobby_rows_container'
+import io from 'socket.io-client';
+
 import './splash.css';
 
 export default class Splash extends Component {
@@ -33,12 +35,8 @@ export default class Splash extends Component {
 
         let data = {
             player_ids: players,
-            // grid: [{
-            //     xCoord: 0,
-            //     yCgit boord: 0,
-            //     color: "R"
-            // }],
-            turn: "0"
+            size: 13,
+            turn: 0
         }
 
         this.props.newGame(data).then((game) => {
@@ -47,7 +45,17 @@ export default class Splash extends Component {
     }
 
     componentDidMount() {
+        // compoenentDidMount runs once after render
         this.props.getValidGames();
+        
+        const socket = io('http://localhost:5000');
+
+        // kc: there are 2 places where this receives emits.
+        // whenever a user creates a game (non demo) & joins a game
+        socket.on("reloadIdxPage", (data) => {
+            this.props.getValidGames();
+        });
+
     }
 
     render() {
@@ -64,7 +72,7 @@ export default class Splash extends Component {
 
         //     )
         // }).join('')
-
+     
         if (isLoggedIn) {
         return (
             <div className="splash-page">

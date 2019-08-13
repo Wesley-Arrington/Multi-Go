@@ -8,44 +8,28 @@ import GreenCircle from '../../../images/circular-shape-silhouette-green.png';
 
 class Players extends Component {
     constructor(props) {
-        super(props)
+        super(props);
         this.players = this.setPlayers();    
     }
-
-    // kc: this is not working as expected. seems to be lagging by one.
-    // also, shouldn't makeMove in gameBoard trigger a rerender b/c this component is mapped to game slice of state?
-
-    // componentWillUnmount() {
-    //     this.players = this.setPlayers();
-    // }
-    // componentDidMount() {
-    //     this.players = this.setPlayers();
-    // // }
-    // componentDidUpdate() {
-    //     debugger
-    //     this.players = this.setPlayers();
-    // }
 
     setPlayers() { 
         let players;
         // kc: at first entry, information is in frontend store.
-        console.log(`props turn: ${this.props.game.turn}` )
         if (Object.keys(this.props.game).length > 0) {
-            players = this.createStopLight(this.props.game.players, this.props.game.turn)
-            // debugger
+            players = this.createStopLight(this.props.game.players, this.props.game.turn);
         } else if (Object.keys(this.props.game).length === 0) {
         // kc: on refresh, information is in sessionStorage
-            let localGame = JSON.parse(sessionStorage.getItem('game'))
-            // debugger
-            players = this.createStopLight(localGame.players, localGame.turn)
+            let localGame = JSON.parse(sessionStorage.getItem('game'));
+            players = this.createStopLight(localGame.players, localGame.turn);
         }
 
         return players
     }
 
     createStopLight(players, turn) {
-        const colors = ['Red', 'Green', 'Blue']
-        // debugger
+        // kc: update
+        const colors = ['Red', 'Green', 'Blue', 'Yellow']
+
         let stopLight = players.map((player, idx) => {
             return (
                 <div className='lobby-players-player' key={idx}>
@@ -55,7 +39,7 @@ class Players extends Component {
             )
         })
 
-        console.log(`modular: ${turn % players.length}`)
+        // kc: update
         switch (turn % players.length) {
             case 0:
                 stopLight[0] =
@@ -75,13 +59,18 @@ class Players extends Component {
                         <b>{colors[2]}</b>
                     </div>
                 break;
+            case 3:
+                stopLight[3] =
+                    <div style={{ backgroundColor: "Yellow" }} key={3} className='lobby-players-player'>
+                        <b>{colors[3]}</b>
+                    </div>
+                break;
         }
 
         return stopLight
     }
 
     render() {
-        // if (!this.props.game.players) return;
         this.players = this.setPlayers();
 
         return (

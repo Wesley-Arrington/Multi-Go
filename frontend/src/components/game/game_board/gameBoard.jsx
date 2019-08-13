@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
 import io from 'socket.io-client';
 import Game from '../GameLogic/gameWebSocks';
-import PlayersContainer from '../players/players_container';
-
 
 class GameBoard extends Component {
     constructor(props) {
         super(props)
         this.state = {};
         this.padding = 20;
-        this.size = 19-1;
+        // this.size = 19-1;
+        // this.size = 13-1;
+        // this.size = 25-1;
+        // kc: -1 because canvas needs to be adjusted by 1. otherwise protruding lines
+        this.size = this.props.game.size-1;
         this.stoneColor = "red";	// initial color for transparent circle
         this.offset = 50;					// space at top for messages
         this.message = "When it's your turn, click to place stone"; // initial message
@@ -21,7 +23,8 @@ class GameBoard extends Component {
         // kc: there's  a bug if game creator immediately refreshes page before 1st move
         // kc attempting to store game info to sessionStorage on first entry
         // b/c i set sessionStorage.game to {} when creating game on splash page
-        if (Object.keys(JSON.parse(sessionStorage.getItem('game'))).length === 0 ) {
+        if (sessionStorage.getItem('game')===null ||
+            Object.keys(JSON.parse(sessionStorage.getItem('game'))).length === 0 ) {
             this.game = new Game(this.props.game.players.length, this.size + 1);
             let grid = this.game.grid.flat().map(point => {
                 return {
@@ -36,7 +39,8 @@ class GameBoard extends Component {
                     id: this.props.game.id,
                     players: this.props.game.players,
                     grid: grid,
-                    turn: 0
+                    turn: 0,
+                    size: this.props.game.size
                 }
             ));
         }
@@ -44,16 +48,21 @@ class GameBoard extends Component {
         // kc: upon refresh, return game information from local storage
         if (Object.keys(this.props.game).length === 0) {
             let g = JSON.parse(sessionStorage.getItem("game"));
+            // this.size = g.size - 1
+
+            // kc: adjust size + 1 from canvas to gamelogic
             this.game = new Game(g.players.length, this.size + 1);
             this.props.updateSetting(g);
             this.game.unflatten(g.grid);
 
             let turn = g.turn % g.players.length;
-            if ( turn === 0) this.stoneColor = "red";
-            else if ( turn === 1) this.stoneColor = "green";
-            else this.stoneColor = "blue";
+            if (turn === 0) this.stoneColor = "red";
+            else if (turn === 1) this.stoneColor = "green";
+            else if (turn === 2) this.stoneColor = "blue";
+            else this.stoneColor = "yellow";
 
         } else {
+            // kc: adjust size + 1 from canvas to gamelogic
             this.game = new Game(this.props.game.players.length, this.size + 1);
         }
 
@@ -68,10 +77,10 @@ class GameBoard extends Component {
                     id: this.props.game.id,
                     players: this.props.game.players,
                     grid: data.grid,
-                    turn: data.turn
+                    turn: data.turn,
+                    size: this.props.game.size
                 }
             ));
-            
             
             this.game.placeStone(data.x, data.y, data.color);
             this.props.updateSetting(data);
@@ -84,15 +93,9 @@ class GameBoard extends Component {
                 this.message = "Your turn";
             };
 
-            // if (this.props.game.players[this.props.game.turn % this.props.game.players.length] === 'Computer') {
-            //     // this.stoneColor = "Green";
-            //     this.move(1, this.props.game.turn);
-            // }
-
             this.drawBoard();
         })
 
-        // const socket = io('http://localhost:5000')
         socket.on("joinGame", (data) => {
             console.log("joinGame")
             console.log(data);
@@ -113,7 +116,7 @@ class GameBoard extends Component {
     }
 		
     nextTurn(turn) {
-        // this.props.updateTurn();
+        // kc: update
         switch (turn % this.game.players) {
             case 0:
                 this.stoneColor = "red";
@@ -123,11 +126,15 @@ class GameBoard extends Component {
                 break;
             case 2:
                 this.stoneColor = "blue";
-            break;
+                break;
+            case 3:
+                this.stoneColor = "yellow"    
+                break;
         }
     }
 
     drawBoard() {	
+
         // Box width
         let bw = this.size * 40 + 2 * this.padding;
         // Box height
@@ -147,6 +154,7 @@ class GameBoard extends Component {
             this.ctx.lineTo(x + this.padding, bh - this.padding + this.offset);
             x += 40
         }
+        // this.ctx.stroke();
 
         for (let i = 0; i <= this.size; i++) {
             this.ctx.moveTo(this.padding, y + this.padding + this.offset);
@@ -163,6 +171,18 @@ class GameBoard extends Component {
                 for (let y = 0; y < 3; y++) {
                     this.drawCircle((6 * x + 3) * 40 + 20, (6 * y + 3) * 40 + 20 + this.offset, "black", 5);
                 }						
+            }
+        } else if (this.size===12) {
+            for (let x = 0; x < 3; x++) {
+                for (let y = 0; y < 3; y++) {
+                    this.drawCircle((4 * x + 2) * 40 + 20, (4 * y + 2) * 40 + 20 + this.offset, "black", 5);
+                }
+            }
+        } else if (this.size===24) {
+            for (let x = 0; x < 3; x++) {
+                for (let y = 0; y < 3; y++) {
+                    this.drawCircle((8 * x + 4) * 40 + 20, (8 * y + 4) * 40 + 20 + this.offset, "black", 5);
+                }
             }
         }
 
@@ -211,15 +231,9 @@ class GameBoard extends Component {
             if (this.props.game.players.includes('Computer')) {
                 this.nextTurn(this.props.game.turn);
                 this.move(1, this.props.game.turn).then(() => { this.nextTurn(this.props.game.turn) })
-                    .then(() => { 
-
-                        this.canvas1.addEventListener("click", this.handleClick) });
-                        debugger
+                    .then(() => { this.canvas1.addEventListener("click", this.handleClick) });
             } else {
-                // why isn't this working for regular multiplayer
-
-                this.canvas1.addEventListener("click", this.handleClick); 
-                debugger    
+                this.canvas1.addEventListener("click", this.handleClick);  
             }
 
         });
@@ -298,8 +312,13 @@ class GameBoard extends Component {
     }
 
     render() {
-        // if (this.game.grid === undefined) return null;
-            
+        // kc: upon refresh, return game information from local storage
+        if (Object.keys(this.props.game).length === 0 && sessionStorage.getItem('game') !== null) {
+            let g = JSON.parse(sessionStorage.getItem("game"));
+            this.size = g.size - 1
+        }
+
+
         const background = {
             background: 'tan',
             height: this.size * 40 + 2 * this.padding + this.offset,

@@ -72,7 +72,6 @@ router.post('/login', (req, res) => {
                 .then(isMatch => {
                     if (isMatch) {
                         const payload = { id: user.id, email: user.email };
-                        // debugger;
                         jwt.sign(
                             payload,
                             keys.secretOrKey,

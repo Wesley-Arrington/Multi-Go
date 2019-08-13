@@ -54,9 +54,12 @@ export default class SignUp extends Component {
     //     );
     // }
 
-    switchToSignIn() {
-        // this.props.closeModal();
-        // dispatch(this.props.openModal('login'));
+    switchToSignIn(event) {
+        event.stopPropagation();
+        this.props.closeModal();
+        this.props.openModal('login');
+
+        // kc why does this immediately close?
     }
 
     render() {
@@ -95,8 +98,6 @@ export default class SignUp extends Component {
                         <button className="switch-to-sign-up-button"> Sign In </button>
                     </div>
                 </div>
-                // </div>
-            // </div>
         )
     }
 }

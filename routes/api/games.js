@@ -25,11 +25,9 @@ router.post('/',
 	// passport.authenticate('jwt', { session: false }),
 
 	(req, res) => {
-		// const {errors, isValid} = validateGameInput(req.body);
-		// if (!isValid) return res.status(400);
-
 		const newBoard = new Game({
 			player_ids: req.body.player_ids,
+			size: req.body.size,
 			grid: req.body.grid,
 			turn: req.body.turn
 		});
@@ -45,8 +43,6 @@ router.delete('/:id', (req, res) => {
 	})
 })
 
-// kc do we have to add /game/?
-// see game util file
 router.patch('/:id', (req, res) => {
 	Game.findById(req.params.id, (err, game) => {
 		if (!game) return res.status(404).send("data is not found");

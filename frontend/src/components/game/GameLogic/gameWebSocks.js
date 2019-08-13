@@ -26,19 +26,18 @@ export default class Game {
         return grid;
 		}
 		
-		// takes a 1-d array of pojos and returns a 2-d grid of points
-		unflatten(arr) {
-		
-			let counter = 0;
-			for (let x = 0; x < this.size; x++) {
-	
-				for (let y = 0; y < this.size; y++) {
-						this.grid[x][y].color = arr[counter].color;
-						counter++;
-				} 
-			
-			}
-		}
+    // takes a 1-d array of pojos and returns a 2-d grid of points
+    unflatten(arr) {
+        let counter = 0;
+        for (let x = 0; x < this.size; x++) {
+
+            for (let y = 0; y < this.size; y++) {
+                    this.grid[x][y].color = arr[counter].color;
+                    counter++;
+            } 
+        
+        }
+    }
 
     setNeighbors() {
         for (let x = 0; x < this.size; x++) {

@@ -34,7 +34,8 @@ export default class LoggedInOptions extends Component {
     }
 
     rejoinGame() {
-        // debugger
+        // kc: how do i get the game information back?
+        // do i fetch it from the DB?
         this.props.history.push(`/game/${this.props.game.id}`);
     }
 
@@ -50,17 +51,21 @@ export default class LoggedInOptions extends Component {
             dropDown = <div></div>
         }
 
-        let gameSettingsButton = <div></div>
-
         // if (window.location.href.includes("game")) { //should change to check if first person in player_id for game and also on game screen
         //     gameSettingsButton = <button className="user-menu" onClick={() => this.props.openModal('gameSettings')}><b> Game Settings </b></button>
         // }
 
+        let changeView ;
+
+        if (window.location.href.includes("game")) {
+            changeView = <button onClick={this.goHome} className="user-menu">Home</button>
+        } else {
+            changeView = <button onClick={this.rejoinGame} className="user-menu">Rejoin Game</button>
+        }
+
         return (
             <div className="logged-in-options">
-                {/* <img onClick={this.toggleMenu} className="logged-in-options-robot-image" src={"user-default-profile-picture.png"} alt=""/> */}
-                <button onClick={this.goHome} className="user-menu">Home</button>
-                <button onClick={this.rejoinGame} className="user-menu">Rejoin Game</button>
+                {changeView}
                 <button onClick={this.toggleMenu} className="user-menu">{currentUser.email}</button>
                 {dropDown}
             </div>
