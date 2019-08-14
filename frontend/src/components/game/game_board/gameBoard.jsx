@@ -16,7 +16,9 @@ class GameBoard extends Component {
         this.offset = 50;					// space at top for messages
         this.message = "When it's your turn, click to place stone"; // initial message
 
-        this.handleClick = this.handleClick.bind(this);
+				this.handleClick = this.handleClick.bind(this);
+				this.lastMove = [0,0];
+				this.lastComputerMove = [0,0];
     }
 
     componentDidMount() {
@@ -229,15 +231,59 @@ class GameBoard extends Component {
         this.move(xCoord, yCoord).then(() => {
 
             if (this.props.game.players.includes('Computer')) {
-                this.nextTurn(this.props.game.turn);
-                this.move(1, this.props.game.turn).then(() => { this.nextTurn(this.props.game.turn) })
+								this.nextTurn(this.props.game.turn);
+								let compMove = this.computerMove();
+                this.move(compMove[0],compMove[1]).then(() => { this.nextTurn(this.props.game.turn) })
                     .then(() => { this.canvas1.addEventListener("click", this.handleClick) });
             } else {
                 this.canvas1.addEventListener("click", this.handleClick);  
             }
 
         });
-    }
+		}
+		
+		computerMove() {
+			let returnValue;
+			if (this.props.game.turn === 1) {
+				returnValue = this.semiRandomMove(this.lastMove);
+				this.lastComputerMove = returnValue;
+				return returnValue;
+			}
+			returnValue = this.semiRandomMove(this.lastComputerMove);
+			this.lastComputerMove = returnValue;
+			return returnValue;
+
+		}
+
+
+		semiRandomMove(move) {
+			// return [move[0] + 1, move[1] + 1];
+
+			//set tinygrid array
+			let tinyGrid = []
+			for (let i = -2; i <= 2; i++) {
+				for (let j = -2; j <= 2; j++) {
+					let x = move[0] + i;
+					let y =  move[1] + j;
+					
+					let point = this.game.checkBounds(x,y)
+					
+					if ((point !== null) && (point.color === 'empty'))
+						tinyGrid.push([x,y]);
+						
+				}
+			}
+
+			if (tinyGrid.length === 0) {
+				for (let i = 0; i <= this.size; i++) {
+					for (let j = 0; j <= this.size; j++) {
+						if (this.game.grid[i][j].color ==='empty') return [i,j]
+					}
+				}
+			}
+			
+			return tinyGrid[Math.floor(Math.random() * tinyGrid.length)];
+		}
 
     move(xCoord, yCoord) {
         // kc: if this move is valid then do the rest, if not do nothing
@@ -287,7 +333,8 @@ class GameBoard extends Component {
             }
 
             this.message = "Legal move, thank you"
-            this.drawBoard();
+						this.drawBoard();
+						this.lastMove = [xCoord, yCoord];
             this.props.makeMove(data).then(() => { resolve() })
 
             }
