@@ -15,40 +15,44 @@ export default class LobbyRow extends Component {
     }
 
     handleClickJoin() {
-        let players = this.props.games[this.props.idx].players;
-        
-        // kc: setting sessionStorage.game to {} for systematic approach
-        sessionStorage.setItem("game", JSON.stringify({}))
+        // KC: Only allow join when SessionStorage.game is null to prevent players from starting/joining another game 
+        // if (sessionStorage.game === null) {
 
-        for (let i = 0; i<players.length; i++) {
-            if (!players[i]) {
-                players[i] = this.props.session.user.email;
-                break;
+            let players = this.props.games[this.props.idx].players;
+            
+            // kc: setting sessionStorage.game to {} for systematic approach
+            sessionStorage.setItem("game", JSON.stringify({}))
+
+            for (let i = 0; i<players.length; i++) {
+                if (!players[i]) {
+                    players[i] = this.props.session.user.email;
+                    break;
+                }
             }
-        }
 
-        let data = {
-            id: this.props.games[this.props.idx]._id,
-            players: players,
-            turn: 0
-        }
+            let data = {
+                id: this.props.games[this.props.idx]._id,
+                players: players,
+                turn: 0
+            }
 
-        // kc: used a .then perfectly!
-        this.props.joinGame(data).then(() => {
+            // kc: used a .then perfectly!
+            this.props.joinGame(data).then(() => {
 
-            // websocket communication
-            const socket = io('http://localhost:5000');
-            socket.emit("joinGame", {
-                message: "new player has joined the game",
-                players: this.props.games[this.props.idx].players
-            });
+                // websocket communication
+                const socket = io('http://localhost:5000');
+                socket.emit("joinGame", {
+                    message: "new player has joined the game",
+                    players: this.props.games[this.props.idx].players
+                });
 
-            socket.emit("indexPage", {
-                message: "update Index Page"
-            });
+                socket.emit("indexPage", {
+                    message: "update Index Page"
+                });
 
-            this.props.history.push(`/game/${this.props.games[this.props.idx]._id}/`)
-        })
+                this.props.history.push(`/game/${this.props.games[this.props.idx]._id}/`)
+            })
+        // }
     }
     
     handleClickView() {
