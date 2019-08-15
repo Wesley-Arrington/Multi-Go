@@ -40,7 +40,7 @@ export default class LobbyRow extends Component {
             this.props.joinGame(data).then(() => {
 
                 // websocket communication
-                const socket = io('http://localhost:5000');
+                const socket = io('https://multi-go.herokuapp.com');
                 socket.emit("joinGame", {
                     message: "new player has joined the game",
                     players: this.props.games[this.props.idx].players

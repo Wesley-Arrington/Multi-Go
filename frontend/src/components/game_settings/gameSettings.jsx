@@ -58,7 +58,7 @@ export default class GameSettings extends Component {
         });
 
         // websocket communication
-        const socket = io('http://localhost:5000');
+        const socket = io('https://multi-go.herokuapp.com');
         socket.emit("indexPage", {
             message: "update Index Page"
             // kc: we're just going to make other users do a fetchall request to DB
