@@ -46,32 +46,31 @@ io.on('connection', function (socket) {
     socket.join("should be game id");
     socket.on("join", (data)=>{
         socket.to("should be game id").emit("someoneJoined", data)
-        console.log(`${data.name} has joined room`)
+
     })
 
     socket.on("sendingMessage", (data) => {
         socket.to("should be game id").emit("receiveMessage", data)
-        console.log(`${data.message}`)
+
     })
 
     socket.on("sendingMove", (data) => {
         socket.to("should be game id").emit("receiveMove", data)
-        console.log(`${data.message}`)
+
     })
 
     socket.on("joinGame", (data) => {
         socket.to("should be game id").emit("joinGame", data)
-        console.log(`${data.message}`)
+
     })
 
     socket.on("indexPage", data => {
         socket.to("should be game id").emit("reloadIdxPage", data)
-        console.log(`${data.message}`)
+
     })
 
     // socket.on("start", (data) => {
     //     socket.to("should be game id").emit("start", data)
-    //     console.log(`${data.message}`)
     // })
 });
 
