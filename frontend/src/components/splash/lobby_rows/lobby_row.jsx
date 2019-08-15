@@ -37,12 +37,12 @@ export default class LobbyRow extends Component {
             }
 
             // kc: used a .then perfectly!
-            this.props.joinGame(data).then(() => {
-
+            this.props.joinGame(data).then((res) => {
                 // websocket communication
                 const socket = io('https://multi-go.herokuapp.com');
                 socket.emit("joinGame", {
                     message: "new player has joined the game",
+                    id: res.game._id,
                     players: this.props.games[this.props.idx].players
                 });
 

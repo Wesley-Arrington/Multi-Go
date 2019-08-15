@@ -13,9 +13,9 @@ class GameBoard extends Component {
         this.offset = 50;					// space at top for messages
         this.message = "When it's your turn, click to place stone"; // initial message
 
-				this.handleClick = this.handleClick.bind(this);
-				this.lastMove = [0,0];
-				this.lastComputerMove = [0,0];
+        this.handleClick = this.handleClick.bind(this);
+        this.lastMove = [0,0];
+        this.lastComputerMove = [0,0];
     }
 
     componentDidMount() {
@@ -88,15 +88,11 @@ class GameBoard extends Component {
         const socket = io('https://multi-go.herokuapp.com');
         socket.on("receiveMove", (data) => {
             // sessionStorage
-
-
-            // kc: if data.gameId !== this.props.game.id then do nothing.
-            if (data.gameId !== this.props.game.id) {
-                // do nothing
-            } else {
+            // kc check gameid from websockets with gameid from sessionStorage
+            if (data.gameId === JSON.parse(sessionStorage.getItem('game')).id) {
                 sessionStorage.setItem("game", JSON.stringify(
                     {
-                        id: this.props.game.id,
+                        id: data.gameId,
                         players: this.props.game.players,
                         grid: data.grid,
                         turn: data.turn,
@@ -120,15 +116,18 @@ class GameBoard extends Component {
         })
 
         socket.on("joinGame", (data) => {
-            this.props.updateSetting(data)
 
-            if (this.props.game.players.indexOf(this.props.session.user.email) === 0 &&
-                this.props.game.turn === 0 && 
-                !this.props.game.players.includes(null)) {
+            if (data.id === JSON.parse(sessionStorage.getItem('game')).id) {
+                this.props.updateSetting(data);
 
-                this.message += ". It is now your turn";
-                this.drawBoard();
-            };
+                if (this.props.game.players.indexOf(this.props.session.user.email) === 0 &&
+                    this.props.game.turn === 0 && 
+                    !this.props.game.players.includes(null)) {
+
+                    this.message += ". It is now your turn";
+                    this.drawBoard();
+                };
+            }
 
         })
 
@@ -234,8 +233,6 @@ class GameBoard extends Component {
             // kc: didn't use getBoundingClientRect b/c we used pageX and pageY
             // let rect = this.canvas1.getBoundingClientRect()
 
-
-
             let mouseX = ((event.pageX-30) / 40);
             let mouseY = ((event.pageY - 91 - this.offset) / 40);
 
@@ -275,7 +272,7 @@ class GameBoard extends Component {
 
 
         });
-		}
+    }
 		
 		computerMove() {
 			let returnValue;
@@ -369,8 +366,8 @@ class GameBoard extends Component {
             }
 
             this.message = "Legal move, thank you"
-						this.drawBoard();
-						this.lastMove = [xCoord, yCoord];
+            this.drawBoard();
+            this.lastMove = [xCoord, yCoord];
             this.props.makeMove(data).then(() => { resolve() })
 
             }

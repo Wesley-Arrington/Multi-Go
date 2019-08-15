@@ -15,6 +15,7 @@ function gameReducer(state = {}, action) {
             return newState;
         case PATCH_GAME:
             newState = merge({}, state);
+            // 
             newState.id = action.game._id;
             newState.players = action.game.players;
             newState.turn = action.game.turn;
