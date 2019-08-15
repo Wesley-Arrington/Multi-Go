@@ -9,7 +9,6 @@ const msp = (state, ownProps) => {
         isLoggedIn: state.session.isAuthenticated,
         currentUser: state.session.user,
         session: state.session
-        // games: Object.values(state.entities.games)
     };
 };
 
@@ -19,7 +18,6 @@ const mdp = dispatch => {
         openModal: (modal) => dispatch(openModal(modal)),
         getValidGames: () => dispatch(getValidGames()),
         updateSetting: (data) => dispatch(updateSetting(data))
-        // getGame: (id) => dispatch(fetchGame(id))
     }
 }
 

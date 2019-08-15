@@ -8,7 +8,7 @@ router.patch('/:id', (req, res) => {
     Game.findById(req.params.id, (err, game) => {
         if (!game) return res.status(404).send("data is not found");
         else {
-            game.player_ids = req.body.player_ids,
+            game.players = req.body.players,
             // game.grid = req.body.grid,
             // game.turn = req.body.turn
 

@@ -43,14 +43,13 @@ export default class GameSettings extends Component {
         players[0] = this.props.session.user.email;
         let data = {
             name: this.state.name,
-            player_ids: players,
+            players: players,
             size: this.state.size,
             turn: 0
         }
 
         let size = {size: this.state.size};
         this.props.closeModal();
-
 
         this.props.updateSetting(size);
 
@@ -71,7 +70,6 @@ export default class GameSettings extends Component {
     }
 
     render() {
-        console.log(this.state)
         let config = `Players: ${this.state.players.length}, Size: ${this.state.size}x${this.state.size}`
 
         return (
@@ -84,7 +82,7 @@ export default class GameSettings extends Component {
                         </h3>
                         
                         {/* KC: Probably link Lobby Name to Server Title on Splash Page  */}
-                        <input className="edit-game-input-text" type="text" placeHolder="Game Name" value={this.state.name} onChange={this.handleChangeName}/>
+                        <input className="edit-game-input-text" type="text" placeholder="Game Name" value={this.state.name} onChange={this.handleChangeName}/>
                         
                         <label htmlFor=""> Number of Players:</label>
                         <select value={this.state.value} onChange={this.handleChangePlayers} name="">

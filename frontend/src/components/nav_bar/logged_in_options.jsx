@@ -34,15 +34,14 @@ export default class LoggedInOptions extends Component {
     }
 
     rejoinGame() {
-        // kc: how do i get the game information back?
-        // do i fetch it from the DB?
+        // // kc: how do i get the game information back? // fetch game info from the DB
+        // let id = this.props.game.id || JSON.parse(sessionStorage.getItem('game')).id
+
+        // this.props.fetchGame(id);
         this.props.history.push(`/game/${this.props.game.id}`);
     }
 
     render() {
-        // let currentSessionId = store.getState().session.id
-        // let currentUser = store.getState().entities.user[currentSessionId].first_name
-
         let { currentUser } = this.props;
         let dropDown = <div>test</div>
         if (this.state.visable) {

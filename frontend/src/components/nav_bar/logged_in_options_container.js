@@ -1,13 +1,13 @@
 import { connect } from 'react-redux';
 import LoggedInOptions from './logged_in_options';
 import { openModal } from '../../actions/modal_action';
+import { fetchGame } from '../../actions/game_action';
 import { withRouter } from 'react-router-dom';
 
 
 const mapStateToProps = (state, ownProps) => {
 
     return {
-        // isLoggedIn: state.session.isAuthenticated,
         game: state.entities.game,
         currentUser: state.session.user,
         currentGameId: state.entities.game.id
@@ -15,8 +15,8 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-    // createNewUser: formUser => dispatch(createNewUser(formUser)),
-    openModal: (modal) => dispatch(openModal(modal))
+    openModal: (modal) => dispatch(openModal(modal)),
+    fetchGame: (id) => dispatch(fetchGame(id))
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(LoggedInOptions));

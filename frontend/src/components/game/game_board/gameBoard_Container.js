@@ -16,7 +16,8 @@ const mdp = dispatch => {
         getGame: (id) => dispatch(fetchGame(id)),
         makeMove: (id, grid) => dispatch(patchGame(id, grid)),
         updateTurn: () => dispatch(updateTurn()),
-        updateSetting: (data) => dispatch(updateSetting(data))
+        updateSetting: (data) => dispatch(updateSetting(data)),
+        fetchGame: (id) => dispatch(fetchGame(id))
     }
 }
 

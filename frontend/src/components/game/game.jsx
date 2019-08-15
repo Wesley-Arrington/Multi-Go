@@ -11,13 +11,16 @@ class Game extends Component {
     render() {
 
         // if (typeof this.props.game_id.game_id !== "string") return null;
-
+        let style = {
+            margin: "30px",
+            width: "950px"
+        }
+        // KC: for Demo, 
         return (
             <div>
                 <NavBar />
                 <div className="game-div-content-container">
                     <div className="game-div">
-                        {/* game_id={this.props.game.game_id} */}
                         <GameBoardContainer/>
                     </div>
                     
@@ -27,6 +30,33 @@ class Game extends Component {
                             <ChatBoxContainer />
                         </div>
                     </div>
+                </div>
+
+                <div style={style}>
+                    <h4>The classical game of Go originated a long time ago in China. It is a turn-based game where each player places a stone of their color on
+                        an intersection. The game is over when when all players agree to end the game. The winner is decided by the player with the most stones of their color on the board.
+                    </h4>
+
+                    <br />
+
+                    <h4>
+                        In the demo game, the board is 13x13 with 2 players. Thus, the board has 169 points. The winner with more than half the board,
+                        or 85 points, wins the game.
+                    </h4>
+                    
+                    <br/>
+
+                    <h4>
+                        Go, despite having a reputation of being a complicated game, has only one rule: Capture.
+                        A player can capture opposing player's stones if the opposing player's stones have no liberties. 
+                        A stone or group of stones have a property called "liberty". Liberty is the count of neighboring connected points that are empty. 
+                    </h4>                        
+                        
+                    <br />  
+
+                    <h4>
+                        That's it! Have fun playing Go!
+                    </h4>
                 </div>
             </div>
         )

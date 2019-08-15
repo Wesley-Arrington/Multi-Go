@@ -32,8 +32,8 @@ export default class Game {
         for (let x = 0; x < this.size; x++) {
 
             for (let y = 0; y < this.size; y++) {
-                    this.grid[x][y].color = arr[counter].color;
-                    counter++;
+                this.grid[x][y].color = arr[counter].color;
+                counter++;
             } 
         
         }

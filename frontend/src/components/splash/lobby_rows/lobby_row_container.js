@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import { patchGame, updateSetting } from '../../../actions/game_action';
+import { openModal, closeModal } from '../../../actions/modal_action';
 import { withRouter } from 'react-router-dom';
 
 import LobbyRow from './lobby_row';
@@ -14,7 +15,8 @@ const msp = state => {
 const mdp = dispatch => {
     return {
         joinGame: (data) => dispatch(patchGame(data)),
-        updateSetting: (data) => dispatch(updateSetting(data))
+        updateSetting: (data) => dispatch(updateSetting(data)),
+        openModal: (modal) => dispatch(openModal(modal))
     }
 
 }

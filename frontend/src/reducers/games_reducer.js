@@ -1,4 +1,4 @@
-import { NEW_GAME, FETCH_GRID, PATCH_GAME, GET_VALID_GAMES } from '../actions/game_action';
+import { NEW_GAME, GET_VALID_GAMES } from '../actions/game_action';
 import merge from 'lodash/merge';
 
 function gamesReducer(state = {}, action) {
@@ -7,28 +7,24 @@ function gamesReducer(state = {}, action) {
     switch (action.type) {
         case NEW_GAME:
             newState = merge({}, state);
-            newState["game_id"] = action.game_id;
+            newState[Object.keys(newState).length] = action.game;
             return newState;
 
-        case FETCH_GRID:
-            newState = merge({}, state);
-            newState["grid"] = action.game.grid;
-            newState["turn"] = action.game.turn;
-            newState["player_ids"] = action.game.player_ids;
-            return newState;
-
-        case PATCH_GAME:
-            newState = merge({}, state);
-            newState["grid"] = action.game.grid;
-            newState["turn"] = action.game.turn;
-            return newState;
-            
         case GET_VALID_GAMES:
             newState = merge({}, state);
-            newState = JSON.parse(JSON.stringify(action.games))
-            // newState["grid"] = action.games.grid;
-            // newState["turn"] = action.games.turn;
-            // newState["player_ids"] = action.games.player_ids;
+            // kc: order games from full to not full. 
+            let fullgames = [];
+            let notfullgames = []
+            let games = action.games.forEach(game => {
+                if (game.players.includes(null)) {
+                    notfullgames.push(game)
+                } else {
+                    fullgames.push(game)
+                }
+            })
+
+            games = fullgames.concat(notfullgames);
+            newState = games;
             return newState;
         default:
             return state

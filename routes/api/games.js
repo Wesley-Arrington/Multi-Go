@@ -27,7 +27,7 @@ router.post('/',
 	(req, res) => {
 		const newBoard = new Game({
 			name: req.body.name,
-			player_ids: req.body.player_ids,
+			players: req.body.players,
 			size: req.body.size,
 			grid: req.body.grid,
 			turn: req.body.turn
@@ -49,7 +49,7 @@ router.patch('/:id', (req, res) => {
 		if (!game) return res.status(404).send("data is not found");
 		else {
 
-			if (req.body.player_ids !== undefined) game.player_ids = req.body.player_ids;
+			if (req.body.players !== undefined) game.players = req.body.players;
 			if (req.body.grid !== undefined) game.grid = req.body.grid;
 			if (req.body.turn !== undefined) game.turn = req.body.turn;
 
