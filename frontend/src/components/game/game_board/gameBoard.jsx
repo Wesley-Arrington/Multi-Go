@@ -23,6 +23,7 @@ class GameBoard extends Component {
 
         if (sessionStorage.getItem('game')===null ||
             Object.keys(JSON.parse(sessionStorage.getItem('game'))).length === 0 ) {
+            
             this.game = new Game(this.props.game.players.length, this.size + 1);
             let grid = this.game.grid.flat().map(point => {
                 return {
@@ -31,6 +32,7 @@ class GameBoard extends Component {
                     color: point.color
                 }
             })
+
             // sessionStorage stores a 1d array
             sessionStorage.setItem("game", JSON.stringify(
                 {
@@ -62,7 +64,7 @@ class GameBoard extends Component {
         } else {
             // kc: adjust size + 1 from canvas to gamelogic
             this.game = new Game(this.props.game.players.length, this.size + 1);
-
+            
             // kc: fetch game info from the DB or sessionStorage
             let id = this.props.game.id || JSON.parse(sessionStorage.getItem('game')).id
 
@@ -84,28 +86,35 @@ class GameBoard extends Component {
         const socket = io('http://localhost:5000');
         socket.on("receiveMove", (data) => {
             // sessionStorage
-            sessionStorage.setItem("game", JSON.stringify(
-                {
-                    id: this.props.game.id,
-                    players: this.props.game.players,
-                    grid: data.grid,
-                    turn: data.turn,
-                    size: this.props.game.size
-                }
-            ));
-            
-            this.game.placeStone(data.x, data.y, data.color);
-            this.props.updateSetting(data);
-
-            this.nextTurn(data.turn);
-            
-            if (this.props.game.players.indexOf(this.props.session.user.email) ===
-                this.props.game.turn % this.props.game.players.length) {
-
-                this.message = "Your turn";
-            };
-
-            this.drawBoard();
+            console.log(data)
+            debugger
+            // kc: if data.gameId !== this.props.game.id then do nothing.
+            if (data.gameId !== this.props.game.id) {
+                // do nothing
+            } else {
+                sessionStorage.setItem("game", JSON.stringify(
+                    {
+                        id: this.props.game.id,
+                        players: this.props.game.players,
+                        grid: data.grid,
+                        turn: data.turn,
+                        size: this.props.game.size
+                    }
+                ));
+                
+                this.game.placeStone(data.x, data.y, data.color);
+                this.props.updateSetting(data);
+    
+                this.nextTurn(data.turn);
+                
+                if (this.props.game.players.indexOf(this.props.session.user.email) ===
+                    this.props.game.turn % this.props.game.players.length) {
+    
+                    this.message = "Your turn";
+                };
+    
+                this.drawBoard();
+            }
         })
 
         socket.on("joinGame", (data) => {
@@ -221,8 +230,16 @@ class GameBoard extends Component {
     setupUI() {
         // draws transparent circle indicating where move would occur
         this.canvas1.addEventListener("mousemove", event => {
-            let mouseX = ((event.clientX-30) / 40);
-            let mouseY = ((event.clientY - 91 - this.offset) / 40);
+            // kc: didn't use getBoundingClientRect b/c we used pageX and pageY
+            // let rect = this.canvas1.getBoundingClientRect()
+            // console.log(rect.left)
+            // console.log(rect.top)
+            // console.log(rect.width)
+            // console.log(rect.height)
+
+
+            let mouseX = ((event.pageX-30) / 40);
+            let mouseY = ((event.pageY - 91 - this.offset) / 40);
 
             if (this.xCoord !== Math.floor(mouseX) || this.yCoord !== Math.floor(mouseY)) {
                 this.drawBoard();
@@ -239,8 +256,8 @@ class GameBoard extends Component {
     
     handleClick(event) {
         this.canvas1.removeEventListener("click", this.handleClick);
-        let xCoord = Math.floor((event.clientX - 30) / 40);
-        let yCoord = Math.floor((event.clientY - 91 - this.offset) / 40);
+        let xCoord = Math.floor((event.pageX - 30) / 40);
+        let yCoord = Math.floor((event.pageY - 91 - this.offset) / 40);
 
         this.move(xCoord, yCoord).then((err) => {
             if (!err) {
@@ -294,6 +311,7 @@ class GameBoard extends Component {
             const socket = io('http://localhost:5000');
             socket.emit("sendingMove", {
                 message: "moved",
+                gameId: this.props.game.id,
                 x: xCoord,
                 y: yCoord,
                 color: this.stoneColor,
@@ -340,7 +358,6 @@ class GameBoard extends Component {
             let g = JSON.parse(sessionStorage.getItem("game"));
             this.size = g.size - 1
         }
-
 
         const background = {
             background: 'tan',

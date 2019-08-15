@@ -40,6 +40,10 @@ export default class Splash extends Component {
             turn: 0
         }
 
+        sessionStorage.setItem("game", JSON.stringify(
+            {}
+        ))
+
         this.props.newGame(data).then((game) => {
             return this.props.history.push(`/game/${game.game._id}/`)
         });
