@@ -50,20 +50,6 @@ export default class Game {
         }
     }
 
-    displayNeighbors(x, y) {
-        if (this.grid[x][y].neighbors[0] === null) console.log('out-of-bounds');
-        else console.log('above: ' + this.grid[x][y].neighbors[0].toString());
-
-        if (this.grid[x][y].neighbors[1] === null) console.log('out-of-bounds');
-        else console.log('right: ' + this.grid[x][y].neighbors[1].toString());
-
-        if (this.grid[x][y].neighbors[2] === null) console.log('out-of-bounds');
-        else console.log('below: ' + this.grid[x][y].neighbors[2].toString());
-
-        if (this.grid[x][y].neighbors[3] === null) console.log('out-of-bounds');
-        else console.log('left: ' + this.grid[x][y].neighbors[3].toString());
-    }
-
     checkBounds(x, y) {
         if (x >= this.size || x < 0) return null;
 				if (y >= this.size || y < 0) return null;
@@ -82,9 +68,9 @@ export default class Game {
             for (let x = 0; x < this.size; x++) {
                 process.stdout.write(this.grid[x][y].color + " ");
             }
-            console.log('');
+
         }
-        console.log('');
+
     }
 
     placeStone(x, y, color = 'B') {

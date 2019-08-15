@@ -88,8 +88,8 @@ class GameBoard extends Component {
         const socket = io('http://localhost:5000');
         socket.on("receiveMove", (data) => {
             // sessionStorage
-            console.log(data)
-            debugger
+
+
             // kc: if data.gameId !== this.props.game.id then do nothing.
             if (data.gameId !== this.props.game.id) {
                 // do nothing
@@ -120,7 +120,6 @@ class GameBoard extends Component {
         })
 
         socket.on("joinGame", (data) => {
-            console.log("joinGame")
             this.props.updateSetting(data)
 
             if (this.props.game.players.indexOf(this.props.session.user.email) === 0 &&
@@ -234,10 +233,7 @@ class GameBoard extends Component {
         this.canvas1.addEventListener("mousemove", event => {
             // kc: didn't use getBoundingClientRect b/c we used pageX and pageY
             // let rect = this.canvas1.getBoundingClientRect()
-            // console.log(rect.left)
-            // console.log(rect.top)
-            // console.log(rect.width)
-            // console.log(rect.height)
+
 
 
             let mouseX = ((event.pageX-30) / 40);

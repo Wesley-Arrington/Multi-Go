@@ -60,8 +60,6 @@ export default class LobbyRow extends Component {
     }
 
     render() {
-        // kc: delete later after development. weird bug
-        if (this.props.games[this.props.idx] === undefined) debugger
 
         if (this.props.session.isAuthenticated) {
             return (
