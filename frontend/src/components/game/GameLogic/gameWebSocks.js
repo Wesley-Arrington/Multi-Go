@@ -65,8 +65,8 @@ export default class Game {
     }
 
     checkBounds(x, y) {
-        if (x === this.size || x < 0) return null;
-        if (y === this.size || y < 0) return null;
+        if (x >= this.size || x < 0) return null;
+				if (y >= this.size || y < 0) return null;
         return this.grid[x][y];
     }
 
