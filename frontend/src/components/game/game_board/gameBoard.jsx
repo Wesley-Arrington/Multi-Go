@@ -86,28 +86,35 @@ class GameBoard extends Component {
         const socket = io('http://localhost:5000');
         socket.on("receiveMove", (data) => {
             // sessionStorage
-            sessionStorage.setItem("game", JSON.stringify(
-                {
-                    id: this.props.game.id,
-                    players: this.props.game.players,
-                    grid: data.grid,
-                    turn: data.turn,
-                    size: this.props.game.size
-                }
-            ));
-            
-            this.game.placeStone(data.x, data.y, data.color);
-            this.props.updateSetting(data);
-
-            this.nextTurn(data.turn);
-            
-            if (this.props.game.players.indexOf(this.props.session.user.email) ===
-                this.props.game.turn % this.props.game.players.length) {
-
-                this.message = "Your turn";
-            };
-
-            this.drawBoard();
+            console.log(data)
+            debugger
+            // kc: if data.gameId !== this.props.game.id then do nothing.
+            if (data.gameId !== this.props.game.id) {
+                // do nothing
+            } else {
+                sessionStorage.setItem("game", JSON.stringify(
+                    {
+                        id: this.props.game.id,
+                        players: this.props.game.players,
+                        grid: data.grid,
+                        turn: data.turn,
+                        size: this.props.game.size
+                    }
+                ));
+                
+                this.game.placeStone(data.x, data.y, data.color);
+                this.props.updateSetting(data);
+    
+                this.nextTurn(data.turn);
+                
+                if (this.props.game.players.indexOf(this.props.session.user.email) ===
+                    this.props.game.turn % this.props.game.players.length) {
+    
+                    this.message = "Your turn";
+                };
+    
+                this.drawBoard();
+            }
         })
 
         socket.on("joinGame", (data) => {
@@ -304,6 +311,7 @@ class GameBoard extends Component {
             const socket = io('http://localhost:5000');
             socket.emit("sendingMove", {
                 message: "moved",
+                gameId: this.props.game.id,
                 x: xCoord,
                 y: yCoord,
                 color: this.stoneColor,
