@@ -51,7 +51,6 @@ export default class GameSettings extends Component {
         let size = {size: this.state.size};
         this.props.closeModal();
 
-
         this.props.updateSetting(size);
 
         this.props.newGame(data).then((game) => {
